@@ -3,18 +3,18 @@ class Mlx < Formula
 
   desc "Array framework for Apple silicon"
   homepage "https://github.com/ml-explore/mlx"
-  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.18.1.tar.gz"
-  sha256 "6a86ccb0cb54e45bcc782ed4ca878935e64f24fbc38497f65e606e43d3280f8c"
+  url "https://github.com/ml-explore/mlx/archive/refs/tags/v0.21.0.tar.gz"
+  sha256 "41f8ff1b5367b4d1a3ca9c026e857bdcf5ec777e781a957ddfea3b21d7dfea6d"
   # Main license is MIT while `metal-cpp` resource is Apache-2.0
   license all_of: ["MIT", "Apache-2.0"]
   head "https://github.com/ml-explore/mlx.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any, arm64_sequoia: "5f5e0298961712ffa8f424593fd0d22a2a6d3f172e193a74492eb3acf5599ffe"
-    sha256 cellar: :any, arm64_sonoma:  "4d44552bcaf9e498f2875f63819708ae0b2d7456a44bfb5de1803dfde6964337"
-    sha256 cellar: :any, arm64_ventura: "67141b5129d4ece72e93b4d8c91e0d0064464d35c499b5fcfc50d1b62359dea8"
-    sha256 cellar: :any, sonoma:        "45450229616ac9199edda2ce7a357f27f6fbbfea5824922090aa452d04d28c0c"
-    sha256 cellar: :any, ventura:       "b2b6d970ca97169702bf0953794d8ab866ff5ae819aebb82bf9f2f36aa2e8494"
+    sha256 cellar: :any, arm64_sequoia: "fd18516eef6904ee30fff4c8a064bb5a26e2f760b160452881b737058440e991"
+    sha256 cellar: :any, arm64_sonoma:  "23800da529205b61f80056c4b23f4977f09312cce9f078f49ed369954711599e"
+    sha256 cellar: :any, arm64_ventura: "e85d2d9d9c10d5b8a52033c38da8e8a3ae6c65712610cc2e6424fb87adff3a1b"
+    sha256 cellar: :any, sonoma:        "969615ae82059b014730553d207d8f0f6bf83e2d2f8d60b966b1582be2a2d0fa"
+    sha256 cellar: :any, ventura:       "ff0a2819c11d989de908e39319dddd20c3f8a828ae8df287074ffc9a1abe8260"
   end
 
   depends_on "cmake" => :build
@@ -85,7 +85,7 @@ class Mlx < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <cassert>
 
       #include <mlx/mlx.h>
@@ -103,17 +103,17 @@ class Mlx < Formula
         assert(z.data<float>()[2] == 4.0f);
         assert(z.data<float>()[3] == 5.0f);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-std=c++17",
                     "-I#{include}", "-L#{lib}", "-lmlx",
                     "-o", "test"
     system "./test"
 
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       import mlx.core as mx
       x = mx.array(0.0)
       assert mx.cos(x) == 1.0
-    EOS
+    PYTHON
     system python3, "test.py"
   end
 end

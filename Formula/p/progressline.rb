@@ -1,25 +1,30 @@
 class Progressline < Formula
   desc "Track commands progress in a compact one-line format"
   homepage "https://github.com/kattouf/ProgressLine"
-  url "https://github.com/kattouf/ProgressLine/archive/refs/tags/0.2.2.tar.gz"
-  sha256 "6c3ee9bdb633b2b616f3fe0c3f4535a1c307d8c031deae0d90bfdbb447061fed"
+  url "https://github.com/kattouf/ProgressLine/archive/refs/tags/0.2.3.tar.gz"
+  sha256 "8d4362dc41ba73ccfccd66f5860b512695012e36eae031f84f57e14f67c1bf52"
   license "MIT"
   head "https://github.com/kattouf/ProgressLine.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "af4261f2359e3299992684218d12146905f3a74b24c77e9da3d9ac7fb43a263f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8cd9e5aa7f6599fde64b50d46e56a8798b2c2ac611de87f970c82fea287bb79d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c3cb4c78994ff6ff3b0460cd9d30340874129774953ac83e91cb800c314e2e5d"
-    sha256                               x86_64_linux:  "83a77fb6a7d99fb2a1483f855db990ed18f19ee0be86d78b7567f46fb8ded34e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "74d053a1ddd141c375735a7febbe6a9000b851502828279e250dea502c5a7b04"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e967f8b2b1d9faaebcbf50f60a37b356346a6313a022d5ac8715d98f1a4a8b77"
+    sha256 cellar: :any_skip_relocation, sonoma:        "54ebdeb72317c7f0c4d32a80f459e984bf01c3b1595e77e291e032b811ef80a0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "85bd239897d6f24d55de737a63bf686ad345f39c5f87250272077d699d6299f4"
   end
 
   # requires Swift 5.10
   depends_on xcode: ["15.3", :build]
 
-  uses_from_macos "swift"
+  uses_from_macos "swift" => :build
 
   def install
-    system "swift", "build", "--disable-sandbox", "--configuration", "release"
+    args = if OS.mac?
+      ["--disable-sandbox"]
+    else
+      ["--static-swift-stdlib"]
+    end
+    system "swift", "build", *args, "--configuration", "release"
     bin.install ".build/release/progressline"
   end
 

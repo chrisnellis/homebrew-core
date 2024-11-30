@@ -1,19 +1,17 @@
 class Ugrep < Formula
   desc "Ultra fast grep with query UI, fuzzy search, archive search, and more"
   homepage "https://ugrep.com/"
-  url "https://github.com/Genivia/ugrep/archive/refs/tags/v6.5.0.tar.gz"
-  sha256 "eec1ddcd17dcc017987caad916ed245adef5ccc151837eefae5f86047fae0d99"
+  url "https://github.com/Genivia/ugrep/archive/refs/tags/v7.1.1.tar.gz"
+  sha256 "89e3d7898995d1aff44c0231d65ce2b78d991db198544723526576f9a46f0578"
   license "BSD-3-Clause"
 
   bottle do
-    sha256                               arm64_sequoia:  "d50bec3a11dc9ca125aaa9edafe25cff1ac7dd781f0a1a09165982d74419a524"
-    sha256                               arm64_sonoma:   "747a229920f7a80acb779dbcf4baa859c32a9d6a54e0ee81da2b60cbab5ef03d"
-    sha256                               arm64_ventura:  "4f080182f663401473f83a548e7f7cccfe1adc345cf7d905a681ec0ddb2de42c"
-    sha256                               arm64_monterey: "293aad93929c0c3dfbe0182df593d279ff6b0da30cccad74daa266e30b468e85"
-    sha256                               sonoma:         "65e17f9c311c4c71bf1c143d2fb65b4d7072b47c91da14d19929c88c1467691f"
-    sha256                               ventura:        "7300be5cfa413212de3f0da14d07d3754ebfde5b6f4e96ec1934464237dc39e1"
-    sha256                               monterey:       "434e1d916a8170207df99636ee288c219c5e1574cf56711b7ecefdf58b8e7828"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "cc15cb18e70d2e344a66b59695c60cca13d6a21a1ff781512a8124cbce182a4d"
+    sha256                               arm64_sequoia: "f945601e6589986edf77a2169d849795773a173fc81e066f538e46992cb94cc8"
+    sha256                               arm64_sonoma:  "f1a5fd61a2d30e41152612e2e5f667822b2f62cbc25566686794dacd878ae18e"
+    sha256                               arm64_ventura: "efdba3c9444f561b69eb6419c9fd16b0a8ddb00d80a688ca1ddb34d89ea9a7f6"
+    sha256                               sonoma:        "7641fc9ce25a319614c22fd1e48086b5a59e785e46a735546dea02cba9bd735b"
+    sha256                               ventura:       "d88f75b978197bd8c46926e80ab3a18405793f4582ee61a2e79d69ba903bf38e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cd7b06a2807cda2fedad502ac4420125850cc2a5d505e10fa152d876471f9021"
   end
 
   depends_on "brotli"

@@ -20,7 +20,7 @@ class LibgeditGfls < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "glib"
   depends_on "gtk+3"
 
@@ -31,7 +31,7 @@ class LibgeditGfls < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <gfls/gfls.h>
 
@@ -45,9 +45,9 @@ class LibgeditGfls < Formula
         gfls_finalize();
         return 0;
       }
-    EOS
+    C
 
-    flags = shell_output("pkg-config --cflags --libs libgedit-gfls-1").strip.split
+    flags = shell_output("pkgconf --cflags --libs libgedit-gfls-1").strip.split
     system ENV.cc, "test.c", "-o", "test", *flags
     assert_equal "Unsaved Document 1", shell_output("./test")
   end

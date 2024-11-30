@@ -30,8 +30,6 @@ class Clazy < Formula
   uses_from_macos "ncurses"
   uses_from_macos "zlib"
 
-  fails_with gcc: "5" # C++17
-
   def install
     system "cmake", "-S", ".", "-B", "build", "-DCLAZY_LINK_CLANG_DYLIB=ON", *std_cmake_args
     system "cmake", "--build", "build"
@@ -39,7 +37,7 @@ class Clazy < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION #{Formula["cmake"].version})
 
       project(test VERSION 1.0.0 LANGUAGES CXX)
@@ -59,16 +57,16 @@ class Clazy < Formula
 
       target_link_libraries(test PRIVATE Qt6::Core
       )
-    EOS
+    CMAKE
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <QtCore/QString>
       void test()
       {
           qgetenv("Foo").isEmpty();
       }
       int main() { return 0; }
-    EOS
+    CPP
 
     llvm = deps.map(&:to_formula).find { |f| f.name.match?(/^llvm(@\d+(\.\d+)*)?$/) }
     ENV["CLANGXX"] = llvm.opt_bin/"clang++"

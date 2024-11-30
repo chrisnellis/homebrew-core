@@ -22,13 +22,12 @@ class LibtorrentRakshasa < Formula
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "openssl@3"
 
   uses_from_macos "zlib"
 
-  conflicts_with "libtorrent-rasterbar",
-    because: "they both use the same libname"
+  conflicts_with "libtorrent-rasterbar", because: "they both use the same libname"
 
   def install
     system "autoreconf", "--force", "--install", "--verbose"
@@ -38,14 +37,14 @@ class LibtorrentRakshasa < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <string>
       #include <torrent/torrent.h>
       int main(int argc, char* argv[])
       {
         return strcmp(torrent::version(), argv[1]);
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-o", "test", "-L#{lib}", "-ltorrent"
     system "./test", version.to_s
   end

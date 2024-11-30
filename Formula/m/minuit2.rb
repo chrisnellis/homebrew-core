@@ -1,22 +1,31 @@
 class Minuit2 < Formula
   desc "Physics analysis tool for function minimization"
   homepage "https://root.cern.ch/doc/master/Minuit2Page.html"
-  url "https://root.cern.ch/download/root_v6.32.06.source.tar.gz"
-  sha256 "3fc032d93fe848dea5adb1b47d8f0a86279523293fee0aa2b3cd52a1ffab7247"
   license "LGPL-2.1-or-later"
   head "https://github.com/root-project/root.git", branch: "master"
+
+  stable do
+    url "https://root.cern.ch/download/root_v6.34.00.source.tar.gz"
+    sha256 "f3b00f3db953829c849029c39d7660a956468af247efd946e89072101796ab03"
+
+    # TODO: Remove this patch when updating to the next version after 6.34.00.
+    patch do
+      url "https://github.com/root-project/root/commit/3ee43dd22d84c92de17d4139100af17ac35c0501.patch?full_index=1"
+      sha256 "38328c9734dace642aef4dfc92a90e8584304319dcef36915d233b1c596945c4"
+    end
+  end
 
   livecheck do
     formula "root"
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "49aeffaff9072575263eb90b99b2420b58936afd647088d100c9e1328f1815bf"
-    sha256 cellar: :any,                 arm64_sonoma:  "780a87169e2c08c83bfa182b311f679dc801837fb3fb52b47e1cdcd3a69c4123"
-    sha256 cellar: :any,                 arm64_ventura: "81df76464de7aedcebef53166c87db4ff989f1598711c05cb9142563061b0cac"
-    sha256 cellar: :any,                 sonoma:        "9a44140aebdc9759f0304d970782d2168c4bc4b849206d66c426a636f5162a39"
-    sha256 cellar: :any,                 ventura:       "95995709b388aec69aae024bef400157c10b21adb66d0459c0529ffaf612b4eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "adbe1fad75e82d7795f079a71136f18304ce4073570b53381d5f69a11efc891c"
+    sha256 cellar: :any,                 arm64_sequoia: "cb5928372140347bd2d26eb48017392ec312ff12202aea0ba0c724e732d40676"
+    sha256 cellar: :any,                 arm64_sonoma:  "2367b47560840df33e4cae3feca0a6f6bc3526dd0fdddde19051e7d461e05ab9"
+    sha256 cellar: :any,                 arm64_ventura: "be84772771279aa1a6bcf83aac6d0c9d364fe9902786757e799c1908ae80cc31"
+    sha256 cellar: :any,                 sonoma:        "c08006671bd080e0c242aaa2587009b8f886a285090de58118cbbec35d9079d4"
+    sha256 cellar: :any,                 ventura:       "fd8237ad6d744d2aca19566a21cce1a52919cb0296d7b1db6be3cd6a15a7f217"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e3194717c59675218f432e043b9a9b2436e80e9beffcdc10ba0c24e9e43b3b3e"
   end
 
   depends_on "cmake" => :build

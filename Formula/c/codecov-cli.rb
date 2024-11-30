@@ -3,18 +3,18 @@ class CodecovCli < Formula
 
   desc "Codecov's command-line interface"
   homepage "https://cli.codecov.io/"
-  url "https://files.pythonhosted.org/packages/20/d0/ee70dee2101a001a5c49ca524340fba89497dfe2dcf80e2b776dbd2d61de/codecov-cli-0.7.6.tar.gz"
-  sha256 "bb8f61d28afd146f14c55f023fa8fd2d3d90ebc1ad41fe157c12e4d135514e05"
+  url "https://files.pythonhosted.org/packages/c4/9e/50af9e41e63a74290a447473a7f7f88af931e3e2b7959486bd30e7e16d80/codecov-cli-9.0.4.tar.gz"
+  sha256 "47070f2662c66ad0e506d08712322f16878bb8f98c072525fd4a47f7c30b55fc"
   license "Apache-2.0"
   head "https://github.com/codecov/codecov-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "8a824bf6f9be7c3f85c7d7b557d25bff4807a57c085b72ce46387d46eeaea3e3"
-    sha256 cellar: :any,                 arm64_sonoma:  "a3e6f3240e6d74fb40d5da46fb595a806d9503c7c65d00af6e4e5664b7dd1e30"
-    sha256 cellar: :any,                 arm64_ventura: "3690e5c1443f98d78c67b586b992e69316265b5c6c8c9f6cb1e392ff9552d295"
-    sha256 cellar: :any,                 sonoma:        "b60ec73211b5361cfe4af2ef233af34602691e57de821c447f8c0b8fb4206189"
-    sha256 cellar: :any,                 ventura:       "d913b1d0ff0a335eb18cd430b4beedc956e5701320942343f1099c920fb8cec9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "62c15a69b6923c08d60123c63fea33beca3f952581a5eb0e3a28364e8becce9c"
+    sha256 cellar: :any,                 arm64_sequoia: "d571ed21ecb2b80154891810044835a9e070ca72fdfbbaf7eff1469c39dc626c"
+    sha256 cellar: :any,                 arm64_sonoma:  "8fc9a2d3fadd291867e94af963222e77e6ce2e06d9a1f56de177ce9281fdc770"
+    sha256 cellar: :any,                 arm64_ventura: "51ba2b4cf2cfd394c7149efb8197bf910dc869bce60002d0254c99d1a7e602d6"
+    sha256 cellar: :any,                 sonoma:        "5fa358345914145f2847d3ee4c15de878b4ccf5b11b5dc8c7df295d6ed533bdc"
+    sha256 cellar: :any,                 ventura:       "f30f1227915b657dd88957d1706282104c84e369f2b35ec338185f7fb34524d8"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c5a5415b437945e8ff21f873c7d0c404944d643338713567e4c9b14cc5694096"
   end
 
   depends_on "rust" => :build
@@ -22,8 +22,8 @@ class CodecovCli < Formula
   depends_on "python@3.13"
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/78/49/f3f17ec11c4a91fe79275c426658e509b07547f874b14c1a526d86a83fc8/anyio-4.6.0.tar.gz"
-    sha256 "137b4559cbb034c477165047febb6ff83f390fc3b20bf181c1fc0a728cb8beeb"
+    url "https://files.pythonhosted.org/packages/9f/09/45b9b7a6d4e45c6bcb5bf61d19e3ab87df68e0601fa8c5293de3542546cc/anyio-4.6.2.post1.tar.gz"
+    sha256 "4c8bc31ccdb51c7f7bd251f51c609e038d63e34219b44aa86e47576389880b4c"
   end
 
   resource "certifi" do
@@ -72,8 +72,8 @@ class CodecovCli < Formula
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/f9/38/148df33b4dbca3bd069b963acab5e0fa1a9dbd6820f8c322d0dd6faeff96/regex-2024.9.11.tar.gz"
-    sha256 "6c188c307e8433bcb63dc1915022deb553b4203a70722fc542c363bf120a01fd"
+    url "https://files.pythonhosted.org/packages/8e/5f/bd69653fbfb76cf8604468d3b4ec4c403197144c7bfe0e6a5fc9e02a07cb/regex-2024.11.6.tar.gz"
+    sha256 "7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519"
   end
 
   resource "requests" do
@@ -92,8 +92,8 @@ class CodecovCli < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+    url "https://files.pythonhosted.org/packages/c8/db/722a42ffdc226e950c4757b3da7b56ff5c090bb265dccd707f7b8a3c6fee/setuptools-75.5.0.tar.gz"
+    sha256 "5c4ccb41111392671f02bb5f8436dfc5a9a7185e80500531b133f5775c4163ef"
   end
 
   resource "sniffio" do
@@ -123,7 +123,7 @@ class CodecovCli < Formula
   test do
     assert_equal "codecovcli, version #{version}\n", shell_output("#{bin}/codecovcli --version")
 
-    (testpath/"coverage.json").write <<~EOS
+    (testpath/"coverage.json").write <<~JSON
       {
         "meta": { "format": 2 },
         "files": {},
@@ -133,7 +133,7 @@ class CodecovCli < Formula
           "percent_covered": 100,
         }
       }
-    EOS
+    JSON
 
     output = shell_output("#{bin}/codecovcli do-upload --commit-sha=mocksha --dry-run 2>&1")
     assert_match "Found 1 coverage files to report", output

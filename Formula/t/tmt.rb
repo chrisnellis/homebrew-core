@@ -3,28 +3,23 @@ class Tmt < Formula
 
   desc "Test Management Tool"
   homepage "https://tmt.readthedocs.io"
-  url "https://files.pythonhosted.org/packages/92/f6/988cdcf7a92a08e5edea0bcec6c6c0a8b847f35015f397230f5de731b583/tmt-1.37.0.tar.gz"
-  sha256 "82a4779c416b418ab21979bdb38b4c517fa58adbdb706f97f72e9fe7c6e2aed7"
+  url "https://files.pythonhosted.org/packages/e1/4c/4e82bb59cc070b24d70e57a53813650b595987330d2e4ef7f53cd588a245/tmt-1.39.0.tar.gz"
+  sha256 "6bdf71d0dab7ac290c0c908d37e1221717ac13eef0056617a39f84fdf94f6063"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d7411b7409d5f3860c670795862e0000efa96b21ecf02328ef81e572b5c98d84"
-    sha256 cellar: :any,                 arm64_sonoma:  "2d275cceeff240a48a5fdb48557f60d2a727c11fffeb15ac626a68b132292152"
-    sha256 cellar: :any,                 arm64_ventura: "be6d35430f52f0076f7bbabec2fe3efcecbd7506bfbc1d1b216fa9089aa35870"
-    sha256 cellar: :any,                 sonoma:        "9ae5b79497c35e99052d1e3088de8e423a788bb08dba4c07dfd2879382f078ae"
-    sha256 cellar: :any,                 ventura:       "ce55b0a71700d13c14ea2ac5ef8d1f527afd4db27612b1f67c0a5eb9eac1e14c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5217427168b107563a22b5c31d6b9f25d999d769cdbf5fd0000ae29e1f549ca9"
+    sha256 cellar: :any,                 arm64_sequoia: "83900f80883342e5c8c6134f9718c7d515b86e4fae32d2b3fff9de80f2322053"
+    sha256 cellar: :any,                 arm64_sonoma:  "41ab538708aa1fd319b34d72b36c459889509dc72bcfacd26bef467f61fe0169"
+    sha256 cellar: :any,                 arm64_ventura: "5fdd5362dd83cb7d114326984b006e2b4e74f620a79054782ad1856f38a9ea4c"
+    sha256 cellar: :any,                 sonoma:        "59f12d64dec961fefdd9cd3870ddcb29727b382ad5da6614812f5789b18173d8"
+    sha256 cellar: :any,                 ventura:       "379f06a8b05f7ce9e3968241401394a914e314f931d8615177e0df6ffe9fef92"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "52f265f057f724ad73bacdf495c88f9d5a3c4686226afa29365f537d790fbbb7"
   end
 
   depends_on "rust" => :build # for rpds-py
   depends_on "beakerlib"
   depends_on "certifi"
-  depends_on "python@3.12"
-
-  resource "appdirs" do
-    url "https://files.pythonhosted.org/packages/d7/d8/05696357e0311f5b5c316d7b95f46c669dd9c15aaeecbb48c7d0aeb88c40/appdirs-1.4.4.tar.gz"
-    sha256 "7d5d0167b2b1ba821647616af46a749d1c653740dd0d2415100fe26e27afdf41"
-  end
+  depends_on "python@3.13"
 
   resource "attrs" do
     url "https://files.pythonhosted.org/packages/fc/0f/aafca9af9315aee06a89ffde799a10a582fe8de76c563ee80bbcdc08b3fb/attrs-24.2.0.tar.gz"
@@ -32,8 +27,8 @@ class Tmt < Formula
   end
 
   resource "charset-normalizer" do
-    url "https://files.pythonhosted.org/packages/63/09/c1bc53dab74b1816a00d8d030de5bf98f724c52c1635e07681d312f20be8/charset-normalizer-3.3.2.tar.gz"
-    sha256 "f30c3cb33b24454a82faecaf01b19c18562b1e89558fb6c56de4d9118a032fd5"
+    url "https://files.pythonhosted.org/packages/f2/4f/e1808dc01273379acc506d18f1504eb2d299bd4131743b9fc54d7be4df1e/charset_normalizer-3.4.0.tar.gz"
+    sha256 "223217c3d4f82c3ac5e29032b3f1c2eb0fb591b72161f86d93f5719079dae93e"
   end
 
   resource "click" do
@@ -57,8 +52,8 @@ class Tmt < Formula
   end
 
   resource "flexparser" do
-    url "https://files.pythonhosted.org/packages/dc/e4/a73612499d9c8c450c8f4878e8bb8b3b2dce4bf671b21dd8d5c6549525a7/flexparser-0.3.1.tar.gz"
-    sha256 "36f795d82e50f5c9ae2fde1c33f21f88922fdd67b7629550a3cc4d0b40a66856"
+    url "https://files.pythonhosted.org/packages/82/99/b4de7e39e8eaf8207ba1a8fa2241dd98b2ba72ae6e16960d8351736d8702/flexparser-0.4.tar.gz"
+    sha256 "266d98905595be2ccc5da964fe0a2c3526fbbffdc45b65b3146d75db992ef6b2"
   end
 
   resource "fmf" do
@@ -84,23 +79,28 @@ class Tmt < Formula
   end
 
   resource "jsonschema-specifications" do
-    url "https://files.pythonhosted.org/packages/f8/b9/cc0cc592e7c195fb8a650c1d5990b10175cf13b4c97465c72ec841de9e4b/jsonschema_specifications-2023.12.1.tar.gz"
-    sha256 "48a76787b3e70f5ed53f1160d2b81f586e4ca6d1548c5de7085d1682674764cc"
+    url "https://files.pythonhosted.org/packages/10/db/58f950c996c793472e336ff3655b13fbcf1e3b359dcf52dcf3ed3b52c352/jsonschema_specifications-2024.10.1.tar.gz"
+    sha256 "0f38b83639958ce1152d02a7f062902c41c8fd20d558b0c34344292d417ae272"
   end
 
-  resource "markupSafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+  resource "markupsafe" do
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "pint" do
-    url "https://files.pythonhosted.org/packages/53/7d/30178ff193a076e35521592260915f74049bfa77dccb43ac8aa5abe1414b/pint-0.24.3.tar.gz"
-    sha256 "d54771093e8b94c4e0a35ac638c2444ddf3ef685652bab7675ffecfa0c5c5cdf"
+    url "https://files.pythonhosted.org/packages/20/bb/52b15ddf7b7706ed591134a895dbf6e41c8348171fb635e655e0a4bbb0ea/pint-0.24.4.tar.gz"
+    sha256 "35275439b574837a6cd3020a5a4a73645eb125ce4152a73a2f126bf164b91b80"
+  end
+
+  resource "platformdirs" do
+    url "https://files.pythonhosted.org/packages/13/fc/128cc9cb8f03208bdbf93d3aa862e16d376844a14f9a0ce5cf4507372de4/platformdirs-4.3.6.tar.gz"
+    sha256 "357fb2acbc885b0419afd3ce3ed34564c13c9b95c89360cd9563f73aa5e2b907"
   end
 
   resource "pygments" do
@@ -119,18 +119,13 @@ class Tmt < Formula
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/64/b693f262791b818880d17268f3f8181ef799b0d187f6f731b1772e05a29a/rpds_py-0.20.0.tar.gz"
-    sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
+    url "https://files.pythonhosted.org/packages/23/80/afdf96daf9b27d61483ef05b38f282121db0e38f5fd4e89f40f5c86c2a4f/rpds_py-0.21.0.tar.gz"
+    sha256 "ed6378c9d66d0de903763e7706383d60c33829581f0adff47b6535f1802fa6db"
   end
 
   resource "ruamel-yaml" do
     url "https://files.pythonhosted.org/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz"
     sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
-  end
-
-  resource "ruamel-yaml-clib" do
-    url "https://files.pythonhosted.org/packages/46/ab/bab9eb1566cd16f060b54055dd39cf6a34bfa0240c53a7218c43e974295b/ruamel.yaml.clib-0.2.8.tar.gz"
-    sha256 "beb2e0404003de9a4cab9753a8805a8fe9320ee6673136ed7f04255fe60bb512"
   end
 
   resource "typing-extensions" do
@@ -144,10 +139,6 @@ class Tmt < Formula
   end
 
   def install
-    # Work around ruamel.yaml.clib not building on Xcode 15.3, remove after a new release
-    # has resolved: https://sourceforge.net/p/ruamel-yaml-clib/tickets/32/
-    ENV.append_to_cflags "-Wno-incompatible-function-pointer-types" if DevelopmentTools.clang_build_version >= 1500
-
     virtualenv_install_with_resources
   end
 

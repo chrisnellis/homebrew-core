@@ -1,8 +1,8 @@
 class Qemu < Formula
   desc "Generic machine emulator and virtualizer"
   homepage "https://www.qemu.org/"
-  url "https://download.qemu.org/qemu-9.1.0.tar.xz"
-  sha256 "816b7022a8ba7c2ac30e2e0cf973e826f6bcc8505339603212c5ede8e94d7834"
+  url "https://download.qemu.org/qemu-9.1.2.tar.xz"
+  sha256 "19fd9d7535a54d6e044e186402aa3b3b1bdfa87c392ec8884855592c8510c96f"
   license "GPL-2.0-only"
   head "https://gitlab.com/qemu-project/qemu.git", branch: "master"
 
@@ -12,20 +12,18 @@ class Qemu < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "dece9fbfe1459299e50c0cd889de8f5d19e8bb4cf13fd8fd76120bfe83987fc8"
-    sha256 arm64_sonoma:   "38dd1e6661be138fdba4dfcd4a05ab944e7ed71bb3746d33f3a6716c561fdeee"
-    sha256 arm64_ventura:  "c882674e88f68ae585bda60e3d62b86e1ca5ec81ab09aca986e9d8e4bfb19773"
-    sha256 arm64_monterey: "6061552f62a6a0442230a9db2fccfcfd776258b3124dc3af7ab848d24b846cf7"
-    sha256 sonoma:         "64703d275dea566cac98289605145f824daeca4be77cef38b65d666a539ff48f"
-    sha256 ventura:        "16d1e1f7e8b1faff279e7aaeb9fd867edd71f5bbfedc866ded4f72c7cd8eaad7"
-    sha256 monterey:       "a08143d022b54749de2d11008f412b3e04a0181606ab281ab6381d29ad39b68b"
-    sha256 x86_64_linux:   "4bb6c665f57c8cd91eba85835efb99684afc271f002d606d4879c1027ecd3aed"
+    sha256 arm64_sequoia: "216dd16777c79e895d0fb6d8bc40745e9cfae97b8ca88b174237f4444b06f82c"
+    sha256 arm64_sonoma:  "97d5215d322f75bed7206085f759082f313f96fd7dc42d18382197081749dc02"
+    sha256 arm64_ventura: "ed5b0201fcda0dbabb116bfc80a9e1ee3d664c16355bce90a15a9c3d6a5e20d0"
+    sha256 sonoma:        "0f9877866c6341469b53eaea21f69b4133bcbb2f5bc3cffd858cf241fb9c6ae5"
+    sha256 ventura:       "0a6d0533c1c82270d36dca8c7b79db9aac2cc14d7e5a28cab2c14dde3973f4c3"
+    sha256 x86_64_linux:  "88b2682cb1bef6d84e071090f2b3c5258873886b2892aa6dbd745cfaf5632be5"
   end
 
   depends_on "libtool" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "spice-protocol" => :build
 
   depends_on "capstone"
@@ -63,8 +61,6 @@ class Qemu < Formula
     depends_on "mesa"
     depends_on "systemd"
   end
-
-  fails_with gcc: "5"
 
   def install
     ENV["LIBTOOL"] = "glibtool"

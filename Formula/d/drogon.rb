@@ -3,19 +3,19 @@ class Drogon < Formula
   homepage "https://drogon.org"
   # pull from git tag to get submodules
   url "https://github.com/drogonframework/drogon.git",
-      tag:      "v1.9.7",
-      revision: "73406d122543f548c9d07076e16880b777bfc109"
+      tag:      "v1.9.8",
+      revision: "6d9ecb8d8d8dcbbc14db618c0687c7ae4c792f1b"
   license "MIT"
-  revision 1
   head "https://github.com/drogonframework/drogon.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "6e5c2c9f0a9898ed4a9ac341f02248be3109efbf8501f61e005c6cb8920786ce"
-    sha256 cellar: :any,                 arm64_sonoma:  "fd69ea0690b8381d7ca88befe9e67b15f95f75d1047dc9ce26e94b0a12ca0c04"
-    sha256 cellar: :any,                 arm64_ventura: "bcc3bb89f6d57916b909429106b4a7c88d608bc62646619972ad9e47e2ce3eef"
-    sha256 cellar: :any,                 sonoma:        "c6c347855028f544468d042582801eeff704544901f9c57b40bf1ef9d561d163"
-    sha256 cellar: :any,                 ventura:       "ff1e43236ae8d6fe6d400ce3196434aeac2748f96f0c40b7d69c70175634612e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "038d5dae86f567bebcc21b0b57bb5072682f19ecac924f27652208c46411d55e"
+    rebuild 1
+    sha256                               arm64_sequoia: "d7713ae1b91274ee539bcf3111396ec341664bb66b360143be1bc02ee1d527bb"
+    sha256                               arm64_sonoma:  "918e9594835f3f5ff27992fefc91867c58148b21f203e1dacc305d6db9e6bda6"
+    sha256                               arm64_ventura: "4f6b123877a15d6ddc9eb00dcd6a8ad384c2f5f23a25a3e440767ea52652175a"
+    sha256                               sonoma:        "0d5ac27f514e7014ee8c605c7a6a3dbb8f36bf61bb1cd89e84e26fd6f0102d66"
+    sha256                               ventura:       "f11e22833092ef33c773b2781cca9d5285419e3b42f3807cc38ae619d5e69cd6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "37802093942e430f38b315d72c019af76246e27fd7acf55f40c6c0009e3d0dcb"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -32,7 +32,7 @@ class Drogon < Formula
   end
 
   def install
-    args = []
+    args = ["-DBUILD_SHARED_LIBS=ON", "-DCMAKE_INSTALL_RPATH=#{rpath}"]
     args << "-DUUID_DIR=#{Formula["util-linux"].opt_prefix}" if OS.linux?
 
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args

@@ -27,13 +27,15 @@ class Autotrace < Formula
   depends_on "gettext" => :build
   depends_on "intltool" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "glib"
   depends_on "imagemagick"
   depends_on "libpng"
   depends_on "libtiff"
   depends_on "pstoedit"
+
+  uses_from_macos "perl" => :build
 
   on_macos do
     depends_on "fontconfig"
@@ -50,11 +52,6 @@ class Autotrace < Formula
   end
 
   def install
-    if OS.linux?
-      ENV.prepend_path "PERL5LIB", Formula["perl-xml-parser"].opt_libexec/"lib/perl5"
-      ENV["INTLTOOL_PERL"] = Formula["perl"].bin/"perl"
-    end
-
     system "./autogen.sh"
     system "./configure", "--enable-magick-readers",
                           "--mandir=#{man}",

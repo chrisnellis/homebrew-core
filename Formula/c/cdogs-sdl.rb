@@ -22,7 +22,7 @@ class CdogsSdl < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "protobuf" => :build
   depends_on "python@3.13"
   depends_on "sdl2"
@@ -46,10 +46,12 @@ class CdogsSdl < Formula
   end
 
   test do
-    pid = fork do
-      exec bin/"cdogs-sdl"
-    end
-    sleep 7
+    pid = spawn bin/"cdogs-sdl"
+
+    max_sleep_time = 90
+    time_slept = 0
+    time_slept += sleep(5) while !(testpath/".config/cdogs-sdl").exist? && time_slept < max_sleep_time
+
     assert_predicate testpath/".config/cdogs-sdl",
                      :exist?, "User config directory should exist"
   ensure

@@ -1,17 +1,17 @@
 class Atmos < Formula
   desc "Universal Tool for DevOps and Cloud Automation"
   homepage "https://github.com/cloudposse/atmos"
-  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.89.0.tar.gz"
-  sha256 "cbbe91daf47f543a2a3ed1b73b6e61f81cb0beeb75e4b6f82ca4b4017834a30f"
+  url "https://github.com/cloudposse/atmos/archive/refs/tags/v1.110.0.tar.gz"
+  sha256 "96160c364107de273a9bddda84345a4264604852eb040861fbe117ef140fcddd"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ba5ff33c301e386a1677b51108a031ea47359e12e7bd7a7d4685ff0db3026a14"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ba5ff33c301e386a1677b51108a031ea47359e12e7bd7a7d4685ff0db3026a14"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ba5ff33c301e386a1677b51108a031ea47359e12e7bd7a7d4685ff0db3026a14"
-    sha256 cellar: :any_skip_relocation, sonoma:        "32096d2ea5e072a09d4e467fd418ccb78dd9a93bae16bb7c4645bdc11b7cd05e"
-    sha256 cellar: :any_skip_relocation, ventura:       "32096d2ea5e072a09d4e467fd418ccb78dd9a93bae16bb7c4645bdc11b7cd05e"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3436df3d980985b5002e3b989f284a4907758b38d2d842767caca1b7244298e7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "cf6d90f306b19ecc8ca3f1bbfdb5d366d8bccbd098ad87c5fd7b34528f275526"
+    sha256 cellar: :any_skip_relocation, sonoma:        "99f0835f679723d4cce570ee55fe4bb19cbc2a320e5abf0aa83c4334f4c68c62"
+    sha256 cellar: :any_skip_relocation, ventura:       "99f0835f679723d4cce570ee55fe4bb19cbc2a320e5abf0aa83c4334f4c68c62"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd811685e0bfb62f42ec5718230c3d0fe8f322f998310295be1df8dd726b8daa"
   end
 
   depends_on "go" => :build
@@ -19,7 +19,7 @@ class Atmos < Formula
   conflicts_with "tenv", because: "tenv symlinks atmos binaries"
 
   def install
-    system "go", "build", *std_go_args(ldflags: "-s -w -X 'github.com/cloudposse/atmos/cmd.Version=#{version}'")
+    system "go", "build", *std_go_args(ldflags: "-s -w -X 'github.com/cloudposse/atmos/pkg/version.Version=#{version}'")
 
     generate_completions_from_executable(bin/"atmos", "completion")
   end
@@ -105,5 +105,7 @@ class Atmos < Formula
     actual_json = JSON.parse(File.read(testpath/"components/terraform/top-level-component1/backend.tf.json"))
     expected_json = JSON.parse(File.read(testpath/"backend.tf.json"))
     assert_equal expected_json["terraform"].to_set, actual_json["terraform"].to_set
+
+    assert_match "Atmos #{version}", shell_output("#{bin}/atmos version")
   end
 end

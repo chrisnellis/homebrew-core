@@ -1,23 +1,23 @@
 class Grizzly < Formula
   desc "Command-line tool for managing and automating Grafana dashboards"
   homepage "https://grafana.github.io/grizzly/"
-  url "https://github.com/grafana/grizzly/archive/refs/tags/v0.4.8.tar.gz"
-  sha256 "4d05939982bbf6423373673b186a1e34d7ec2cdb9a9bce397b26d211b9867d6c"
+  url "https://github.com/grafana/grizzly/archive/refs/tags/v0.6.1.tar.gz"
+  sha256 "bd5ed75eb4d7cf96cf58e58f7f134c9a4e803bf2237a8a8a1b9bc99176fc147d"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6effb1fc86729013a53e2c215f6cb43422aba8dacc38f483956432f6caa4f36b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6effb1fc86729013a53e2c215f6cb43422aba8dacc38f483956432f6caa4f36b"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "6effb1fc86729013a53e2c215f6cb43422aba8dacc38f483956432f6caa4f36b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "436a297f6b8024a39c02e30b66c31a85322c30360dcf32bf57a8d7b912086599"
-    sha256 cellar: :any_skip_relocation, ventura:       "436a297f6b8024a39c02e30b66c31a85322c30360dcf32bf57a8d7b912086599"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "7c4ad6540d603f8d6cac571b851decc400170ee3f58737c19fa2bd3795a2e62c"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "222d3c70d76f6ccdc610e1239c9350602574511542ff34d8c45cc6ee6481a082"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "222d3c70d76f6ccdc610e1239c9350602574511542ff34d8c45cc6ee6481a082"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "222d3c70d76f6ccdc610e1239c9350602574511542ff34d8c45cc6ee6481a082"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e975a7122d07d2f3d9cba8fefd4be4598233d6b0877d902c386bc36c740601b4"
+    sha256 cellar: :any_skip_relocation, ventura:       "e975a7122d07d2f3d9cba8fefd4be4598233d6b0877d902c386bc36c740601b4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3a7070c9babdae827a599c6f6fab27ade707b7026b104e807492a37b19af5f03"
   end
 
   depends_on "go" => :build
 
   def install
-    ldflags = "-s -w -X main.Version=#{version}"
+    ldflags = "-s -w -X github.com/grafana/grizzly/pkg/config.Version=#{version}"
     system "go", "build", *std_go_args(ldflags:, output: bin/"grr"), "./cmd/grr"
   end
 

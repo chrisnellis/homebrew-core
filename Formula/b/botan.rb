@@ -1,8 +1,8 @@
 class Botan < Formula
   desc "Cryptographic algorithms and formats library in C++"
   homepage "https://botan.randombit.net/"
-  url "https://botan.randombit.net/releases/Botan-3.5.0.tar.xz"
-  sha256 "67e8dae1ca2468d90de4e601c87d5f31ff492b38e8ab8bcbd02ddf7104ed8a9f"
+  url "https://botan.randombit.net/releases/Botan-3.6.1.tar.xz"
+  sha256 "7cb8575d88d232c77174769d7f9e24bb44444160585986eebd66e749cb9a9089"
   license "BSD-2-Clause"
   head "https://github.com/randombit/botan.git", branch: "master"
 
@@ -12,16 +12,15 @@ class Botan < Formula
   end
 
   bottle do
-    rebuild 1
-    sha256 arm64_sequoia: "f8cb0f5126bac257ae499c377416d67e016f41cb91eb4f781dfba7ead772b27b"
-    sha256 arm64_sonoma:  "4a8bd22f2016573a9252590843e637b6db8d346babaa2e755202c6e12ded6020"
-    sha256 arm64_ventura: "1f368b18ba1f404edf279c8c84d8dd34167209dcd356a95c005d49dcb11a034a"
-    sha256 sonoma:        "ec4c0d57a43c4de2c5505feb354f7dab477b531f548afa1dac31fce1c52060b3"
-    sha256 ventura:       "5f68a7023c8a8bac60d1cb785457620dc5c47a6163e55432de02c5029fdbd280"
-    sha256 x86_64_linux:  "4e0fb5e03509bb2e3a29830c5271a34e08ec6e4bd88ed4993f58e04db96dedd2"
+    sha256 arm64_sequoia: "aa3ffa7f992ddeb2adba8cb0e27985fba64fad225be7afea32fc0f8728eb1ee7"
+    sha256 arm64_sonoma:  "4e171bb8229ece404b73b6474eb064f5c60b7676fb5f183673c63065b80ba23d"
+    sha256 arm64_ventura: "ee3a85635200f2337b748670090acf0b657e2a0a9dfb0d3c576ce424fe08621c"
+    sha256 sonoma:        "75e040ec6ba6aba8e8a2d593fd265d11442beb1afb5fcd8020ea42f1dc4c690b"
+    sha256 ventura:       "fcd8fda55320db1390e0e871957bfbbfca04e8d744da4af48f6758f22acf52fa"
+    sha256 x86_64_linux:  "e26d10788a66b623e5c9d2b127303963062cb47f6562f0c127a1e97f6e502169"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "ca-certificates"
   depends_on "python@3.13"
   depends_on "sqlite"
@@ -37,8 +36,6 @@ class Botan < Formula
     build 1400
     cause "Requires C++20"
   end
-
-  fails_with gcc: "5"
 
   def python3
     which("python3.13")

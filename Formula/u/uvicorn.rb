@@ -3,19 +3,18 @@ class Uvicorn < Formula
 
   desc "ASGI web server"
   homepage "https://www.uvicorn.org/"
-  url "https://files.pythonhosted.org/packages/76/87/a886eda9ed495a3a4506d5a125cd07c54524280718c4969bde88f075fe98/uvicorn-0.31.1.tar.gz"
-  sha256 "f5167919867b161b7bcaf32646c6a94cdbd4c3aa2eb5c17d36bb9aa5cfd8c493"
+  url "https://files.pythonhosted.org/packages/6a/3c/21dba3e7d76138725ef307e3d7ddd29b763119b3aa459d02cc05fefcff75/uvicorn-0.32.1.tar.gz"
+  sha256 "ee9519c246a72b1c084cea8d3b44ed6026e78a4a309cbedae9c37e4cb9fbb175"
   license "BSD-3-Clause"
   head "https://github.com/encode/uvicorn.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "087d97f9768bcd44f80d0d0ef3fcafc56a99335b25d97f2b3a17233b426b3a04"
-    sha256 cellar: :any,                 arm64_sonoma:  "5b852e1c6fa7079b9b9b11c5a805a2906e08934838615ebc545797d2143250f9"
-    sha256 cellar: :any,                 arm64_ventura: "ab9dba37ca13b39a8373d7bef1aa9f3f5cc790d65a4a4c0e285c17b029782bda"
-    sha256 cellar: :any,                 sonoma:        "49fe70e58948a90a93b05a3f7b4677f7ee058305eeb42f54200da8d9594b5fa3"
-    sha256 cellar: :any,                 ventura:       "d063f20f35490c92377ef5171f03e53ef77c51ecfed84f43f62820b1f273d956"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b4873a129d072481793cac940198a78e0f1aba8078035e280d072ca7adf0671a"
+    sha256 cellar: :any,                 arm64_sequoia: "b19f65989965c6be71d7969dcf52cdcb87bee81f9eac9d3c9aa63f5cd81f4262"
+    sha256 cellar: :any,                 arm64_sonoma:  "65070152376671fdd6c09c5d7b26e703cee3d0627422cf543fa7166ce0824a26"
+    sha256 cellar: :any,                 arm64_ventura: "324196809789df135e8fb1f57cc8f5d398025cd4b85f38270a20152336066b0d"
+    sha256 cellar: :any,                 sonoma:        "647d50301da0a73e1f7522e0dae17f7b03b4ca207eb8144f7c32adb332210b5a"
+    sha256 cellar: :any,                 ventura:       "efcaedf3e1eff20b8a2a44ed9fd9a1dd2ac16b9030f4ac93c0e96ab5ae7426e1"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ff82957b540311d852dd194e08b7b86eb6f1213ea52708fb01b90681dc1c3fa7"
   end
 
   depends_on "rust" => :build
@@ -23,8 +22,8 @@ class Uvicorn < Formula
   depends_on "python@3.13"
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/78/49/f3f17ec11c4a91fe79275c426658e509b07547f874b14c1a526d86a83fc8/anyio-4.6.0.tar.gz"
-    sha256 "137b4559cbb034c477165047febb6ff83f390fc3b20bf181c1fc0a728cb8beeb"
+    url "https://files.pythonhosted.org/packages/9f/09/45b9b7a6d4e45c6bcb5bf61d19e3ab87df68e0601fa8c5293de3542546cc/anyio-4.6.2.post1.tar.gz"
+    sha256 "4c8bc31ccdb51c7f7bd251f51c609e038d63e34219b44aa86e47576389880b4c"
   end
 
   resource "click" do
@@ -38,11 +37,8 @@ class Uvicorn < Formula
   end
 
   resource "httptools" do
-    url "https://files.pythonhosted.org/packages/67/1d/d77686502fced061b3ead1c35a2d70f6b281b5f723c4eff7a2277c04e4a2/httptools-0.6.1.tar.gz"
-    sha256 "c6e26c30455600b95d94b1b836085138e82f177351454ee841c148f93a9bad5a"
-
-    # relax cython version constraint, upstream pr ref, https://github.com/MagicStack/httptools/pull/101
-    patch :DATA
+    url "https://files.pythonhosted.org/packages/a7/9a/ce5e1f7e131522e6d3426e8e7a490b3a01f39a6696602e1c4f33f9e94277/httptools-0.6.4.tar.gz"
+    sha256 "4e93eee4add6493b59a5c514da98c939b244fce4a0d8879cd3f466562f4b7d5c"
   end
 
   resource "idna" do
@@ -66,8 +62,8 @@ class Uvicorn < Formula
   end
 
   resource "uvloop" do
-    url "https://files.pythonhosted.org/packages/cf/3d/a150e044b5bc69961168b024c531d21b63acd9948b7d681b03e551be01e1/uvloop-0.21.0b1.tar.gz"
-    sha256 "5e12901bd67c5ba374741fc497adc44de14854895c416cd0672b2e5b676ca23c"
+    url "https://files.pythonhosted.org/packages/af/c0/854216d09d33c543f12a44b393c402e89a920b1a0a7dc634c42de91b9cf6/uvloop-0.21.0.tar.gz"
+    sha256 "3bf12b0fda68447806a7ad847bfa591613177275d35b6724b1ee573faa3704e3"
   end
 
   resource "watchfiles" do
@@ -76,8 +72,8 @@ class Uvicorn < Formula
   end
 
   resource "websockets" do
-    url "https://files.pythonhosted.org/packages/e2/73/9223dbc7be3dcaf2a7bbf756c351ec8da04b1fa573edaf545b95f6b0c7fd/websockets-13.1.tar.gz"
-    sha256 "a3b3366087c1bc0a2795111edcadddb8b3b59509d5db5d7ea3fdd69f954a8878"
+    url "https://files.pythonhosted.org/packages/f4/1b/380b883ce05bb5f45a905b61790319a28958a9ab1e4b6b95ff5464b60ca1/websockets-14.1.tar.gz"
+    sha256 "398b10c77d471c0aab20a845e7a60076b6390bfdaac7a6d2edb0d2c59d75e8d8"
   end
 
   def install
@@ -87,7 +83,7 @@ class Uvicorn < Formula
   end
 
   test do
-    (testpath/"example.py").write <<~EOS
+    (testpath/"example.py").write <<~PYTHON
       async def app(scope, receive, send):
           assert scope['type'] == 'http'
 
@@ -102,7 +98,7 @@ class Uvicorn < Formula
               'type': 'http.response.body',
               'body': b'Hello, Homebrew!',
           })
-    EOS
+    PYTHON
 
     port = free_port
     pid = fork do
@@ -115,62 +111,3 @@ class Uvicorn < Formula
     Process.wait pid
   end
 end
-
-__END__
-diff --git a/httptools/parser/parser.c b/httptools/parser/parser.c
-index 1b64e55..4a59122 100644
---- a/httptools/parser/parser.c
-+++ b/httptools/parser/parser.c
-@@ -9937,7 +9937,7 @@ static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
-                 unsigned char *bytes = (unsigned char *)&val;
-                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                               bytes, sizeof(val),
--                                              is_little, !is_unsigned);
-+                                              is_little, !is_unsigned, 0);
-                 Py_DECREF(v);
-                 if (likely(!ret))
-                     return val;
-@@ -10133,7 +10133,7 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
-                 unsigned char *bytes = (unsigned char *)&val;
-                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                               bytes, sizeof(val),
--                                              is_little, !is_unsigned);
-+                                              is_little, !is_unsigned, 0);
-                 Py_DECREF(v);
-                 if (likely(!ret))
-                     return val;
-diff --git a/httptools/parser/url_parser.c b/httptools/parser/url_parser.c
-index c9e646a..e9a5f01 100644
---- a/httptools/parser/url_parser.c
-+++ b/httptools/parser/url_parser.c
-@@ -5547,7 +5547,7 @@ static CYTHON_INLINE long __Pyx_PyInt_As_long(PyObject *x) {
-                 unsigned char *bytes = (unsigned char *)&val;
-                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                               bytes, sizeof(val),
--                                              is_little, !is_unsigned);
-+                                              is_little, !is_unsigned, 0);
-                 Py_DECREF(v);
-                 if (likely(!ret))
-                     return val;
-@@ -5743,7 +5743,7 @@ static CYTHON_INLINE int __Pyx_PyInt_As_int(PyObject *x) {
-                 unsigned char *bytes = (unsigned char *)&val;
-                 int ret = _PyLong_AsByteArray((PyLongObject *)v,
-                                               bytes, sizeof(val),
--                                              is_little, !is_unsigned);
-+                                              is_little, !is_unsigned, 0);
-                 Py_DECREF(v);
-                 if (likely(!ret))
-                     return val;
-diff --git a/setup.py b/setup.py
-index 200e6f6..adca1f8 100644
---- a/setup.py
-+++ b/setup.py
-@@ -15,7 +15,7 @@ CFLAGS = ['-O2']
-
- ROOT = pathlib.Path(__file__).parent
-
--CYTHON_DEPENDENCY = 'Cython(>=0.29.24,<0.30.0)'
-+CYTHON_DEPENDENCY = 'Cython>=0.29.24'
-
-
- class httptools_build_ext(build_ext):

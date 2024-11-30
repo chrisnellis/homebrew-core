@@ -5,8 +5,13 @@ class Pdns < Formula
   sha256 "f570640427041f4c5c5470d16eff951a7038c353ddc461b2750290ce99b2e3c2"
   license "GPL-2.0-or-later"
 
+  # The first-party download page (https://www.powerdns.com/downloads) isn't
+  # always updated for newer versions, so for now we have to check the
+  # directory listing page where `stable` tarballs are found. We should switch
+  # back to checking the download page if/when it is reliably updated with each
+  # release, as it doesn't have to transfer nearly as much data.
   livecheck do
-    url "https://www.powerdns.com/downloads"
+    url "https://downloads.powerdns.com/releases/"
     regex(/href=.*?pdns[._-]v?(\d+(?:\.\d+)+)\.t/i)
   end
 
@@ -28,15 +33,13 @@ class Pdns < Formula
     depends_on "ragel"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
   depends_on "lua"
   depends_on "openssl@3"
   depends_on "sqlite"
 
   uses_from_macos "curl"
-
-  fails_with gcc: "5" # for C++17
 
   def install
     args = %W[

@@ -1,9 +1,9 @@
 class Chuck < Formula
   desc "Concurrent, on-the-fly audio programming language"
   homepage "https://chuck.cs.princeton.edu/"
-  url "https://chuck.cs.princeton.edu/release/files/chuck-1.5.3.1.tgz"
-  mirror "https://chuck.stanford.edu/release/files/chuck-1.5.3.1.tgz"
-  sha256 "551130d682c1ed29db4a589fd7302697403a9aa2534c6da982cf8a3dd0265407"
+  url "https://chuck.cs.princeton.edu/release/files/chuck-1.5.4.2.tgz"
+  mirror "https://chuck.stanford.edu/release/files/chuck-1.5.4.2.tgz"
+  sha256 "cc04cffb5b7fc93ca63154324a2787478d47a0992e0590e4c623ac4808294a10"
   license "GPL-2.0-or-later"
   head "https://github.com/ccrma/chuck.git", branch: "main"
 
@@ -13,12 +13,12 @@ class Chuck < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "dbb2d7804426a7348df400a49eb2c0e1bacaa09ff0d7fc376d50891e8fc02a64"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5d9906726c2c31ab5f0152a0b521de00f08d747118bbc035fb951ed8025fd261"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f1d01b299e9e0328083467f236697006813294eac3bbd092bf16173c94f86ff8"
-    sha256 cellar: :any_skip_relocation, sonoma:        "006fa58ce07e8dc6031df86157232bbcfe0eaa5e4c2dc59ced2a67b52d031dc4"
-    sha256 cellar: :any_skip_relocation, ventura:       "aa1bc99e750988069f0243792a48ec478042a8ad7cd794c757841c62e3fad9f6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "dbde1cd30cbeb89f6eab36994c7b7eb5d19186ac5d34a32d5396bc75efe2b769"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f761b29155a28427823e52cab266d7c56472cb27d83dac30e260c5b901995bb2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6195cc630f7683f5885df3a5b295272872679368cb61530c7c42379f09ac0205"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0df662d6fd4f3ed5a0baf922116806491caf6bd90fb1bb103cd659e137fb2a37"
+    sha256 cellar: :any_skip_relocation, sonoma:        "83e5dc5b7a99ab32d10f052c931cea0bc37f552a30689155f6ed98728ac40d90"
+    sha256 cellar: :any_skip_relocation, ventura:       "17d757268ea87e7d5dc2253d62ff72907c49bbfec5f6f587595c33ea5e55a431"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e0adc111316246e9ee239c077948397109c06abd274531e71e6b9fcf9623175"
   end
 
   uses_from_macos "bison" => :build
@@ -26,6 +26,7 @@ class Chuck < Formula
 
   on_linux do
     depends_on "alsa-lib"
+    depends_on "libsndfile"
     depends_on "pulseaudio"
   end
 

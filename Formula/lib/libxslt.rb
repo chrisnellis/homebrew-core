@@ -40,21 +40,19 @@ class Libxslt < Formula
   end
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
   end
 
   def install
     libxml2 = Formula["libxml2"]
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
-    system "./configure", "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}",
+    system "./configure", "--disable-silent-rules",
                           "--without-python",
                           "--with-crypto",
-                          "--with-libxml-prefix=#{libxml2.opt_prefix}"
+                          "--with-libxml-prefix=#{libxml2.opt_prefix}",
+                          *std_configure_args
     system "make"
     system "make", "install"
-    inreplace [bin/"xslt-config", lib/"xsltConf.sh"], libxml2.prefix.realpath, libxml2.opt_prefix
   end
 
   def caveats
@@ -66,13 +64,13 @@ class Libxslt < Formula
 
   test do
     assert_match version.to_s, shell_output("#{bin}/xslt-config --version")
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libexslt/exslt.h>
       int main(int argc, char *argv[]) {
         exsltCryptoRegister();
         return 0;
       }
-    EOS
+    C
     flags = shell_output("#{bin}/xslt-config --cflags --libs").chomp.split
     system ENV.cc, "test.c", "-o", "test", *flags, "-lexslt"
     system "./test"

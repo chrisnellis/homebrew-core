@@ -18,7 +18,7 @@ class Avahi < Formula
   depends_on "libtool" => :build
   depends_on "m4" => :build
   depends_on "perl" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "xmltoman" => :build
 
   depends_on "dbus"
@@ -29,8 +29,7 @@ class Avahi < Formula
   depends_on :linux
 
   def install
-    system "./bootstrap.sh", *std_configure_args,
-                             "--disable-silent-rules",
+    system "./bootstrap.sh", "--disable-silent-rules",
                              "--sysconfdir=#{prefix}/etc",
                              "--localstatedir=#{prefix}/var",
                              "--disable-mono",
@@ -43,7 +42,8 @@ class Avahi < Formula
                              "--disable-libevent",
                              "--enable-compat-libdns_sd",
                              "--with-distro=none",
-                             "--with-systemdsystemunitdir=no"
+                             "--with-systemdsystemunitdir=no",
+                             *std_configure_args
     system "make", "install"
 
     # mDNSResponder compatibility
@@ -51,7 +51,7 @@ class Avahi < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <glib.h>
 
       #include <avahi-client/client.h>
@@ -97,7 +97,7 @@ class Avahi < Formula
 
           return 0;
       }
-    EOS
+    C
 
     pkg_config_flags = shell_output("pkg-config --cflags --libs avahi-client avahi-core avahi-glib").chomp.split
     system ENV.cc, "test.c", *pkg_config_flags, "-o", "test"

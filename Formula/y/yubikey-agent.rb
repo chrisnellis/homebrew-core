@@ -24,7 +24,7 @@ class YubikeyAgent < Formula
   uses_from_macos "pcsc-lite"
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "pinentry"
   end
 
@@ -53,8 +53,8 @@ class YubikeyAgent < Formula
 
   test do
     socket = testpath/"yubikey-agent.sock"
-    fork { exec bin/"yubikey-agent", "-l", socket }
+    spawn bin/"yubikey-agent", "-l", socket
     sleep 1
-    assert_predicate socket, :exist?
+    assert_path_exists socket
   end
 end

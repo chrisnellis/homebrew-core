@@ -16,7 +16,7 @@ class Licensed < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "ruby"
   depends_on "xz"
 
@@ -56,13 +56,12 @@ class Licensed < Formula
       gem 'licensed', '#{version}'
     EOS
 
-    (testpath/".licensed.yml").write <<~EOS
+    (testpath/".licensed.yml").write <<~YAML
       name: 'test'
       allowed:
         - mit
-    EOS
+    YAML
 
-    assert_match "Caching dependency records for test",
-                        shell_output(bin/"licensed cache")
+    assert_match "Caching dependency records for test", shell_output("#{bin}/licensed cache")
   end
 end

@@ -1,8 +1,8 @@
 class Protobuf < Formula
   desc "Protocol buffers (Google's data interchange format)"
   homepage "https://protobuf.dev/"
-  url "https://github.com/protocolbuffers/protobuf/releases/download/v28.2/protobuf-28.2.tar.gz"
-  sha256 "b2340aa47faf7ef10a0328190319d3f3bee1b24f426d4ce8f4253b6f27ce16db"
+  url "https://github.com/protocolbuffers/protobuf/releases/download/v28.3/protobuf-28.3.tar.gz"
+  sha256 "7c3ebd7aaedd86fa5dc479a0fda803f602caaf78d8aff7ce83b89e1b8ae7442a"
   license "BSD-3-Clause"
 
   livecheck do
@@ -11,12 +11,13 @@ class Protobuf < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e378d570fc2cab442366007e7e2e23758dda8909d943de7cc410d639a2d6c1c0"
-    sha256 cellar: :any,                 arm64_sonoma:  "2faad422f2f2aca4093e08c501567303accf4aed86ce66bc550742f9f892af28"
-    sha256 cellar: :any,                 arm64_ventura: "c8450b7741f86b999ea0b6ee19b654236115206803977adbf358730699ae4c72"
-    sha256 cellar: :any,                 sonoma:        "2271d7f4a139133a2fe9f1d0472a638ceb76dd9c88a8ac2a56d95473afcc023b"
-    sha256 cellar: :any,                 ventura:       "adf71423d4bd69ebf28d3d3862de9b82e715129e390aa745aa2fec591cb76913"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "32727cff13d43d9be0ed1d821fa4c26eb68ee2fd04f5a95539888b797d4a68e8"
+    rebuild 1
+    sha256 cellar: :any,                 arm64_sequoia: "8ceae6e5b43b79768459fb4ee294e679c859870a57f07473d64bf21f9421164e"
+    sha256 cellar: :any,                 arm64_sonoma:  "3f1d2e9a5444837d57464166b68f4d9e164411763a6d48f30f19344caf4fface"
+    sha256 cellar: :any,                 arm64_ventura: "5004354186c681c9403615a8cc9d4bea6a9f8d85c6981df1de15fd077b5653af"
+    sha256 cellar: :any,                 sonoma:        "ec104e9d24c9c765a5785a8de48d4c0352d0e7534f73a6fad7cc6305007430df"
+    sha256 cellar: :any,                 ventura:       "66110b5d997d3d696f8d02c21696dbeb5afef5d8acf14833fdf08e632f8f1fb4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1fcce74a9846b8dc0f02db2e0d6315deb9d540260e94c261de7558c5a5202408"
   end
 
   depends_on "cmake" => :build
@@ -32,6 +33,12 @@ class Protobuf < Formula
   patch do
     url "https://github.com/protocolbuffers/protobuf/commit/e490bff517916495ed3a900aa85791be01f674f5.patch?full_index=1"
     sha256 "7e89d0c379d89b24cb6fe795cd9d68e72f0b83fcc95dd91af721d670ad466022"
+  end
+
+  # Backport to expose java-related symbols
+  patch do
+    url "https://github.com/protocolbuffers/protobuf/commit/9dc5aaa1e99f16065e25be4b9aab0a19bfb65ea2.patch?full_index=1"
+    sha256 "edc1befbc3d7f7eded6b7516b3b21e1aa339aee70e17c96ab337f22e60e154d7"
   end
 
   def install

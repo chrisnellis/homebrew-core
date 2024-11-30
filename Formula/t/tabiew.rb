@@ -1,19 +1,17 @@
 class Tabiew < Formula
-  desc "TUI to view and query delimited files (CSV/TSV/etc.)"
+  desc "TUI to view and query tabular files (CSV,TSV, Parquet, etc.)"
   homepage "https://github.com/shshemi/tabiew"
-  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.6.3.tar.gz"
-  sha256 "ec8907e5858a4610b26c38f663760810700c88430b5327b067e0ce8922ae7ffb"
+  url "https://github.com/shshemi/tabiew/archive/refs/tags/v0.7.1.tar.gz"
+  sha256 "17de20949fbdf89b116ab5270413081ebbcd54c666c7430c69f58e7b12055ecc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "0c4822f18b2a6abd00fd626baf7cd5421167ddc439f0216262e400606bfb1546"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "55ca7131fa5d7bf5d13667f02e44b90fdf9725904fe49a9e1ff1fad9928af755"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "68abb217914789bbeadbb9a8f30093631a1b2f41d136ba223db40e91152b0e46"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "62cea35186bfa27cb5cad58d3d7930bea44cd75acf3c3e83ba6421e036e8ee4d"
-    sha256 cellar: :any_skip_relocation, sonoma:         "161a1785de5ca1cfa87d22fcd69a1638b8d2b93c4415f93e6351b686f85f525b"
-    sha256 cellar: :any_skip_relocation, ventura:        "98bbb9e668e1af5beba44d4e517fbe1c32b7a59cf1275032cc456c0bb9d56a26"
-    sha256 cellar: :any_skip_relocation, monterey:       "198ac14968a5ed36f93b44b8a08cd3e55f233626131cf4bcc6c88a3d98165332"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "b10d12b07b4d7899c7915fb971754b63f3161d3bb30e2cf728f9f0f757330800"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0ba4fea1d8c66c6f835b5d5a6f5b10ab62ec748e8623ea0778c8e6fbb016075a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f5b6355eccdd8b7db054475abc98091bbd16a8c2834451879f2841411d564dd9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8fc83daaee6786fd9d9537d7a7ad6932ea251b258598a88d2b1c7343667814c6"
+    sha256 cellar: :any_skip_relocation, sonoma:        "e38b999c3d3dcffeee6c24f5663a7eb4281117283713a7237542b6769271552b"
+    sha256 cellar: :any_skip_relocation, ventura:       "76f2b230c3ec123c4a4f0c76f8836a7536820fe59a1b3af70de6ed55d6e89c37"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c2aef080d530017409580752343eab0b74564fc8534a9fa019b12e566edeb4c"
   end
 
   depends_on "rust" => :build
@@ -28,18 +26,20 @@ class Tabiew < Formula
   end
 
   test do
-    (testpath/"test.csv").write <<~EOS
+    (testpath/"test.csv").write <<~CSV
       time,tide,wait
       1,42,"no man"
       7,11,"you think?"
-    EOS
+    CSV
     input, = Open3.popen2 "script -q output.txt"
     input.puts "stty rows 80 cols 130"
     input.puts bin/"tw test.csv"
     input.puts ":F tide < 40"
+    input.puts ":goto 1"
     sleep 1
     input.puts ":q"
-
+    sleep 1
+    input.close
     sleep 2
     File.open(testpath/"output.txt") do |f|
       contents = f.read

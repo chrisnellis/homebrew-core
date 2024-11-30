@@ -3,19 +3,18 @@ class Djlint < Formula
 
   desc "Lint & Format HTML Templates"
   homepage "https://djlint.com"
-  url "https://files.pythonhosted.org/packages/a4/ee/ac8ee551ec04d5a214e62d008f40bf309574f103416482e03fb61fbad61c/djlint-1.35.2.tar.gz"
-  sha256 "318de9d4b9b0061a111f8f5164ecbacd8215f449dd4bd5a76d2a691c815ee103"
+  url "https://files.pythonhosted.org/packages/ff/dd/a442814263f6ef16153f87fe78658097c6690106f53f0d2594bf4ee81202/djlint-1.36.3.tar.gz"
+  sha256 "d85735da34bc7ac93ad8ef9b4822cc2a23d5f0ce33f25438737b8dca1d404f78"
   license "GPL-3.0-or-later"
   head "https://github.com/djlint/djLint.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "091bed21d32b9ff2262763230a9868cf6daaba98990ce743c6f96362ffc83058"
-    sha256 cellar: :any,                 arm64_sonoma:  "cd671663ffd2b3f74bacc3f8e283be9d56db4d7d2a4830dfaa5cb94b344b54dd"
-    sha256 cellar: :any,                 arm64_ventura: "e5475003140e226d0a878349272351cf2646e31916c8476e6cf33555cc7f9e12"
-    sha256 cellar: :any,                 sonoma:        "e2e31dc4a8f0b68e47f01100fbba2a4101581832e39fb5070779fe867c7a361a"
-    sha256 cellar: :any,                 ventura:       "93f1475e06b2ab21badf46c9d32285df5d2526fda2842a63b6ca135d8624a81b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "82d6f788dc20965e44d4f19d1610ef237cef267aaff1b6b720dbfddb9e3a931b"
+    sha256 cellar: :any,                 arm64_sequoia: "bf5ec3937b2c45003e27ece8d9d226acd734583cdfb21e2f6650769e7a142f8b"
+    sha256 cellar: :any,                 arm64_sonoma:  "412df1673992ea25bf4164c28dd9b1e282819fb0b2de0c40076feafa74b17f42"
+    sha256 cellar: :any,                 arm64_ventura: "e59df593650ab61b4d89ced74ec39e38eb432bb7c3982daf2179bdd7bfe7c675"
+    sha256 cellar: :any,                 sonoma:        "a292cbc9d52eef8755cbd27ea35eef5d43a0a24cc27fbbcaec92e9a0ca768c10"
+    sha256 cellar: :any,                 ventura:       "2482520049ffadc6209b80735c15ea68aa38dc9769c8c30accb741c972b38277"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ca01adda69151e8f3a763995895315cca8d4c7964455397c2a184d4cea746208"
   end
 
   depends_on "libyaml"
@@ -41,24 +40,14 @@ class Djlint < Formula
     sha256 "24857fa1793917dd9ccf0c7810a07e05404ce9b823521c7dce22a4fb5d125f80"
   end
 
-  resource "html-tag-names" do
-    url "https://files.pythonhosted.org/packages/41/7c/8c0dc3c5650036127fb4629d31cadf6cbdd57e21a77f9793fa8b2c8a3241/html-tag-names-0.1.2.tar.gz"
-    sha256 "04924aca48770f36b5a41c27e4d917062507be05118acb0ba869c97389084297"
-  end
-
-  resource "html-void-elements" do
-    url "https://files.pythonhosted.org/packages/80/5c/5f17d77256bf78ca98647517fadee50575e75d812daa01352c31d89d5bf2/html-void-elements-0.1.0.tar.gz"
-    sha256 "931b88f84cd606fee0b582c28fcd00e41d7149421fb673e1e1abd2f0c4f231f0"
-  end
-
   resource "jsbeautifier" do
     url "https://files.pythonhosted.org/packages/69/3e/dd37e1a7223247e3ef94714abf572415b89c4e121c4af48e9e4c392e2ca0/jsbeautifier-1.15.1.tar.gz"
     sha256 "ebd733b560704c602d744eafc839db60a1ee9326e30a2a80c4adb8718adc1b24"
   end
 
   resource "json5" do
-    url "https://files.pythonhosted.org/packages/91/59/51b032d53212a51f17ebbcc01bd4217faab6d6c09ed0d856a987a5f42bbc/json5-0.9.25.tar.gz"
-    sha256 "548e41b9be043f9426776f05df8635a00fe06104ea51ed24b67f908856e151ae"
+    url "https://files.pythonhosted.org/packages/85/3d/bbe62f3d0c05a689c711cff57b2e3ac3d3e526380adb7c781989f075115c/json5-0.10.0.tar.gz"
+    sha256 "e66941c8f0a02026943c52c2eb34ebeb2a6f819a0be05920a6f5243cd30fd559"
   end
 
   resource "pathspec" do
@@ -72,8 +61,8 @@ class Djlint < Formula
   end
 
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/f9/38/148df33b4dbca3bd069b963acab5e0fa1a9dbd6820f8c322d0dd6faeff96/regex-2024.9.11.tar.gz"
-    sha256 "6c188c307e8433bcb63dc1915022deb553b4203a70722fc542c363bf120a01fd"
+    url "https://files.pythonhosted.org/packages/8e/5f/bd69653fbfb76cf8604468d3b4ec4c403197144c7bfe0e6a5fc9e02a07cb/regex-2024.11.6.tar.gz"
+    sha256 "7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519"
   end
 
   resource "six" do
@@ -82,8 +71,8 @@ class Djlint < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/58/83/6ba9844a41128c62e810fddddd72473201f3eacde02046066142a2d96cc5/tqdm-4.66.5.tar.gz"
-    sha256 "e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad"
+    url "https://files.pythonhosted.org/packages/a8/4b/29b4ef32e036bb34e4ab51796dd745cdba7ed47ad142a9f4a1eb8e0c744d/tqdm-4.67.1.tar.gz"
+    sha256 "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
   end
 
   def install

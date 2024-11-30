@@ -3,10 +3,9 @@
 class Mercurial < Formula
   desc "Scalable distributed version control system"
   homepage "https://mercurial-scm.org/"
-  url "https://www.mercurial-scm.org/release/mercurial-6.8.1.tar.gz"
-  sha256 "030e8a7a6d590e4eaeb403ee25675615cd80d236f3ab8a0b56dcc84181158b05"
+  url "https://www.mercurial-scm.org/release/mercurial-6.9.tar.gz"
+  sha256 "629604293df2be8171ec856bf4f8b4faa8e4305af13607dce0f89f74132836d6"
   license "GPL-2.0-or-later"
-  revision 1
 
   livecheck do
     url "https://www.mercurial-scm.org/release/"
@@ -14,19 +13,15 @@ class Mercurial < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "35a6ac7880d243ea479ce3050fd37393b4ff560c82dbb080f544a741c161b3d3"
-    sha256 arm64_sonoma:  "13f62f94b954d1a028a289d9eef7e96dcddd1160014be79ffb9038e6542b451f"
-    sha256 arm64_ventura: "f7d23fcee4b74c4d4919e1bb2c09d0706858fe32789a7923384fad9039e534ef"
-    sha256 sonoma:        "a14b4e2f09bd8f4cddfa447314c396d802ed11f5d17763847960cbd55e60d114"
-    sha256 ventura:       "763ee4b914fb66d6e207ec5be8ff82138babe77e60b2560cb820ab59c448e007"
-    sha256 x86_64_linux:  "16fb921a2d7747be5ef79365143ccc1e04c2c955af228df39ed993161683dbed"
+    sha256 arm64_sequoia: "da5b687457ce8d760b8690ba36e43c5ab41ce01805e979a8ba2ecfc8a2b1b670"
+    sha256 arm64_sonoma:  "3d4ccb397b16f32cf8b3d5970bf275925deead6785da4bc8acbb9e1a60df6ac7"
+    sha256 arm64_ventura: "2966f3590deb854aa3d7999faf5913e08546d306cc762cfea3117f9f622374a9"
+    sha256 sonoma:        "0bd87913912c5a3e62fbec0b8f514dde3a600714ae00a66c41cfc2f527e04198"
+    sha256 ventura:       "2841f1c8832d1f9cd8c69f2933b5cf9e5e7451100c7700aa9ae002a9e507a894"
+    sha256 x86_64_linux:  "5afa0ff24aa33ec5d64af3a69e9e79347a9b7b7d5bc117b4db892b65b5449fe6"
   end
 
   depends_on "python@3.13"
-
-  # py3.13 build patch, upstream bug report, https://bz.mercurial-scm.org/show_bug.cgi?id=6926
-  # proposed patch in https://lists.mercurial-scm.org/pipermail/mercurial-devel/2024-October/298120.html
-  patch :DATA
 
   def install
     python3 = "python3.13"
@@ -78,17 +73,3 @@ class Mercurial < Formula
     assert_match "initial commit", shell_output("#{bin}/chg log")
   end
 end
-
-__END__
-diff --git a/hgdemandimport/__init__.py b/hgdemandimport/__init__.py
-index 44a0a2d..a59c293 100644
---- a/hgdemandimport/__init__.py
-+++ b/hgdemandimport/__init__.py
-@@ -62,6 +62,7 @@ IGNORES = {
-     '_weakrefset',
-     'warnings',
-     'threading',
-+    'collections.abc',
- }
-
- _pypy = '__pypy__' in sys.builtin_module_names

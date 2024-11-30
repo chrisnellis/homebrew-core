@@ -2,10 +2,10 @@ class Mavsdk < Formula
   desc "API and library for MAVLink compatible systems written in C++17"
   homepage "https://mavsdk.mavlink.io"
   url "https://github.com/mavlink/MAVSDK.git",
-      tag:      "v2.12.9",
-      revision: "9c136fdd6131b95751184e5147866f5f912aa663"
+      tag:      "v2.12.12",
+      revision: "a82b29756dcc4ea44c8c2c18f116b2cbdf4142c3"
   license "BSD-3-Clause"
-  revision 1
+  revision 2
 
   livecheck do
     url :stable
@@ -13,12 +13,12 @@ class Mavsdk < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d653162ce73f77512acc923dd8183af22b43b1c0b431f0406e0fa1ef4a7bed02"
-    sha256 cellar: :any,                 arm64_sonoma:  "1f3d6ecd9883f9aa007392bf6f1a4715b8b23b8e9b633c7199d77af657cc9dc7"
-    sha256 cellar: :any,                 arm64_ventura: "d92acce41cad94b972cd4391a64e8ee03ac58107e8331d2d825d5523ceb869dd"
-    sha256 cellar: :any,                 sonoma:        "02f61446f03089ae4baed83381a0549986cab61995780b805580e0ebbccbd4af"
-    sha256 cellar: :any,                 ventura:       "d03ea2753c8d9783978eb8721e274e64b6bd688c1f92d43109c457056af34935"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a360880fe09134e53a1d6f3bbdc236c98266c8f61abc4ad09b681983e5a9dc32"
+    sha256 cellar: :any,                 arm64_sequoia: "6f81895874e5573a901011927889ec705ec4ab1172d88a9b9b811c5f7708634e"
+    sha256 cellar: :any,                 arm64_sonoma:  "bbb0d5177410f0db0b18e84298d002551cda1d4e81466c5502834e93333325c0"
+    sha256 cellar: :any,                 arm64_ventura: "4fd2439d351162478e6625efb39037c6c04908d106bc8f46159da4e1bf6c390d"
+    sha256 cellar: :any,                 sonoma:        "27c9833b28759f21a5525a8fce87f558f5beb657b649a150213d3c93fa04fb7c"
+    sha256 cellar: :any,                 ventura:       "be5ace487484082f83dd0d5601f8bba19fbbd68649814d50aceee3de081e3ed5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "870e273549285d7479f11b21d710e323db4c338819c0a37629f05f3167aaa2d0"
   end
 
   depends_on "cmake" => :build
@@ -47,8 +47,6 @@ class Mavsdk < Formula
         "std::__1::__fs::filesystem::__status(std::__1::__fs::filesystem::path const&, std::__1::error_code*)"
     EOS
   end
-
-  fails_with gcc: "5"
 
   # ver={version} && \
   # curl -s https://raw.githubusercontent.com/mavlink/MAVSDK/v$ver/third_party/mavlink/CMakeLists.txt && \
@@ -94,7 +92,7 @@ class Mavsdk < Formula
     # Force use of Clang on Mojave
     ENV.clang if OS.mac?
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <mavsdk/mavsdk.h>
       using namespace mavsdk;
@@ -103,7 +101,7 @@ class Mavsdk < Formula
           std::cout << mavsdk.version() << std::endl;
           return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", testpath/"test.cpp", "-o", "test",
                     "-I#{include}", "-L#{lib}", "-lmavsdk"
     assert_match "v#{version}-#{tap.user}", shell_output("./test").chomp

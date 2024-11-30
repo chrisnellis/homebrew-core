@@ -4,22 +4,21 @@ class Ipopt < Formula
   url "https://github.com/coin-or/Ipopt/archive/refs/tags/releases/3.14.16.tar.gz"
   sha256 "cc8c217991240db7eb14189eee0dff88f20a89bac11958b48625fa512fe8d104"
   license "EPL-2.0"
+  revision 1
   head "https://github.com/coin-or/Ipopt.git", branch: "stable/3.14"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "009c5caaad3fe3b204c0428bbb99037ee7c814ea2c908566721215099983420c"
-    sha256 cellar: :any,                 arm64_sonoma:   "7ab15709c6d8d0911bac33f38b65f047766108a3b291b8f00a6ce765e9db0fc3"
-    sha256 cellar: :any,                 arm64_ventura:  "f7ee0132a291e546eb7e0cf1be44b4a453896a96af88ce091e9e622b9def7914"
-    sha256 cellar: :any,                 arm64_monterey: "2b8567b6ed6a773a7c5e1506d6dd0c7928d985a1f105907eceabe00dc43f4fe1"
-    sha256 cellar: :any,                 sonoma:         "16cd7b2d2c01d59f4882ba61649da6c9c1f90ce08e3fae3cc3b26eae9016afc6"
-    sha256 cellar: :any,                 ventura:        "9d25a0a32684759aed13bb1dd854437d9f4a21b02531652aa7af202bc2eec8c7"
-    sha256 cellar: :any,                 monterey:       "a6523b45e35985d5e080eed53398ad47ef7c7a3d4bb0b0cc78c2c5620fdade11"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "6b3807673210056f3d94d69ca81ec6321b80376c48de6015b93b29692ab5d409"
+    sha256 cellar: :any,                 arm64_sequoia: "ff6ba93dca47a18218817c81fa1e0f67b950d031fcedae98f33cc291eea6bd34"
+    sha256 cellar: :any,                 arm64_sonoma:  "6b2e17f3d29e91fcea03af5de5c51cddfcc3a7a31c6be0686ccee3400a56b7ed"
+    sha256 cellar: :any,                 arm64_ventura: "41aae134e8a11bbbd904e625f19dd91b9462bcd47eb245ce0758d2b4580bb6ca"
+    sha256 cellar: :any,                 sonoma:        "6f5af16203486282e3eb4d74380600a35544b362d171c66c4161a367ac4c22eb"
+    sha256 cellar: :any,                 ventura:       "d042fd4c2993aad8181d9be04ff2ce979f1b9f206c5fe9e5b1638da827caa2b5"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "563c0669c52d28e3e80c8352f28c48b68e8421036ca0e8a08868b1c97ee9d739"
   end
 
   depends_on "openjdk" => :build
-  depends_on "pkg-config" => [:build, :test]
-  depends_on "ampl-mp"
+  depends_on "pkgconf" => [:build, :test]
+  depends_on "ampl-asl"
   depends_on "gcc" # for gfortran
   depends_on "openblas"
 
@@ -48,6 +47,11 @@ class Ipopt < Formula
     sha256 "cc8c217991240db7eb14189eee0dff88f20a89bac11958b48625fa512fe8d104"
   end
 
+  resource "miniampl" do
+    url "https://github.com/dpo/miniampl/archive/refs/tags/v1.0.tar.gz"
+    sha256 "b836dbf1208426f4bd93d6d79d632c6f5619054279ac33453825e036a915c675"
+  end
+
   def install
     ENV.delete("MPICC")
     ENV.delete("MPICXX")
@@ -72,19 +76,16 @@ class Ipopt < Formula
     end
 
     args = [
-      "--disable-debug",
-      "--disable-dependency-tracking",
       "--disable-silent-rules",
       "--enable-shared",
-      "--prefix=#{prefix}",
       "--with-blas=-L#{Formula["openblas"].opt_lib} -lopenblas",
       "--with-mumps-cflags=-I#{buildpath}/mumps_include",
       "--with-mumps-lflags=-L#{lib} -ldmumps -lmpiseq -lmumps_common -lopenblas -lpord",
-      "--with-asl-cflags=-I#{Formula["ampl-mp"].opt_include}/asl",
-      "--with-asl-lflags=-L#{Formula["ampl-mp"].opt_lib} -lasl",
+      "--with-asl-cflags=-I#{Formula["ampl-asl"].opt_include}/asl",
+      "--with-asl-lflags=-L#{Formula["ampl-asl"].opt_lib} -lasl",
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
 
     ENV.deparallelize
@@ -93,9 +94,12 @@ class Ipopt < Formula
 
   test do
     testpath.install resource("test")
-    pkg_config_flags = `pkg-config --cflags --libs ipopt`.chomp.split
-    system ENV.cxx, "examples/hs071_cpp/hs071_main.cpp", "examples/hs071_cpp/hs071_nlp.cpp", *pkg_config_flags
+    pkgconf_flags = shell_output("pkgconf --cflags --libs ipopt").chomp.split
+    system ENV.cxx, "examples/hs071_cpp/hs071_main.cpp", "examples/hs071_cpp/hs071_nlp.cpp", *pkgconf_flags
     system "./a.out"
-    system bin/"ipopt", "#{Formula["ampl-mp"].opt_pkgshare}/example/wb"
+
+    resource("miniampl").stage do
+      system bin/"ipopt", "examples/wb"
+    end
   end
 end

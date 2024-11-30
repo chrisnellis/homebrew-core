@@ -26,7 +26,7 @@ class Libshumate < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "vala" => :build
 
   depends_on "cairo"
@@ -53,7 +53,7 @@ class Libshumate < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <shumate/shumate.h>
 
       int main(int argc, char *argv[]) {
@@ -61,12 +61,12 @@ class Libshumate < Formula
         snprintf(version, 32, "%d.%d.%d", SHUMATE_MAJOR_VERSION, SHUMATE_MINOR_VERSION, SHUMATE_MICRO_VERSION);
         return 0;
       }
-    EOS
+    C
 
     # TODO: remove this after rewriting icu-uc in `libpsl`'s pkg-config file
     ENV.prepend_path "PKG_CONFIG_PATH", Formula["icu4c"].opt_lib/"pkgconfig" if OS.mac?
 
-    flags = shell_output("#{Formula["pkg-config"].opt_bin}/pkg-config --cflags --libs shumate-1.0").strip.split
+    flags = shell_output("#{Formula["pkgconf"].opt_bin}/pkgconf --cflags --libs shumate-1.0").strip.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
 

@@ -1,8 +1,8 @@
 class Kubefirst < Formula
   desc "GitOps Infrastructure & Application Delivery Platform for kubernetes"
-  homepage "https://kubefirst.io/"
-  url "https://github.com/konstructio/kubefirst/archive/refs/tags/v2.6.1.tar.gz"
-  sha256 "f7337e9772e529ae53aa1e2c3343f455a167c4f8478b91e8ae1c11a375b8ea80"
+  homepage "https://kubefirst.konstruct.io/docs/"
+  url "https://github.com/konstructio/kubefirst/archive/refs/tags/v2.7.7.tar.gz"
+  sha256 "c574012f9d2050d09b060618ec45077c503b5646a7dc81581980c0bba89e7887"
   license "MIT"
   head "https://github.com/konstructio/kubefirst.git", branch: "main"
 
@@ -14,14 +14,12 @@ class Kubefirst < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "cc228ca3c80971b79e9a65237119f95a108b4ea4c0eabaf268589a9ad00359b5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "d49204aecfabf77ddd45a79308652645607b163e70dd0356dbfaa6017ed0c589"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "a244fad1fed8b5591a0af8c0e85f22fba883e86738b52361aad7e6f9ba134aba"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "68b6350842bcfc0e3fb5b1aa9ce9be3d81cdb5a82c4e5b51ac5545b917923974"
-    sha256 cellar: :any_skip_relocation, sonoma:         "edb28db20f6ad0fca0f2deb2bc4d8d3bd470e4c73f2556700a0696c36c8fc811"
-    sha256 cellar: :any_skip_relocation, ventura:        "2b6de82f8f9cebc0f1d57ef8554ca33df91763c5f8106546e30328a7d06962f4"
-    sha256 cellar: :any_skip_relocation, monterey:       "81148eb33417d6379573baddcc743d993f6a6a7945fbbacbb1b6ff3ae7beeee7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "21762a02134c7af0ded267fce260d909b127dd8c0a0745c5c5a814fe24bc07c9"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0d26a520b09bf5b2a275d079be8fb9f0f776e48805c26202039a7320cadee4e8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "70197e8744370b0363c7204bfae3dffc39bb308f977103e8283479dd1e4d3303"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8ee84dee7890c11b4fca5ce5beb8722f6c55121063fb510b570b967fc60e6f06"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6ce3cd3b08a8239224ff0a5b6939b00b2a8efea2122d1abff33738fdf6cd8bbb"
+    sha256 cellar: :any_skip_relocation, ventura:       "a0485eaea6689736dbeb2bd7126f35c1d9347ab82d81d59615461f4bdb5b8d5f"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "106e35b8dfb0d185ed826ddc828790edc2e022db59afbb8dc78d9f283d7b241b"
   end
 
   depends_on "go" => :build

@@ -29,7 +29,7 @@ class Gwenhywfar < Formula
   depends_on "libgcrypt"
   depends_on "libgpg-error"
   depends_on "openssl@3"
-  depends_on "pkg-config" # gwenhywfar-config needs pkg-config for execution
+  depends_on "pkgconf" # gwenhywfar-config needs pkg-config for execution
   depends_on "qt@5"
 
   on_macos do
@@ -37,8 +37,6 @@ class Gwenhywfar < Formula
   end
 
   conflicts_with "go-size-analyzer", because: "both install `gsa` binaries"
-
-  fails_with gcc: "5"
 
   # Fix -flat_namespace being used on Big Sur and later.
   patch do
@@ -63,7 +61,7 @@ class Gwenhywfar < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gwenhywfar/gwenhywfar.h>
 
       int main()
@@ -71,14 +69,14 @@ class Gwenhywfar < Formula
         GWEN_Init();
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}/gwenhywfar5", "-L#{lib}", "-lgwenhywfar", "-o", "test_c"
     system "./test_c"
 
     system ENV.cxx, "test.c", "-I#{include}/gwenhywfar5", "-L#{lib}", "-lgwenhywfar", "-o", "test_cpp"
     system "./test_cpp"
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.29)
       project(test_gwen)
 
@@ -94,7 +92,7 @@ class Gwenhywfar < Formula
                       gwenhywfar::gui-cpp
                       gwenhywfar::gui-qt5
       )
-    EOS
+    CMAKE
 
     args = std_cmake_args
     args << "-DQt5_DIR=#{Formula["qt@5"].opt_prefix/"lib/cmake/Qt5"}"

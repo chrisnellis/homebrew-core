@@ -27,7 +27,7 @@ class Pcl < Formula
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "boost"
   depends_on "cminpack"
   depends_on "eigen"
@@ -89,7 +89,7 @@ class Pcl < Formula
   test do
     assert_match "tiff files", shell_output("#{bin}/pcl_tiff2pcd -h", 255)
     # inspired by https://pointclouds.org/documentation/tutorials/writing_pcd.html
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
       project(pcd_write)
       find_package(PCL 1.2 REQUIRED)
@@ -98,8 +98,8 @@ class Pcl < Formula
       add_definitions(${PCL_DEFINITIONS})
       add_executable (pcd_write pcd_write.cpp)
       target_link_libraries (pcd_write ${PCL_LIBRARIES})
-    EOS
-    (testpath/"pcd_write.cpp").write <<~EOS
+    CMAKE
+    (testpath/"pcd_write.cpp").write <<~CPP
       #include <iostream>
       #include <pcl/io/pcd_io.h>
       #include <pcl/point_types.h>
@@ -124,7 +124,7 @@ class Pcl < Formula
         pcl::io::savePCDFileASCII ("test_pcd.pcd", cloud);
         return (0);
       }
-    EOS
+    CPP
     # the following line is needed to workaround a bug in test-bot
     # (Homebrew/homebrew-test-bot#544) when bumping the boost
     # revision without bumping this formula's revision as well
@@ -137,7 +137,7 @@ class Pcl < Formula
     system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
     system "cmake", "--build", "build"
     system "./build/pcd_write"
-    assert_predicate (testpath/"test_pcd.pcd"), :exist?
+    assert_path_exists testpath/"test_pcd.pcd"
     output = File.read("test_pcd.pcd")
     assert_match "POINTS 2", output
     assert_match "1 2 3", output

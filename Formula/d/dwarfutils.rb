@@ -29,7 +29,7 @@ class Dwarfutils < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   uses_from_macos "zlib"
 
@@ -42,7 +42,7 @@ class Dwarfutils < Formula
   test do
     system bin/"dwarfdump", "-V"
 
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <dwarf.h>
       #include <libdwarf.h>
       #include <stdio.h>
@@ -64,7 +64,7 @@ class Dwarfutils < Formula
 
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "-I#{include}/libdwarf-0", "test.c", "-L#{lib}", "-ldwarf", "-o", "test"
     system "./test"
   end

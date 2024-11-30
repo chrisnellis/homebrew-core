@@ -26,14 +26,14 @@ class Ompl < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
   depends_on "eigen"
   depends_on "flann"
   depends_on "ode"
 
   def install
-    args = std_cmake_args + %w[
+    args = %w[
       -DOMPL_REGISTRATION=OFF
       -DOMPL_BUILD_DEMOS=OFF
       -DOMPL_BUILD_TESTS=OFF
@@ -42,12 +42,12 @@ class Ompl < Formula
       -DCMAKE_DISABLE_FIND_PACKAGE_spot=ON
       -DCMAKE_DISABLE_FIND_PACKAGE_Triangle=ON
     ]
-    system "cmake", ".", *args
+    system "cmake", ".", *args, *std_cmake_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <ompl/base/spaces/RealVectorBounds.h>
       #include <cassert>
       int main(int argc, char *argv[]) {
@@ -56,7 +56,7 @@ class Ompl < Formula
         bounds.setHigh(5);
         assert(bounds.getVolume() == 5 * 5 * 5);
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-I#{include}/ompl-#{version.major_minor}", "-L#{lib}", "-lompl", "-o", "test"
     system "./test"

@@ -1,8 +1,8 @@
 class RosaCli < Formula
   desc "RedHat OpenShift Service on AWS (ROSA) command-line interface"
   homepage "https://www.openshift.com/products/amazon-openshift"
-  url "https://github.com/openshift/rosa/archive/refs/tags/v1.2.46.tar.gz"
-  sha256 "a425345aec2de5a0a87c8e330e50a8ee77f70fe0ab80b3bba30553b6df50dc7d"
+  url "https://github.com/openshift/rosa/archive/refs/tags/v1.2.48.tar.gz"
+  sha256 "52d2b8f96b6959ba12cb07b23459cd421430a648061f25d913d32fc8cc97522b"
   license "Apache-2.0"
   head "https://github.com/openshift/rosa.git", branch: "master"
 
@@ -12,12 +12,12 @@ class RosaCli < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a50bcfb511b185b80d0c77bdef7106c97d03cc57b7eccabc82bded5fb5556bff"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b86034f53f3d29d091d8accfe207947644b759bb1760d64c3c5454780fbac729"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7c8132ac41d8d5aa3b030e60a3f4b04951bfe20c54a29b75fde5f73f8787cf70"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ad868911aa853087392430a75897000a196aa18812da204cfbe1ad39d7054341"
-    sha256 cellar: :any_skip_relocation, ventura:       "0cfd667dd80433ec9d0c4cf35c7a7d7c6e89246bb350224fa64d19377c18af83"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "eb7e64face915e64b16125db7a962ff6062f5bc4d5304a4b5b4419d69f670322"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "26c4d486500c51ca64ab4844b32021b8b0d7520df71c3836d661924ca041df35"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a103c226683582550af73cb544b984ef2fc7930d293c12c0d5aba00202cf17cc"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "49fc01980a430cb1b264f8997e34cd7f2aa9aaf1f611d0f36b561027334d59e1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f51eed6adbe7bc60c515249f65b41b19eb636d1ff48c95845e03a9af0de4b8a9"
+    sha256 cellar: :any_skip_relocation, ventura:       "0c1ef388c7be771756aedc28038a1477c8ba184e3e4707ad5c8a9420b4f4f109"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "155dfb8c1903e21ebca06a398a54f4e4c596d11204e96695810408817b1ed982"
   end
 
   depends_on "go" => :build

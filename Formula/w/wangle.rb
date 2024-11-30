@@ -1,18 +1,18 @@
 class Wangle < Formula
   desc "Modular, composable client/server abstractions framework"
   homepage "https://github.com/facebook/wangle"
-  url "https://github.com/facebook/wangle/archive/refs/tags/v2024.10.07.00.tar.gz"
-  sha256 "1b8f278555c725ff9f8c6196118f8bab6296b0c10137bcf8160669143299514b"
+  url "https://github.com/facebook/wangle/archive/refs/tags/v2024.11.25.00.tar.gz"
+  sha256 "d5acaa00ebb51dbc018e51915bf50cf508e7e631a53ef1cb8763436f7e59780a"
   license "Apache-2.0"
   head "https://github.com/facebook/wangle.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "bb9aaf1467ea52100d5b15287b0f57b2125f210cf4674f6ac4f6c7b9f29345b1"
-    sha256 cellar: :any,                 arm64_sonoma:  "6647927fdf7c9bbdf3266bfc764c5010d504fd0701c9bbf718c381701c833afb"
-    sha256 cellar: :any,                 arm64_ventura: "be5e2c3656ce905286ff3940599a32b3839c77f96b61d84bb5f945c3341d58f4"
-    sha256 cellar: :any,                 sonoma:        "1ede92300907141a1bb4a5d78ceb333ce85d7204a67a71ebbc9f75fae6e4d872"
-    sha256 cellar: :any,                 ventura:       "bfbf272795577db1904d28896d03d8123165ce4d797e07f8a2d2013695214ba3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a5d51cdebc21f6426da566c86fa4684f0d12ad625f14066c5736bf8cff1d0f6f"
+    sha256 cellar: :any,                 arm64_sequoia: "248af443802a5a42ae0af9db3586649e79cd97490d92bfcce78b31976e4c51f6"
+    sha256 cellar: :any,                 arm64_sonoma:  "1ee7a7b8a265ed217788a0a7786ee57d6af2e44badbc0113f8b907579d073efc"
+    sha256 cellar: :any,                 arm64_ventura: "fe210e1106d858cf93c980847af91fe202bc98ef37e4ee9fd3a1e84c0208badb"
+    sha256 cellar: :any,                 sonoma:        "7cc897817feef439a1d7eec41031626918a38ba7a3356973810345ede9f085ed"
+    sha256 cellar: :any,                 ventura:       "7e06cba7570e3a76d17b5eefe3fdc0b1b0590097347b913cc9c97893e30742f2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "14b1831e5a28c596623b04692f41aefed030d8402dccdf0f5952a7cda35314b0"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -55,7 +55,7 @@ class Wangle < Formula
     end
     (testpath/"cmake").install resource("FindSodium.cmake")
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(Echo LANGUAGES CXX)
       set(CMAKE_CXX_STANDARD 17)
@@ -69,7 +69,7 @@ class Wangle < Formula
       target_link_libraries(EchoClient wangle::wangle)
       add_executable(EchoServer #{pkgshare}/EchoServer.cpp)
       target_link_libraries(EchoServer wangle::wangle)
-    EOS
+    CMAKE
 
     ENV.delete "CPATH"
     system "cmake", ".", "-DCMAKE_MODULE_PATH=#{testpath}/cmake", "-Wno-dev"
@@ -77,13 +77,13 @@ class Wangle < Formula
 
     port = free_port
     fork { exec testpath/"EchoServer", "-port", port.to_s }
-    sleep 10
+    sleep 30
 
     require "pty"
     output = ""
     PTY.spawn(testpath/"EchoClient", "-port", port.to_s) do |r, w, pid|
       w.write "Hello from Homebrew!\nAnother test line.\n"
-      sleep 20
+      sleep 60
       Process.kill "TERM", pid
       begin
         r.each_line { |line| output += line }

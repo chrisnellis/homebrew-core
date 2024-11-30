@@ -12,16 +12,16 @@ class TrezorAgent < Formula
   revision 6
 
   bottle do
-    rebuild 2
-    sha256 cellar: :any,                 arm64_sequoia: "dacc7fc74d74d54215962f62c6948843120620146af5838229a60e232cdc350e"
-    sha256 cellar: :any,                 arm64_sonoma:  "e914176c9062e1a752008b02f8b8bc0a76d43288e0b98aa63dd2eb7b3dd4ed2c"
-    sha256 cellar: :any,                 arm64_ventura: "ba7b811fdaa9ff3d59b29c1e45fc10b79b0e6aa38da02142c87f15a729b60720"
-    sha256 cellar: :any,                 sonoma:        "2b76dfb6751857d5387d3b9f22c8ee251e7b57d856507b73d1696995a03dec8e"
-    sha256 cellar: :any,                 ventura:       "024ae9d0f2390a10361747958666828d4523a49a562cb3b8087a77e383cd8bd4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "68d2b8c93baeac6e51a9aea22b9edd114dda2c18f45f904f13b8b3ae42107870"
+    rebuild 3
+    sha256 cellar: :any,                 arm64_sequoia: "d30a423e7bb16cb85bd82c747656b8cf5f565f22322153f65e3f680c599b943b"
+    sha256 cellar: :any,                 arm64_sonoma:  "0ac21208ac317825a5fdd587048a1391270b5cdc97df69607e2b381d0c5c9606"
+    sha256 cellar: :any,                 arm64_ventura: "ee85d4ac6e1a6951e37cfa77ec7ff46eac91fb9cb0c858feb51dc0c5dba69db5"
+    sha256 cellar: :any,                 sonoma:        "7aaad0a948426ba6ae82128e18501ebed5f2279c9e3d1f0dfd00f0fa38e79fb6"
+    sha256 cellar: :any,                 ventura:       "ff6bd171a518ccbd6aaa4d6f8f6c1e0b9b14f843cebf10268c556fededd98984"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ea07ce42c9c3de33f2c307f30522d41a43809ad90096078f3d48657be95b1942"
   end
 
-  depends_on "pkg-config" => :build # for hidapi resource
+  depends_on "pkgconf" => :build # for hidapi resource
   depends_on "certifi"
   depends_on "cryptography"
   depends_on "hidapi"
@@ -188,16 +188,28 @@ class TrezorAgent < Formula
   resource "pyobjc-framework-cocoa" do
     url "https://files.pythonhosted.org/packages/a7/6c/b62e31e6e00f24e70b62f680e35a0d663ba14ff7601ae591b5d20e251161/pyobjc_framework_cocoa-10.3.1.tar.gz"
     sha256 "1cf20714daaa986b488fb62d69713049f635c9d41a60c8da97d835710445281a"
+
+    # Backport commit to avoid Xcode.app dependency. Remove in the next release
+    # https://github.com/ronaldoussoren/pyobjc/commit/864a21829c578f6479ac6401d191fb759215175e
+    patch :DATA
   end
 
   resource "pyobjc-framework-corebluetooth" do
     url "https://files.pythonhosted.org/packages/f7/69/89afd7747f42d2eb1e8f4b7f2ba2739d98ccf36f6b5c72474802962494de/pyobjc_framework_corebluetooth-10.3.1.tar.gz"
     sha256 "dc5d326ab5541b8b68e7e920aa8363851e779cb8c33842f6cfeef4674cc62f94"
+
+    # Backport commit to avoid Xcode.app dependency. Remove in the next release
+    # https://github.com/ronaldoussoren/pyobjc/commit/864a21829c578f6479ac6401d191fb759215175e
+    patch :DATA
   end
 
   resource "pyobjc-framework-libdispatch" do
     url "https://files.pythonhosted.org/packages/b7/37/1a7d9e5a04ab42aa8186f3493478c055601503ac7f8d58b8501d23db8b21/pyobjc_framework_libdispatch-10.3.1.tar.gz"
     sha256 "f5c3475498cb32f54d75e21952670e4a32c8517fb2db2e90869f634edc942446"
+
+    # Backport commit to avoid Xcode.app dependency. Remove in the next release
+    # https://github.com/ronaldoussoren/pyobjc/commit/864a21829c578f6479ac6401d191fb759215175e
+    patch :DATA
   end
 
   resource "pyserial" do
@@ -206,8 +218,8 @@ class TrezorAgent < Formula
   end
 
   resource "python-daemon" do
-    url "https://files.pythonhosted.org/packages/84/50/97b81327fccbb70eb99f3c95bd05a0c9d7f13fb3f4cfd975885110d1205a/python-daemon-3.0.1.tar.gz"
-    sha256 "6c57452372f7eaff40934a1c03ad1826bf5e793558e87fef49131e6464b4dae5"
+    url "https://files.pythonhosted.org/packages/54/cd/d62884732e5d6ff6906234169d06338d53e37243c60cf73679c8942f9e42/python_daemon-3.1.0.tar.gz"
+    sha256 "fdb621d7e5f46e74b4de1ad6b0fff6e69cd91b4f219de1476190ebdd0f4781df"
   end
 
   resource "python-gnupg" do
@@ -231,8 +243,8 @@ class TrezorAgent < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+    url "https://files.pythonhosted.org/packages/07/37/b31be7e4b9f13b59cde9dcaeff112d401d49e0dc5b37ed4a9fc8fb12f409/setuptools-75.2.0.tar.gz"
+    sha256 "753bb6ebf1f465a1912e19ed1d41f403a79173a9acf66a42e7e6aec45c3c16ec"
   end
 
   resource "six" do
@@ -271,22 +283,14 @@ class TrezorAgent < Formula
   end
 
   def install
-    ENV["HIDAPI_SYSTEM_HIDAPI"] = "1"
-    ENV["SODIUM_INSTALL"] = "system"
-    without = ["python-daemon"]
-    without += if OS.mac?
+    without = if OS.mac?
+      # Help `pyobjc-framework-cocoa` pick correct SDK after removing -isysroot from Python formula
+      ENV.append_to_cflags "-isysroot #{MacOS.sdk_path}"
       ["dbus-fast"]
     else
       resources.filter_map { |r| r.name if r.name.start_with?("pyobjc") }
     end
-    venv = virtualenv_install_with_resources(without:)
-
-    # Workaround breaking change in `setuptools`: https://pagure.io/python-daemon/issue/94
-    resource("python-daemon").stage do
-      inreplace "version.py", "import setuptools.extern.packaging.version", ""
-      inreplace "version.py", "self.validate_version(version)", ""
-      venv.pip_install Pathname.pwd
-    end
+    virtualenv_install_with_resources(without:)
   end
 
   test do
@@ -297,3 +301,22 @@ class TrezorAgent < Formula
     system libexec/"bin/python", "-m", "pip", "check"
   end
 end
+
+__END__
+--- a/pyobjc_setup.py
++++ b/pyobjc_setup.py
+@@ -510,15 +510,6 @@ def Extension(*args, **kwds):
+             % (tuple(map(int, os_level.split(".")[:2])))
+         )
+
+-    # XCode 15 has a bug w.r.t. weak linking for older macOS versions,
+-    # fall back to older linker when using that compiler.
+-    # XXX: This should be in _fixup_compiler but doesn't work there...
+-    lines = subprocess.check_output(["xcodebuild", "-version"], text=True).splitlines()
+-    if lines[0].startswith("Xcode"):
+-        xcode_vers = int(lines[0].split()[-1].split(".")[0])
+-        if xcode_vers >= 15:
+-            ldflags.append("-Wl,-ld_classic")
+-
+     if os_level == "10.4":
+         cflags.append("-DNO_OBJC2_RUNTIME")

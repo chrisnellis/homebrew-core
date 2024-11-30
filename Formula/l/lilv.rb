@@ -22,7 +22,7 @@ class Lilv < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => [:build, :test]
   depends_on "libsndfile"
   depends_on "lv2"
@@ -50,14 +50,14 @@ class Lilv < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <lilv/lilv.h>
 
       int main(void) {
         LilvWorld* const world = lilv_world_new();
         lilv_world_free(world);
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{include}/lilv-0", "-L#{lib}", "-llilv-0", "-o", "test"
     system "./test"
 

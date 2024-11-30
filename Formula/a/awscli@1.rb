@@ -4,8 +4,8 @@ class AwscliAT1 < Formula
   desc "Official Amazon AWS command-line interface"
   homepage "https://aws.amazon.com/cli/"
   # awscli should only be updated every 10 releases on multiples of 10
-  url "https://files.pythonhosted.org/packages/b6/79/9eda90efdb807a49fc26298ae0b24e2d930c119b6d9a2ada7522a61bd018/awscli-1.35.0.tar.gz"
-  sha256 "904a833e7e1d787f27f580b93d089564a820c7c290e952c90bc6acdceb79cb66"
+  url "https://files.pythonhosted.org/packages/9c/f9/b326fa6af66fe9167cf9b80df557dddaad3d877627dc493fa2de4953f979/awscli-1.36.10.tar.gz"
+  sha256 "2fbc0cbe8915c0d7a676eedf74eeda63de8a4dd4008e4dab5af30591e97b52b2"
   license "Apache-2.0"
 
   livecheck do
@@ -15,24 +15,24 @@ class AwscliAT1 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "542904d7dbe687314e5fc3ea2c20020a37ff002614d9a54f4599d922a65957a2"
-    sha256 cellar: :any,                 arm64_sonoma:  "9574ba9036e43fcbedc78a37c362455a7acb5b8be897d7b0dd819d0898a076db"
-    sha256 cellar: :any,                 arm64_ventura: "f69914ad1420ff25f5ef31aa4443008937698487798680c446f01434365b790f"
-    sha256 cellar: :any,                 sonoma:        "f9eaf37560233145dcc8147b83cbe8def7e0fe84b6662101f03018f8cf6342a9"
-    sha256 cellar: :any,                 ventura:       "8eb0493653bb021038f0e67ac512824ebc43c4f9c0db6721f1081878c2508acd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50756a7555eb1e376a298d9abda4fdf527b236ae1d4ef48eda2032bb66377f16"
+    sha256 cellar: :any,                 arm64_sequoia: "cb0387c1185523a20e14d3d0b4b1726aea2c51202b95ad62b631963eb8e4b4ad"
+    sha256 cellar: :any,                 arm64_sonoma:  "5c3c4b1029bbfdd5aacabf5e10c83f84d91e549280fecf9f698e48b44aeb1c8a"
+    sha256 cellar: :any,                 arm64_ventura: "3c62885f51799d96ebba2c8dadd51702a9d395dc2fa6eaddf503425ecfeec8f1"
+    sha256 cellar: :any,                 sonoma:        "aee12060595e862943b510b857fdb4f029f5569e60764cc032ca75256e4a18d1"
+    sha256 cellar: :any,                 ventura:       "c450e4c8a1eb39d6de62e01a3b64e381243b222bb0bd3c99a13ea39acd51b559"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2a08248abe7239fc8feddf8465e71733f71c2fbd7890729d4854946fbabe11a1"
   end
 
   keg_only :versioned_formula
 
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "mandoc"
 
   resource "botocore" do
-    url "https://files.pythonhosted.org/packages/0d/b3/29f34837f7dc43ea66aae73c2fcd30a46044acfdccdc58487c2c6d8d773e/botocore-1.35.34.tar.gz"
-    sha256 "789b6501a3bb4a9591c1fe10da200cc315c1fa5df5ada19c720d8ef06439b3e3"
+    url "https://files.pythonhosted.org/packages/55/75/aaaa22f737b7a5251f2ab24f5860b1bfc55050a77b91524474bcaadb3070/botocore-1.35.69.tar.gz"
+    sha256 "f9f23dd76fb247d9b0e8d411d2995e6f847fc451c026f1e58e300f815b0b36eb"
   end
 
   resource "colorama" do
@@ -71,8 +71,8 @@ class AwscliAT1 < Formula
   end
 
   resource "s3transfer" do
-    url "https://files.pythonhosted.org/packages/cb/67/94c6730ee4c34505b14d94040e2f31edf144c230b6b49e971b4f25ff8fab/s3transfer-0.10.2.tar.gz"
-    sha256 "0711534e9356d3cc692fdde846b4a1e4b0cb6519971860796e6bc4c7aea00ef6"
+    url "https://files.pythonhosted.org/packages/c0/0a/1cdbabf9edd0ea7747efdf6c9ab4e7061b085aa7f9bfc36bb1601563b069/s3transfer-0.10.4.tar.gz"
+    sha256 "29edc09801743c21eb5ecbc617a152df41d3c287f67b615f73e5f750583666a7"
   end
 
   resource "six" do
@@ -89,17 +89,17 @@ class AwscliAT1 < Formula
     virtualenv_install_with_resources
     pkgshare.install "awscli/examples"
 
-    rm Dir["#{bin}/{aws.cmd,aws_bash_completer,aws_zsh_completer.sh}"]
+    %w[aws.cmd aws_bash_completer aws_zsh_completer.sh].each { |f| rm(bin/f) }
     bash_completion.install "bin/aws_bash_completer"
     zsh_completion.install "bin/aws_zsh_completer.sh"
-    (zsh_completion/"_aws").write <<~EOS
+    (zsh_completion/"_aws").write <<~ZSH
       #compdef aws
       _aws () {
         local e
         e=$(dirname ${funcsourcetrace[1]%:*})/aws_zsh_completer.sh
         if [[ -f $e ]]; then source $e; fi
       }
-    EOS
+    ZSH
   end
 
   def caveats

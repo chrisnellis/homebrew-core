@@ -15,21 +15,18 @@ class LibnetfilterQueue < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux: "92a395a74268dd17a019cf43ca0a5bbe38ad52e045697e403657abc3250e3f6e"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libmnl"
   depends_on "libnfnetlink"
   depends_on :linux
 
   def install
-    system "./configure", "--disable-debug",
-                          "--disable-dependency-tracking",
-                          "--disable-silent-rules",
-                          "--prefix=#{prefix}"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <errno.h>
       #include <stdio.h>
       #include <stdlib.h>
@@ -52,7 +49,7 @@ class LibnetfilterQueue < Formula
         struct mnl_socket *nl;
         char buf[NFQA_CFG_F_MAX];
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lmnl", "-o", "test"
   end

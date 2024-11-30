@@ -3,19 +3,18 @@ class Ipython < Formula
 
   desc "Interactive computing in Python"
   homepage "https://ipython.org/"
-  url "https://files.pythonhosted.org/packages/f7/21/48db7d9dd622b9692575004c7c98f85f5629428f58596c59606d36c51b58/ipython-8.28.0.tar.gz"
-  sha256 "0d0d15ca1e01faeb868ef56bc7ee5a0de5bd66885735682e8a322ae289a13d1a"
+  url "https://files.pythonhosted.org/packages/d8/8b/710af065ab8ed05649afa5bd1e07401637c9ec9fb7cfda9eac7e91e9fbd4/ipython-8.30.0.tar.gz"
+  sha256 "cb0a405a306d2995a5cbb9901894d240784a9f341394c6ba3f4fe8c6eb89ff6e"
   license "BSD-3-Clause"
   head "https://github.com/ipython/ipython.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ef36b2e65beca69cf1c7be6e48377b5907310e62be72760ad28df190ecc6e849"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ef36b2e65beca69cf1c7be6e48377b5907310e62be72760ad28df190ecc6e849"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ef36b2e65beca69cf1c7be6e48377b5907310e62be72760ad28df190ecc6e849"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e35ba6c049d5125b6fe8efd2bfeafc4badfaff9e0bfe5417d9991dbaf5d1c84d"
-    sha256 cellar: :any_skip_relocation, ventura:       "e35ba6c049d5125b6fe8efd2bfeafc4badfaff9e0bfe5417d9991dbaf5d1c84d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ef36b2e65beca69cf1c7be6e48377b5907310e62be72760ad28df190ecc6e849"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "046fefc42ed38739185c2161ec22062a493c81a2c89262e8fc6aefb283ab1bbd"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "046fefc42ed38739185c2161ec22062a493c81a2c89262e8fc6aefb283ab1bbd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "046fefc42ed38739185c2161ec22062a493c81a2c89262e8fc6aefb283ab1bbd"
+    sha256 cellar: :any_skip_relocation, sonoma:        "4cf0759dc806553000c949d4a5c9c59e798a0b411a14f44f31d59d1da5890e2b"
+    sha256 cellar: :any_skip_relocation, ventura:       "4cf0759dc806553000c949d4a5c9c59e798a0b411a14f44f31d59d1da5890e2b"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "046fefc42ed38739185c2161ec22062a493c81a2c89262e8fc6aefb283ab1bbd"
   end
 
   depends_on "python@3.13"
@@ -36,8 +35,8 @@ class Ipython < Formula
   end
 
   resource "jedi" do
-    url "https://files.pythonhosted.org/packages/d6/99/99b493cec4bf43176b678de30f81ed003fd6a647a301b9c927280c600f0a/jedi-0.19.1.tar.gz"
-    sha256 "cf0496f3651bc65d7174ac1b7d043eff454892c708a87d1b683e57b569927ffd"
+    url "https://files.pythonhosted.org/packages/72/3a/79a912fbd4d8dd6fbb02bf69afd3bb72cf0c729bb3063c6f4498603db17a/jedi-0.19.2.tar.gz"
+    sha256 "4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0"
   end
 
   resource "matplotlib-inline" do
@@ -97,8 +96,6 @@ class Ipython < Formula
 
   def install
     virtualenv_install_with_resources
-
-    man1.install libexec/"share/man/man1/ipython.1"
   end
 
   test do

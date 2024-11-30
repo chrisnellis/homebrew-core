@@ -1,8 +1,8 @@
 class Micronaut < Formula
   desc "Modern JVM-based framework for building modular microservices"
   homepage "https://micronaut.io/"
-  url "https://github.com/micronaut-projects/micronaut-starter/archive/refs/tags/v4.6.3.tar.gz"
-  sha256 "8a7bf4e435bf2f6637155e9707c0e6e781802788f4a905e31ff2300ef0bb0334"
+  url "https://github.com/micronaut-projects/micronaut-starter/archive/refs/tags/v4.7.1.tar.gz"
+  sha256 "83125047e74904c3428ccc1987cd504778ab74415fca7926c81664ebe258f9cb"
   license "Apache-2.0"
 
   livecheck do
@@ -11,27 +11,26 @@ class Micronaut < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "213f2be1f310682a38194eff1957de5a53a8913e2933ff5cb8087cb6694b2947"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "748205e93688bddc5788b62f29627cc3a55627d392aaea5920c1acf7c4c7099e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "e12cf8e57b85d77f7ec52c9dd8ac7aec53b84079b5cd201fe5254f0d88d3ad8c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e9550fe1241b29ff0d452202354afa861a3c07dffcd7baf248ec22cc37df293e"
-    sha256 cellar: :any_skip_relocation, ventura:       "94950a29594ff42730e38e75fbdf1426db8d128535a3fdf4e9ac21c32ad30fcc"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e9d87f81c9427341de3f03a93eb948a5cc4448ccb505840184721c8b025661d7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "de9553a59387938a8204c966fec375c4d69cb03e911632a3ea900ad5f39b9fec"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "9fc357619dbb218184b2874980fa73a82c5df9f78acb7d16c622426f529e28b3"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "1ffef001c565b1a3386f2d10826ef53e4ca95440118f23986ca6c4c6eaaeeb18"
+    sha256 cellar: :any_skip_relocation, sonoma:        "3149d8cd34a2ec81fc7aa68d514cf6727e2fd8b7da36fa347d8ce13a672aff02"
+    sha256 cellar: :any_skip_relocation, ventura:       "c1102ecb961f2ecff994bc44c195fbc154ee702fa74b7ebe454a3ba68219eb3a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3635079acd01904275b91e5da32239f4a1fdb4513e2996a6347f8e74da1f7d80"
   end
 
   depends_on "gradle" => :build
-  # jdk21 support issue, https://github.com/micronaut-projects/micronaut-core/issues/10046
-  depends_on "openjdk@17"
+  depends_on "openjdk@21"
 
   def install
-    ENV["JAVA_HOME"] = Language::Java.java_home("17")
+    ENV["JAVA_HOME"] = Language::Java.java_home("21")
     system "gradle", "micronaut-cli:assemble", "--exclude-task", "test", "--no-daemon"
 
     libexec.install "starter-cli/build/exploded/lib"
     (libexec/"bin").install "starter-cli/build/exploded/bin/mn"
 
     bash_completion.install "starter-cli/build/exploded/bin/mn_completion" => "mn"
-    (bin/"mn").write_env_script libexec/"bin/mn", Language::Java.overridable_java_home_env("17")
+    (bin/"mn").write_env_script libexec/"bin/mn", Language::Java.overridable_java_home_env("21")
   end
 
   test do

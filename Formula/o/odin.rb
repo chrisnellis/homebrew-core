@@ -2,19 +2,20 @@ class Odin < Formula
   desc "Programming language with focus on simplicity, performance and modern systems"
   homepage "https://odin-lang.org/"
   url "https://github.com/odin-lang/Odin.git",
-      tag:      "dev-2024-10",
-      revision: "af9ae4897ad9e526d74489ddd12cfae179639ff3"
-  version "2024-10"
+      tag:      "dev-2024-11",
+      revision: "e6475fec4d2a3e34099b24a7a3bf890c7a3ef8d9"
+  version "2024-11"
   license "BSD-3-Clause"
+  revision 1
   head "https://github.com/odin-lang/Odin.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "aca4aec0e727515e10a3c5c552eababb6f0a74805340307c06c8615091130d70"
-    sha256 cellar: :any,                 arm64_sonoma:  "513d0754a3c9953e1cd7f237889a27e0b56f0739ff5ae685f32c385399d836d6"
-    sha256 cellar: :any,                 arm64_ventura: "9875168b45d9a80a76c8f072ef1a959732f796cf8a6c1754a87e070af47452c0"
-    sha256 cellar: :any,                 sonoma:        "ce6be3726f1d2f0016ab6b02b069762b5dadea013a0a07d5dcd955bc2993122e"
-    sha256 cellar: :any,                 ventura:       "b94bf5def1e815e33345d3acc769a9d17897b0a6c16fdfba83c2c78b7e525796"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f0ed5c0aed4747f0f2001ebd47726da716259cd22ee8ff102be6330053528f83"
+    sha256 cellar: :any,                 arm64_sequoia: "31e940b62db1b555df91381d21b8c435774f6438239e47e124fcec7004cfc63e"
+    sha256 cellar: :any,                 arm64_sonoma:  "189fe3a399760b5a44c5e42ccb57d07fb6d79d1516051cc6e69bb430b0d72f74"
+    sha256 cellar: :any,                 arm64_ventura: "548a349c0147afa70db136b3a5df3210ae48dbaf3473e5ef9a4bef26f1726dab"
+    sha256 cellar: :any,                 sonoma:        "25f2095090821214a1ec0e8c61d6dd8c0d78ce74cfd6d483aa2a70f6ede4c51c"
+    sha256 cellar: :any,                 ventura:       "ccd82ddf333eb27e715e62857646177129cc9a5a3ff0c9847d70ca8499f07272"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "11fc24e935cbf3e3828f9cb55ba45f8cf0a96ee7c1898be962e616474ec580b4"
   end
 
   depends_on "glfw"
@@ -64,8 +65,8 @@ class Odin < Formula
     ln_s Formula["glfw"].lib/"libglfw3.a", buildpath/glfw_installpath/"libglfw3.a"
 
     ln_s Formula["raylib"].lib/"libraylib.a", buildpath/raylib_installpath/"libraylib.a"
-    # This is actually raylib 5.0, but upstream had not incremented this number yet when it released.
-    ln_s Formula["raylib"].lib/shared_library("libraylib", "4.5.0"),
+    # In order to match the version 500 used in odin
+    ln_s Formula["raylib"].lib/shared_library("libraylib", "5.5.0"),
       buildpath/raylib_installpath/shared_library("libraylib", "500")
 
     resource("raygui").stage do

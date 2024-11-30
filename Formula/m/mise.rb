@@ -1,8 +1,8 @@
 class Mise < Formula
   desc "Polyglot runtime manager (asdf rust clone)"
   homepage "https://mise.jdx.dev/"
-  url "https://github.com/jdx/mise/archive/refs/tags/v2024.10.2.tar.gz"
-  sha256 "c71b2a8396db4c331078c7411e6034eb9476e1a72c72003de6527338f375e85c"
+  url "https://github.com/jdx/mise/archive/refs/tags/v2024.11.37.tar.gz"
+  sha256 "fded755551f9cd31ad9ea1287ff395b2d0700436ee35cf4240a3447c74647214"
   license "MIT"
   head "https://github.com/jdx/mise.git", branch: "main"
 
@@ -12,15 +12,15 @@ class Mise < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "dc8cd49cd10d48fd4665de0fe6155150d42304ab9046955ca6418f058b7776d0"
-    sha256 cellar: :any,                 arm64_sonoma:  "535d7256542a59b2963e610f23788d0a6f0c49ac5ccf18524bbe70fb3af6a0b6"
-    sha256 cellar: :any,                 arm64_ventura: "48ee66fb8ddf5e9408fdeadc492a313af39c35b68ef178c7cade5ba540bf35b4"
-    sha256 cellar: :any,                 sonoma:        "614e5749263093afab0a6803c2db60f9daba39f172a486a6b929eea676ff163e"
-    sha256 cellar: :any,                 ventura:       "67f621e4d88a414d70949f41c6bfc0839d9b94f4e4fb49553f119cca0849ee1c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0ec91437131c08647b7cba39a8611b23dce7333303c025b630a4db165c1829eb"
+    sha256 cellar: :any,                 arm64_sequoia: "073efd42f615f276d1f73cb0e3dc0027540adcd67ecf6ffea7875f9dd30a15df"
+    sha256 cellar: :any,                 arm64_sonoma:  "ea1343374abfb2c7af4a362b79da83f24dcaa5081092f6897f8c3bb14d41be37"
+    sha256 cellar: :any,                 arm64_ventura: "2ffe51f935664e2ff54155ebb9ab2deaa96c1fd168bcca06e1eb200be8e0e1b3"
+    sha256 cellar: :any,                 sonoma:        "d44d8e5faf36463ad340e1784a21b0d277fd736359e05318dca44856a1d2b79a"
+    sha256 cellar: :any,                 ventura:       "2a51bad3ef17cdd2abfb76cd865f42f8524b84fb8326923a3572eaa6128e704d"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fd71368c7f57f3bc269090cbcff48ff4836e9cf0223ba25955b1b3a8d2992e9e"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
 
   depends_on "libgit2"
@@ -67,8 +67,9 @@ class Mise < Formula
   end
 
   test do
-    system bin/"mise", "install", "terraform@1.5.7"
-    assert_match "1.5.7", shell_output("#{bin}/mise exec terraform@1.5.7 -- terraform -v")
+    system bin/"mise", "settings", "set", "experimental", "true"
+    system bin/"mise", "use", "go@1.23"
+    assert_match "1.23", shell_output("#{bin}/mise exec -- go version")
 
     [
       Formula["libgit2"].opt_lib/shared_library("libgit2"),

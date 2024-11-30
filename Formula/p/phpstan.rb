@@ -1,17 +1,17 @@
 class Phpstan < Formula
   desc "PHP Static Analysis Tool"
   homepage "https://github.com/phpstan/phpstan"
-  url "https://github.com/phpstan/phpstan/releases/download/1.12.6/phpstan.phar"
-  sha256 "54488aa8e0cfb461be3d4f995159be61c502c410de618d4a479a81f5d9372db9"
+  url "https://github.com/phpstan/phpstan/releases/download/2.0.3/phpstan.phar"
+  sha256 "6192e1d39e18e0a29aac7592a67c65395541ab24f33bf7e09df2f0ad1103d6a8"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fd89542bc1fe413a8311014cd56d90a0a2199eeb49f782371823d513de21fc83"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "fd89542bc1fe413a8311014cd56d90a0a2199eeb49f782371823d513de21fc83"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "fd89542bc1fe413a8311014cd56d90a0a2199eeb49f782371823d513de21fc83"
-    sha256 cellar: :any_skip_relocation, sonoma:        "217a1de2f654c5be13dd6ee2083a0b7613f55326ae99e49839df13422e386871"
-    sha256 cellar: :any_skip_relocation, ventura:       "217a1de2f654c5be13dd6ee2083a0b7613f55326ae99e49839df13422e386871"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5f21c9f5e0451bf64971ebf2b5128737c8a52494e05a9b4d7311b8621d3ce7e3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "50abdef6096a048f76fc2f0d9f5157d1481318d523989d7e1697770353c90bfe"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "50abdef6096a048f76fc2f0d9f5157d1481318d523989d7e1697770353c90bfe"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "50abdef6096a048f76fc2f0d9f5157d1481318d523989d7e1697770353c90bfe"
+    sha256 cellar: :any_skip_relocation, sonoma:        "28a2869466c8b375dff5522ad201926aa21cc68d08e880ef542565aa4fdd4cfa"
+    sha256 cellar: :any_skip_relocation, ventura:       "28a2869466c8b375dff5522ad201926aa21cc68d08e880ef542565aa4fdd4cfa"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0a87632714c95112133c5a232b4b9df4bfe7e26c1b51c07ce6c81d6078fc53fa"
   end
 
   depends_on "php" => :test
@@ -28,7 +28,7 @@ class Phpstan < Formula
   end
 
   test do
-    (testpath/"src/autoload.php").write <<~EOS
+    (testpath/"src/autoload.php").write <<~PHP
       <?php
       spl_autoload_register(
           function($class) {
@@ -46,9 +46,9 @@ class Phpstan < Formula
           true,
           false
       );
-    EOS
+    PHP
 
-    (testpath/"src/Email.php").write <<~EOS
+    (testpath/"src/Email.php").write <<~PHP
       <?php
         declare(strict_types=1);
 
@@ -85,7 +85,7 @@ class Phpstan < Formula
                 }
             }
         }
-    EOS
+    PHP
     assert_match(/^\n \[OK\] No errors/,
       shell_output("#{bin}/phpstan analyse --level max --autoload-file src/autoload.php src/Email.php"))
   end

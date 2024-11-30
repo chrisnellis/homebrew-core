@@ -3,18 +3,17 @@ class Borgmatic < Formula
 
   desc "Simple wrapper script for the Borg backup software"
   homepage "https://torsion.org/borgmatic/"
-  url "https://files.pythonhosted.org/packages/8f/c1/84092a49c4bcb1744829051fd302ab057a7a59487db265e2d1aec265f9d1/borgmatic-1.8.14.tar.gz"
-  sha256 "598b3bc22c19d53bd375e5295afec56d111759f74671845aacfe055c539fa746"
+  url "https://files.pythonhosted.org/packages/7e/83/2c6ac5f85543eaf8f2abf55061781cd9cf75a976663b0caf51a1a447a3c3/borgmatic-1.9.3.tar.gz"
+  sha256 "568cba4f9bd5db2cbf83b18ef7738fdce064729ef4ce84038aaab01d1beb2f4b"
   license "GPL-3.0-or-later"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "9043712001063fbebb417f391104c46d86664921ad4c3923c30173c3157d37ec"
-    sha256 cellar: :any,                 arm64_sonoma:  "7607a382138f5e662e53f8e5cc24c122eb39a7c823ba1edd26dfcae865ba1009"
-    sha256 cellar: :any,                 arm64_ventura: "e62028c4b8e5db71f9e7bbb6776e70ea48af71c26d9fe7a98244847e05d251c9"
-    sha256 cellar: :any,                 sonoma:        "8830fce74b5397ee0a82f0a25b60b46c4903f9ab52c4e8a5113389dfba878dcb"
-    sha256 cellar: :any,                 ventura:       "c6431e481d09dc13cf3a11d7946553b91b7a37e18e4e0f7732dd9aa52fe16fc6"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c6358419162d1ef8ae3831089351ba86fb84e57bbde882635aa58ac8cadef017"
+    sha256 cellar: :any,                 arm64_sequoia: "132e41dd8bc44ba5652ba5256ce88070d0dba807533a960d3c5196787aee3da4"
+    sha256 cellar: :any,                 arm64_sonoma:  "e2888c24533926fbad0a004b025006187c86fef5c682273dc490324193ec6916"
+    sha256 cellar: :any,                 arm64_ventura: "41b81368e010c4fde41d5eaf51f1947a2c19fd78750e7bf29716fc36faf3bcf4"
+    sha256 cellar: :any,                 sonoma:        "6be4fb98b897bd01fa561a663518addf8841b5084a3e98b4398221338c8a2cae"
+    sha256 cellar: :any,                 ventura:       "e007f2a8875776d49d5a4a8bb6a4a160b0cca990d16fd624528dd97258e94681"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "436613c1044440294dbfd49083649b0df740654e16079af10447f71ec01a699c"
   end
 
   depends_on "rust" => :build # for rpds-py
@@ -52,8 +51,8 @@ class Borgmatic < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "referencing" do
@@ -67,18 +66,13 @@ class Borgmatic < Formula
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/64/b693f262791b818880d17268f3f8181ef799b0d187f6f731b1772e05a29a/rpds_py-0.20.0.tar.gz"
-    sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
+    url "https://files.pythonhosted.org/packages/23/80/afdf96daf9b27d61483ef05b38f282121db0e38f5fd4e89f40f5c86c2a4f/rpds_py-0.21.0.tar.gz"
+    sha256 "ed6378c9d66d0de903763e7706383d60c33829581f0adff47b6535f1802fa6db"
   end
 
   resource "ruamel-yaml" do
     url "https://files.pythonhosted.org/packages/29/81/4dfc17eb6ebb1aac314a3eb863c1325b907863a1b8b1382cdffcb6ac0ed9/ruamel.yaml-0.18.6.tar.gz"
     sha256 "8b27e6a217e786c6fbe5634d8f3f11bc63e0f80f6a5890f28863d9c45aac311b"
-  end
-
-  resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
   end
 
   resource "urllib3" do
@@ -91,6 +85,8 @@ class Borgmatic < Formula
   end
 
   test do
+    ENV["TMPDIR"] = testpath
+
     borg = (testpath/"borg")
     borg_info_json = (testpath/"borg_info_json")
     config_path = testpath/"config.yml"
@@ -99,7 +95,7 @@ class Borgmatic < Formula
     sentinel_path = testpath/"init_done"
 
     # Create a fake borg info json
-    borg_info_json.write <<~EOS
+    borg_info_json.write <<~JSON
       {
           "cache": {
               "path": "",
@@ -122,10 +118,10 @@ class Borgmatic < Formula
           },
           "security_dir": ""
       }
-    EOS
+    JSON
 
     # Create a fake borg executable to log requested commands
-    borg.write <<~EOS
+    borg.write <<~SHELL
       #!/bin/sh
       echo $@ >> #{log_path}
 
@@ -151,7 +147,8 @@ class Borgmatic < Formula
       if [ "$1" = "create" ]; then
         exit 0
       fi
-    EOS
+    SHELL
+
     borg.chmod 0755
 
     # Generate a config
@@ -179,21 +176,30 @@ class Borgmatic < Formula
     log_content = File.read(log_path)
 
     # Assert that the proper borg commands were executed
-    assert_equal <<~EOS, log_content
+    expected_log = <<~EOS
       --version --debug --show-rc
       info --json #{repo_path}
       init --encryption repokey --debug #{repo_path}
       --version
-      create #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home #{testpath}/.borgmatic #{config_path}
+      create #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home #{testpath}/borgmatic-.{8}/./borgmatic/bootstrap #{config_path}
       prune --keep-daily 7 --glob-archives {hostname}-* #{repo_path}
       compact #{repo_path}
       info --json #{repo_path}
       check --glob-archives {hostname}-* #{repo_path}
       --version
-      create --json #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home #{testpath}/.borgmatic #{config_path}
+      create --json #{repo_path}::{hostname}-{now:%Y-%m-%dT%H:%M:%S.%f} /etc /home #{testpath}/borgmatic-.{8}/./borgmatic/bootstrap #{config_path}
       prune --keep-daily 7 --glob-archives {hostname}-* #{repo_path}
       compact #{repo_path}
       info --json #{repo_path}
     EOS
+    expected = expected_log.split("\n").map(&:strip)
+
+    log_content.lines.map.with_index do |line, i|
+      if line.start_with?("create")
+        assert_match(/#{expected[i].chomp}/, line.chomp)
+      else
+        assert_equal expected[i].chomp, line.chomp
+      end
+    end
   end
 end

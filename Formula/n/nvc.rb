@@ -1,18 +1,17 @@
 class Nvc < Formula
   desc "VHDL compiler and simulator"
   homepage "https://github.com/nickg/nvc"
-  url "https://github.com/nickg/nvc/releases/download/r1.14.0/nvc-1.14.0.tar.gz"
-  sha256 "a0a05124ce3463de37d1d2dec213737e2edecf817673223c7ed5d336b2372ec5"
+  url "https://github.com/nickg/nvc/releases/download/r1.14.2/nvc-1.14.2.tar.gz"
+  sha256 "420826dc44ed209d7346e183438a654af1816bd802d15fded2f8a9c272a47331"
   license "GPL-3.0-or-later"
-  revision 1
 
   bottle do
-    sha256 arm64_sequoia: "e53571c8193e63e0ab8dfe87a44df159eeed5227066176127b798307cd965ded"
-    sha256 arm64_sonoma:  "4e865697309fd7f3de796a59ac38375b0e129d110b5ea78748bf9b13e92a0469"
-    sha256 arm64_ventura: "e93ee7d60c8390eeeb8cd55d0ae10017db7d08872323cbba53f9ba86438b5649"
-    sha256 sonoma:        "fa0e647c2b3a59efd933777eac29f20e65a323cf04c6f65e37cff7ccd6ce1f85"
-    sha256 ventura:       "8bc764d27d440bea9f9bd2fd43746e46aa01544f8f2dc51751e9005cff0068c7"
-    sha256 x86_64_linux:  "5c426a4331a13bae97a3c5c2c70dca668ea584722879c19cf1b21825b83b36d0"
+    sha256 arm64_sequoia: "2f4df4784c3f76d5417fb27611bd0cb0a147c85e7d0b482118dde651c217030f"
+    sha256 arm64_sonoma:  "2b0ee54b5af6f94d794b1158cf2d3f9266055cac560d8761b2de96fec58b66f5"
+    sha256 arm64_ventura: "05c517c0cc6c835c512fb50108a8e7f055ed1f6bbb45e8169394c962e0014dbe"
+    sha256 sonoma:        "0c82323f94cb9367b4f139037d5ee164a7ebcff9c1c01d79f8f67f2a17024c50"
+    sha256 ventura:       "2b949b05bd388a68c7c47099755b07b224fa5e36c9c56e132e4157e321bdab9d"
+    sha256 x86_64_linux:  "5db794ebdbfd9803be1e75133729f1aac9d89aefd1cdc19feb404c970e820666"
   end
 
   head do
@@ -23,7 +22,7 @@ class Nvc < Formula
   end
 
   depends_on "check" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "llvm"
   depends_on "zstd"
 
@@ -34,8 +33,6 @@ class Nvc < Formula
   on_linux do
     depends_on "elfutils"
   end
-
-  fails_with gcc: "5" # LLVM is built with GCC
 
   def install
     system "./autogen.sh" if build.head?

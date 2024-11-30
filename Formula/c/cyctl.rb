@@ -1,18 +1,18 @@
 class Cyctl < Formula
   desc "Customizable UI for Kubernetes workloads"
   homepage "https://cyclops-ui.com/"
-  url "https://github.com/cyclops-ui/cyclops/archive/refs/tags/v0.14.1.tar.gz"
-  sha256 "56e7299bd7587d78001728b4f0ae15daddff86b42d0a0a70ab0de53b9fd6cd90"
+  url "https://github.com/cyclops-ui/cyclops/archive/refs/tags/v0.15.4.tar.gz"
+  sha256 "6d23615f63b5b735990287a68f13c563b8ba4acf51fb5b9eb23c15d25224a9d0"
   license "Apache-2.0"
   head "https://github.com/cyclops-ui/cyclops.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "aa6e51c76fcb690793ec3eda11fad8e1cc075d9e971a55af42d2c78624d959bc"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "aa6e51c76fcb690793ec3eda11fad8e1cc075d9e971a55af42d2c78624d959bc"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "aa6e51c76fcb690793ec3eda11fad8e1cc075d9e971a55af42d2c78624d959bc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "3a7d24c42b7e875193bcc057b04a601922f87f00b01efa96ae482e04b9d9de4f"
-    sha256 cellar: :any_skip_relocation, ventura:       "3a7d24c42b7e875193bcc057b04a601922f87f00b01efa96ae482e04b9d9de4f"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0dcde3e75a8b08ff07a7b2b9db9e9e339a74254f3db1fa663ed0e47f66c56d93"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "85fbf44df5e4ce37757964f0315f6072ebdb9eacc2c446d00e183ce3ab095d63"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "85fbf44df5e4ce37757964f0315f6072ebdb9eacc2c446d00e183ce3ab095d63"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "85fbf44df5e4ce37757964f0315f6072ebdb9eacc2c446d00e183ce3ab095d63"
+    sha256 cellar: :any_skip_relocation, sonoma:        "c1b09930018f5412dda4368f6e1e926f0618cfaaede8e82ea2d478a4533bb390"
+    sha256 cellar: :any_skip_relocation, ventura:       "c1b09930018f5412dda4368f6e1e926f0618cfaaede8e82ea2d478a4533bb390"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b2ff317817e1614a061c53d40da81fc8420658da0f495554062f053b06053463"
   end
 
   depends_on "go" => :build
@@ -26,7 +26,7 @@ class Cyctl < Formula
   test do
     assert_match "cyctl version #{version}", shell_output("#{bin}/cyctl --version")
 
-    (testpath/".kube/config").write <<~EOS
+    (testpath/".kube/config").write <<~YAML
       apiVersion: v1
       clusters:
       - cluster:
@@ -45,7 +45,7 @@ class Cyctl < Formula
       - name: test
         user:
           token: test
-    EOS
+    YAML
 
     assert_match "Error from server (NotFound)", shell_output("#{bin}/cyctl delete templates deployment.yaml 2>&1")
   end

@@ -31,7 +31,7 @@ class Sdl2Image < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "jpeg-turbo"
   depends_on "jpeg-xl"
   depends_on "libavif"
@@ -44,21 +44,20 @@ class Sdl2Image < Formula
     inreplace "SDL2_image.pc.in", "@prefix@", HOMEBREW_PREFIX
 
     system "./autogen.sh" if build.head?
-
-    system "./configure", *std_configure_args,
-                          "--disable-imageio",
+    system "./configure", "--disable-imageio",
                           "--disable-avif-shared",
                           "--disable-jpg-shared",
                           "--disable-jxl-shared",
                           "--disable-png-shared",
                           "--disable-stb-image",
                           "--disable-tif-shared",
-                          "--disable-webp-shared"
+                          "--disable-webp-shared",
+                          *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <SDL2/SDL_image.h>
 
       int main()
@@ -68,7 +67,7 @@ class Sdl2Image < Formula
           IMG_Quit();
           return result == INIT_FLAGS ? EXIT_SUCCESS : EXIT_FAILURE;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-I#{Formula["sdl2"].opt_include}/SDL2", "-L#{lib}", "-lSDL2_image", "-o", "test"
     system "./test"
   end

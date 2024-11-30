@@ -7,22 +7,22 @@ class ClangFormat < Formula
   head "https://github.com/llvm/llvm-project.git", branch: "main"
 
   stable do
-    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.1/llvm-19.1.1.src.tar.xz"
-    sha256 "15a7c77f9c39444d9dd6756b75b9a70129dcbd1e340724a6e45b3b488f55bc4b"
+    url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.4/llvm-19.1.4.src.tar.xz"
+    sha256 "4fe1bc197ff13f33af6179f836ce1cf2ae9886b822974a736f3a20c8aed0c1b2"
 
     resource "clang" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.1/clang-19.1.1.src.tar.xz"
-      sha256 "73881ccf065c35ca67752c2d4b6dd0157140330eef318fb80f1a62681145cf7c"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.4/clang-19.1.4.src.tar.xz"
+      sha256 "b6d123a4435f1869af709f3288c4c4db48173acaf621088400d91521bc5aa225"
     end
 
     resource "cmake" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.1/cmake-19.1.1.src.tar.xz"
-      sha256 "92a016ecfe46ad7c18db6425a018c2c6ee126b9d0e5513d6fad989fee6648ffa"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.4/cmake-19.1.4.src.tar.xz"
+      sha256 "dd13ce8eba6ece85cad567f028b8e16d72f3e142cdcbbd693ac23a88b4013803"
     end
 
     resource "third-party" do
-      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.1/third-party-19.1.1.src.tar.xz"
-      sha256 "39dec41a0a4d39af6428a58ddbd5c3e5c3ae4f6175e3655480909559cba86cb7"
+      url "https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.4/third-party-19.1.4.src.tar.xz"
+      sha256 "97292083d9718d3a6bedbafddf2fa1740c2d9cba8c72ee8ea391a63f12c0a472"
     end
   end
 
@@ -33,12 +33,12 @@ class ClangFormat < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7b5f8c066c04e831f51f2abf16312084e3fa098b0ff76abc6480967a2860bd24"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e7ba64f5fba3cf0ceadaa3c520a2208642ce1169bffac8db1e9b56569195148e"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ce317db950e3d268110f2bc62c5f1aa07cbb50dafd2603e168e363718a9d9e21"
-    sha256 cellar: :any_skip_relocation, sonoma:        "43bcbde28012da49f5679bec7ba8d2c341771cee9909bddde1ec2e29e1fd8320"
-    sha256 cellar: :any_skip_relocation, ventura:       "80ac7aac07528efb14db1928d1268db16033dcbaf73a0fa5c1d08817d3bf3ab4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f8318eea6c50bf91462397af31ee5c20413dfb1a6625aa8b73d524f4b7396180"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "24537717c66702cebaa7f941de4cc17ad8fa95e7ff1596bf94e8d33232da6b01"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "b02b7b95d14ea5645c34e8c82e396ad928a602d78c733204f6bbd4b75a26f4ed"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a3f3ad055e04cf71831b122bb331941aa7ec580c3f0d07a7430e89ff524c923e"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a4f12749e351600a8d4c9ab8a83e598f684d72ca43351ac9046a65da8c410ffc"
+    sha256 cellar: :any_skip_relocation, ventura:       "10cc54d92bb66a6cebce8f584ee1f6a9ac820012251f85636b70423e677d2066"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0b130849e223aa183d7ff781dbf8a7ad3ed7930ec4550f34a7c8cdd656859e9a"
   end
 
   depends_on "cmake" => :build
@@ -86,9 +86,9 @@ class ClangFormat < Formula
     system "git", "commit", "--allow-empty", "-m", "initial commit", "--quiet"
 
     # NB: below C code is messily formatted on purpose.
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       int         main(char *args) { \n   \t printf("hello"); }
-    EOS
+    C
     system "git", "add", "test.c"
 
     assert_equal "int main(char *args) { printf(\"hello\"); }\n",

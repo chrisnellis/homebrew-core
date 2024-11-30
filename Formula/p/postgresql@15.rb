@@ -1,10 +1,9 @@
 class PostgresqlAT15 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v15.8/postgresql-15.8.tar.bz2"
-  sha256 "4403515f9a69eeb3efebc98f30b8c696122bfdf895e92b3b23f5b8e769edcb6a"
+  url "https://ftp.postgresql.org/pub/source/v15.10/postgresql-15.10.tar.bz2"
+  sha256 "55abe738d441f0e58658b3ec6f88097a713b5e3b73139f6230d7b5c4c389e573"
   license "PostgreSQL"
-  revision 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -12,12 +11,12 @@ class PostgresqlAT15 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "ee7974b662abfa98b41b5e27db72b7ab303214355ac5f126cc0baff173bfd493"
-    sha256 arm64_sonoma:  "7841e7ae6f3a57154568b53cb898cd2fb760706f501426dc53b980534b23cf65"
-    sha256 arm64_ventura: "19df5034721bd662151d7839a9cabd233b30813a0130c1bde03d3cc117695c6a"
-    sha256 sonoma:        "f1d3d7c788ec49180de2026ca9bb7a8be5e5e94394e5912043c3292c610694a7"
-    sha256 ventura:       "e6a2705aaa823da8cc7eb4c95d37bbc645ff89c3d9c2aa6ebabd54ca433490f9"
-    sha256 x86_64_linux:  "f23e06745e1806a146a4ed5a005d58dea3c9a2501d14244ad4912293f0de0168"
+    sha256 arm64_sequoia: "5f8774b541293f2d9603f60b20316d1abacf40bab5117f3008d19e7b9b336cd8"
+    sha256 arm64_sonoma:  "93c4197a67e3853faaaea38fd658ce2cca8ce51bf5b3ef1a7b1d8ef64a8c68ce"
+    sha256 arm64_ventura: "91650ceda1cc25000ed762368f074f0ea87898a4263964a833d1a3e781f4e707"
+    sha256 sonoma:        "cfdfd9b03d562273d6ba53e12221b4b1703e9b6a117dcfb08f6e83a724e7af32"
+    sha256 ventura:       "da70ad11b88fd999501e06949e936fb63370f8412b54bc7a8996df1ee618d184"
+    sha256 x86_64_linux:  "9eb2d04d1dfd6e5eb88d14783106cd8a2731aa130f8c10b4bef42bbf10afaec7"
   end
 
   keg_only :versioned_formula
@@ -26,8 +25,8 @@ class PostgresqlAT15 < Formula
   deprecate! date: "2027-11-11", because: :unsupported
 
   depends_on "gettext" => :build
-  depends_on "pkg-config" => :build
-  depends_on "icu4c@75"
+  depends_on "pkgconf" => :build
+  depends_on "icu4c@76"
 
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.

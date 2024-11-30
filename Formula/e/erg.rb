@@ -1,8 +1,8 @@
 class Erg < Formula
   desc "Statically typed language that can deeply improve the Python ecosystem"
   homepage "https://github.com/erg-lang/erg"
-  url "https://github.com/erg-lang/erg/archive/refs/tags/v0.6.45.tar.gz"
-  sha256 "9903824c41639661c94e312e0d6af3a2b16fa127f9b6afea34d5e85080a9602d"
+  url "https://github.com/erg-lang/erg/archive/refs/tags/v0.6.48.tar.gz"
+  sha256 "80e77c163f1dfc7d6545c661f5fbda10a8521dc7fe510edb624730b66c44b8c0"
   license any_of: ["Apache-2.0", "MIT"]
 
   livecheck do
@@ -11,12 +11,12 @@ class Erg < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1b5566c30429844fec525f2fcb2652ca9a90450441a68055e5e9d4b449fada1e"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "47d2387c388ba4a8ad530defe1e94620acbb680739bdad1587c6fcb44842e5da"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ad2468ad77b2764320197bbc14c8821213a5e34fcf4d74bd9e355f124ad9692b"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b1cbfff760d8938e5ca145b8503b55688104568fd896052d629e434002ba1806"
-    sha256 cellar: :any_skip_relocation, ventura:       "9b742df9b5fc960e8291b973d06630684a1826cf911834a1dc963e37a28381a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5e9b32d7eddc4e15c4a50fd32774f7ae460b8bc0de68cff137c206054cfed96f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a9388e4b2055f436d94f9b149b5d2d35c8eabefcdec7f723ef3fc0707e56311b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "db47effb50a16f1ded97d28301a8965db178fc612e3c08fd218622a2c0d9efbf"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "004781bfbb53f29bb18dc4258a02141e5ba9c9eb5f428f15b146136f69a2b6b1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "667063ee3486f2096d20c4d1a06b1a3fc4a5cb6c3a6b38d442900c142aeaac00"
+    sha256 cellar: :any_skip_relocation, ventura:       "fe3bb9844ffbbf0e806cca3e4fcf1043d6157e3beaeb9d728d3fd202642e1e63"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3910b7c90a75e1478a3eefae11d317a97cab0c69b13eb15f6622db6d68f5d8d2"
   end
 
   depends_on "rust" => :build

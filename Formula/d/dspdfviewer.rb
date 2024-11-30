@@ -20,7 +20,7 @@ class Dspdfviewer < Formula
 
   depends_on "cmake" => :build
   depends_on "gobject-introspection" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   depends_on "boost"
   depends_on "cairo"
@@ -37,8 +37,6 @@ class Dspdfviewer < Formula
   on_macos do
     depends_on "gettext"
   end
-
-  fails_with gcc: "5"
 
   def install
     args = %w[

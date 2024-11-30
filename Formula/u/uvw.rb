@@ -23,7 +23,7 @@ class Uvw < Formula
   end
 
   depends_on "cmake" => [:build, :test]
-  depends_on "pkg-config" => :test
+  depends_on "pkgconf" => :test
   depends_on "libuv"
 
   def install
@@ -38,7 +38,7 @@ class Uvw < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.0)
       project(test_uvw)
 
@@ -51,9 +51,9 @@ class Uvw < Formula
       add_executable(test main.cpp)
       target_include_directories(test PRIVATE ${uvw_INCLUDE_DIRS})
       target_link_libraries(test PRIVATE uvw::uvw uv)
-    EOS
+    CMAKE
 
-    (testpath/"main.cpp").write <<~EOS
+    (testpath/"main.cpp").write <<~CPP
       #include <iostream>
       #include <uvw.hpp>
 
@@ -70,7 +70,7 @@ class Uvw < Formula
         loop->run();
         return 0;
       }
-    EOS
+    CPP
 
     system "cmake", "-S", ".", "-B", "build"
     system "cmake", "--build", "build"

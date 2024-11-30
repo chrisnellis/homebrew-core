@@ -24,7 +24,7 @@ class Cahute < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "python@3.13" => :build
   depends_on "libusb"
   depends_on "sdl2"
@@ -57,7 +57,7 @@ class Cahute < Formula
     shell_output("#{bin}/p7os flash #{test_fixtures "test.ico"} 2>&1", 1)
 
     # Taken from https://cahuteproject.org/developer-guides/detection/usb.html
-    (testpath/"usb-detect.c").write <<~EOS
+    (testpath/"usb-detect.c").write <<~C
       #include <stdio.h>
       #include <cahute.h>
 
@@ -97,7 +97,7 @@ class Cahute < Formula
 
           return 0;
       }
-    EOS
+    C
 
     pkg_config_cflags = shell_output("pkg-config --cflags --libs cahute libusb-1.0").strip.split
     system ENV.cc, "usb-detect.c", *pkg_config_cflags, "-o", "usb-detect"

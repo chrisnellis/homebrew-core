@@ -1,8 +1,8 @@
 class VulkanLoader < Formula
   desc "Vulkan ICD Loader"
   homepage "https://github.com/KhronosGroup/Vulkan-Loader"
-  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.3.297.tar.gz"
-  sha256 "7d140e7ece2835a0374eda727925ffcd8fc5c9a183dc00b87d635e230e6faca4"
+  url "https://github.com/KhronosGroup/Vulkan-Loader/archive/refs/tags/v1.3.302.tar.gz"
+  sha256 "7f8d3e5c7428fe2d6220a4ea1c0270c7695bfef8e48c38b827e9e81880637710"
   license "Apache-2.0"
   head "https://github.com/KhronosGroup/Vulkan-Loader.git", branch: "main"
 
@@ -12,16 +12,16 @@ class VulkanLoader < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "d56517188d86b9c64229d9d03e86346178964994c89c71af296b73dac4ea360d"
-    sha256 arm64_sonoma:  "90c2da02e6667ccc0d90a1a74a7428e063688124d3c2c4c018ecc17beb494114"
-    sha256 arm64_ventura: "6020d8e44cff54e536a5714460cb0fd692e5703c71a2cb494907635226ddf684"
-    sha256 sonoma:        "e72c9a513a68f1ad01aaa12c0ffbcf25e86ee755362294e0fcfeea6f7a459b38"
-    sha256 ventura:       "af83c653a3be50a7101820d322516c3a55f339d7b4afcdbcca7f49d5190d99db"
-    sha256 x86_64_linux:  "a6a22cfc013aa7191f57fe608ac6c54beeef3ac9bd55d7e5a838a420b2fc2a7f"
+    sha256 arm64_sequoia: "ed1a98ba55f7dc0da2838514bc725d07dc721b2a9f100b55c10be93b354443f0"
+    sha256 arm64_sonoma:  "dbc1a372e9889a0dade988988da73c117100aadd456cef64baae936637b30b01"
+    sha256 arm64_ventura: "4fa1e7cfeb7f58a731bfcf5198886c63ab118d4cdf4be30bd30c07308d6aadb1"
+    sha256 sonoma:        "62c2abe8b08cb43c5b1e9f1f755ce8631d8b8d8661d4f68aa0370fd41dcc40d1"
+    sha256 ventura:       "5d7b44431f56e773fc468ae14e8bfb47386034c3e4517ae590aea7ec8996a827"
+    sha256 x86_64_linux:  "e2673dd8f9322c4dfd27a900b9e932608d909dc8dcd239218dbe4675cfa3e29d"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "vulkan-headers"
 
@@ -45,14 +45,14 @@ class VulkanLoader < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <vulkan/vulkan_core.h>
       int main() {
         uint32_t version;
         vkEnumerateInstanceVersion(&version);
         return (version >= VK_API_VERSION_1_1) ? 0 : 1;
       }
-    EOS
+    C
     system ENV.cc, "-o", "test", "test.c", "-I#{Formula["vulkan-headers"].opt_include}",
                    "-L#{lib}", "-lvulkan"
     system "./test"

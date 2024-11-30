@@ -25,7 +25,7 @@ class Dwarfs < Formula
 
   depends_on "cmake" => :build
   depends_on "googletest" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
   depends_on "brotli"
   depends_on "double-conversion"
@@ -109,7 +109,7 @@ class Dwarfs < Formula
     assert_path_exists "share/man/man1/mkdwarfs.1"
     assert compare_file bin/"mkdwarfs", "bin/mkdwarfs"
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <iostream>
       #include <dwarfs/version.h>
 
@@ -121,7 +121,7 @@ class Dwarfs < Formula
         std::cout << major << "." << minor << "." << patch << std::endl;
         return 0;
       }
-    EOS
+    CPP
 
     # ENV.llvm_clang doesn't work in the test block
     ENV["CXX"] = Formula["llvm"].opt_bin/"clang++" if OS.mac? && DevelopmentTools.clang_build_version < 1500

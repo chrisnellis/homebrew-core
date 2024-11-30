@@ -4,30 +4,27 @@ class EtcdCppApiv3 < Formula
   url "https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/archive/refs/tags/v0.15.4.tar.gz"
   sha256 "4516ecfa420826088c187efd42dad249367ca94ea6cdfc24e3030c3cf47af7b4"
   license "BSD-3-Clause"
-  revision 15
+  revision 17
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "cc3d08246d23f435864a7fed6348ab9d9de1cd4a49ee92dce37a170ac518da81"
-    sha256 cellar: :any,                 arm64_sonoma:  "96a813572656beecf15ce12e0cfd2c73b7fb70e85b88509a439420d6dc0708bc"
-    sha256 cellar: :any,                 arm64_ventura: "423c525648ffd1eb96c4f0e3c2dfc07511f99519801cec7915158bd302a1f57d"
-    sha256 cellar: :any,                 sonoma:        "0f10b3147b98ca0c317c3fb11ec3f82d3983bbc13b3881878947722ebf0a9dc7"
-    sha256 cellar: :any,                 ventura:       "b037857b7087508a30ee83fdf879fa7c4efab16ac6ddfb3ed617cc0e834a13b1"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6b8f967612ef9394dfe2d6d07f0519b5a0948987603eed9fcec5c1759ee9d978"
+    sha256 cellar: :any,                 arm64_sequoia: "eae08a8ebe03d7f50e2652d1492cdcb15eb812aaf5ecf9d8f30e1ae6993c57f9"
+    sha256 cellar: :any,                 arm64_sonoma:  "40e9e03088afec1230e9f1eb9b9c537e818981627a7e5de2bc8314c7c73cb98e"
+    sha256 cellar: :any,                 arm64_ventura: "776250e354e3ac2d1ac415369858cd1460afa987d7e592fab9f97f8413435df9"
+    sha256 cellar: :any,                 sonoma:        "377981f70cba4f15d820106b4cd8260893a40532fd4ce9a0f6b1684636549a07"
+    sha256 cellar: :any,                 ventura:       "d1941f788e048b0456058c296e58d3dac5623a3d876957cf8eacade1867f0a25"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f3b0556472f4d881f9883ae82c6fe318d0799da70f73c86c86fe029a2305a316"
   end
 
   depends_on "cmake" => [:build, :test]
   depends_on "etcd" => :test
 
   depends_on "abseil"
-  depends_on "boost"
   depends_on "c-ares"
   depends_on "cpprestsdk"
   depends_on "grpc"
   depends_on "openssl@3"
   depends_on "protobuf"
   depends_on "re2"
-
-  fails_with gcc: "5"
 
   # Fix for removal of GPR_ASSERT macro in grpc.
   # https://github.com/etcd-cpp-apiv3/etcd-cpp-apiv3/pull/281
@@ -50,7 +47,7 @@ class EtcdCppApiv3 < Formula
   test do
     port = free_port
 
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <iostream>
       #include <etcd/Client.hpp>
 
@@ -60,7 +57,7 @@ class EtcdCppApiv3 < Formula
         auto response = etcd.get("foo").get();
         std::cout << response.value().as_string() << std::endl;
       }
-    EOS
+    CPP
 
     (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)

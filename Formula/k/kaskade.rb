@@ -3,17 +3,17 @@ class Kaskade < Formula
 
   desc "TUI for Kafka"
   homepage "https://github.com/sauljabin/kaskade"
-  url "https://files.pythonhosted.org/packages/82/41/52505808e039f11fe60a61286c2e7728c0f25a7efea2b37e3bf1a8f9a2a5/kaskade-2.3.6.tar.gz"
-  sha256 "3f65859dc2f303a8c61787e113db12afe8e458d0e9fb607426c892e3be153032"
+  url "https://files.pythonhosted.org/packages/83/c6/a45beb34205a75c741af46a85e97c2f937be62f80544709548935638a167/kaskade-3.0.0.tar.gz"
+  sha256 "145743c7bfa96a9c773fe5c972f6c384351c5143248b22bdca5b18de271ec393"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "20b5127dcfc6a17411dba211bf61a5eca23bcece5fa977982fde108dde0a7a80"
-    sha256 cellar: :any,                 arm64_sonoma:  "3141be24fbeba831d57883edd37814b23f38c0b315c3fb62935ae7de85be54ee"
-    sha256 cellar: :any,                 arm64_ventura: "edcf79792a8574295e9d1e7419b363725d9c35e71a6eabaee59c3c08e38a2a58"
-    sha256 cellar: :any,                 sonoma:        "c7a956bee65695c30c5872e71b1b51888add8af551f9a4fd2efbcf149ab11339"
-    sha256 cellar: :any,                 ventura:       "6a092e7fde6db9428afd99dc3b854e42723387484056a34f9f302d6b872b7e66"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "75d41418c5d9e5739ea74036d70475f61784d31e2f0a24a379063c80bbe0e0d8"
+    sha256 cellar: :any,                 arm64_sequoia: "4af21e945966de1449cfe71539da94e559b7de1da39b376500fd3f61240e6cb2"
+    sha256 cellar: :any,                 arm64_sonoma:  "23d08912126580368b032741776c4567e8348abfd874e7cae2152f06475a3217"
+    sha256 cellar: :any,                 arm64_ventura: "c3e4532e7927bbc9d8b923ff2f4a44effe5038dd3bbfa010b734a466af9b513a"
+    sha256 cellar: :any,                 sonoma:        "557e32247dd975d5756a8e22632901a648e8fa4add5b5230c64c64f460bee574"
+    sha256 cellar: :any,                 ventura:       "690d33cf860118068757acddcce23ba479da39b58661b21d7bdab7067ac5939a"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d46fb1a75958d40bfe2926cfe20eaa30d4b97b0921264e1a9512ce5b2cfc5474"
   end
 
   depends_on "rust" => :build # for rpds-py
@@ -47,8 +47,8 @@ class Kaskade < Formula
   end
 
   resource "confluent-kafka" do
-    url "https://files.pythonhosted.org/packages/cf/b0/164b7e8afb80bf5ff7fc25f793b37f6e5cc118d05fbd6b5e6d4a484a7634/confluent-kafka-2.6.0.tar.gz"
-    sha256 "f7afe69639bd2ab15404dd46a76e06213342a23cb5642d873342847cb2198c87"
+    url "https://files.pythonhosted.org/packages/13/89/928e6886ba33f5847692430d003dc33f81a6e595d25f9935d6185ea073d3/confluent_kafka-2.6.1.tar.gz"
+    sha256 "71fdab0f65ccdb00eff0f14ccde65723ebbd20392723f8c1e87e5d8ab29e50cf"
   end
 
   resource "fastavro" do
@@ -97,8 +97,8 @@ class Kaskade < Formula
   end
 
   resource "protobuf" do
-    url "https://files.pythonhosted.org/packages/b1/a4/4579a61de526e19005ceeb93e478b61d77aa38c8a85ad958ff16a9906549/protobuf-5.28.2.tar.gz"
-    sha256 "59379674ff119717404f7454647913787034f03fe7049cbef1d74a97bb4593f0"
+    url "https://files.pythonhosted.org/packages/74/6e/e69eb906fddcb38f8530a12f4b410699972ab7ced4e21524ece9d546ac27/protobuf-5.28.3.tar.gz"
+    sha256 "64badbc49180a5e401f373f9ce7ab1d18b63f7dd4a9cdc43c92b9f0b481cef7b"
   end
 
   resource "pygments" do
@@ -122,18 +122,18 @@ class Kaskade < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/aa/9e/1784d15b057b0075e5136445aaea92d23955aad2c93eaede673718a40d95/rich-13.9.2.tar.gz"
-    sha256 "51a2c62057461aaf7152b4d611168f93a9fc73068f8ded2790f29fe2b5366d0c"
+    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
+    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
   end
 
   resource "rpds-py" do
-    url "https://files.pythonhosted.org/packages/55/64/b693f262791b818880d17268f3f8181ef799b0d187f6f731b1772e05a29a/rpds_py-0.20.0.tar.gz"
-    sha256 "d72a210824facfdaf8768cf2d7ca25a042c30320b3020de2fa04640920d4e121"
+    url "https://files.pythonhosted.org/packages/23/80/afdf96daf9b27d61483ef05b38f282121db0e38f5fd4e89f40f5c86c2a4f/rpds_py-0.21.0.tar.gz"
+    sha256 "ed6378c9d66d0de903763e7706383d60c33829581f0adff47b6535f1802fa6db"
   end
 
   resource "textual" do
-    url "https://files.pythonhosted.org/packages/cf/0b/58ec0dbcd92a5121fdae972f09de71b5bc38d389bab53a638e24349f904d/textual-0.83.0.tar.gz"
-    sha256 "fc3b97796092d9c7e685e5392f38f3eb2007ffe1b3b1384dee6d3f10d256babd"
+    url "https://files.pythonhosted.org/packages/61/6a/e643a0d32dc964f831172ff84d4d1b0e3c6675954e74f81c201713c58d69/textual-0.87.1.tar.gz"
+    sha256 "daf4e248ba3d890831ff2617099535eb835863a2e3609c8ce00af0f6d55ed123"
   end
 
   resource "typing-extensions" do
@@ -151,9 +151,6 @@ class Kaskade < Formula
     sha256 "e7d814a81dad81e6caf2ec9fdedb284ecc9c73076b62654547cc64ccdcae26e9"
   end
 
-  # patch to support py3.13, upstream pr ref, https://github.com/sauljabin/kaskade/pull/48
-  patch :DATA
-
   def install
     virtualenv_install_with_resources
   end
@@ -168,36 +165,3 @@ class Kaskade < Formula
     Process.wait(pid)
   end
 end
-
-__END__
-diff --git a/PKG-INFO b/PKG-INFO
-index 3cfafaa..51f2c2e 100644
---- a/PKG-INFO
-+++ b/PKG-INFO
-@@ -7,7 +7,7 @@ License: MIT
- Keywords: kafka,kaskade
- Author: Saúl Piña
- Author-email: sauljabin@gmail.com
--Requires-Python: >=3.10,<3.13
-+Requires-Python: >=3.10,<3.14
- Classifier: Environment :: Console
- Classifier: License :: OSI Approved :: MIT License
- Classifier: Operating System :: MacOS
-@@ -217,4 +217,3 @@ kaskade consumer -b my-kafka:9092 -x auto.offset.reset=earliest \
- ## Development
-
- For development instructions see [DEVELOPMENT.md](https://github.com/sauljabin/kaskade/blob/main/DEVELOPMENT.md).
--
-diff --git a/pyproject.toml b/pyproject.toml
-index 44bf5dd..07262e7 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -22,7 +22,7 @@ packages = [
- ]
-
- [tool.poetry.dependencies]
--python = ">=3.10 <3.13"
-+python = ">=3.10 <3.14"
- cloup = "^3.0"
- textual =  "^0.83"
- confluent-kafka = {extras = ["avro", "json", "protobuf"], version = "^2.6"}

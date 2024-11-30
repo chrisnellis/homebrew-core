@@ -1,18 +1,18 @@
 class Tbls < Formula
   desc "CI-Friendly tool for document a database"
   homepage "https://github.com/k1LoW/tbls"
-  url "https://github.com/k1LoW/tbls/archive/refs/tags/v1.78.0.tar.gz"
-  sha256 "e0854510dca4ca2364834a48e70e3fcb6ccaf7eb7b52df273a0a3fdaab17f088"
+  url "https://github.com/k1LoW/tbls/archive/refs/tags/v1.79.4.tar.gz"
+  sha256 "9631c6c1e380eb81add74c5981eb1c328c3d28c118c48d7786ebcd5d173826dd"
   license "MIT"
   head "https://github.com/k1LoW/tbls.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2f444f0ca8fdcaa47b44563616311d0200affe1a2c518505416ed8588c29bd58"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3f320f357ba274847665ede81ce706e2a23830fe21e902ee1f07e6092701395f"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "24e1de201a655b06e5a27c1ad56ac9291bac4dd340bc01fdebe7b56fb4355742"
-    sha256 cellar: :any_skip_relocation, sonoma:        "bdc32d617bf78ce86664a72c089a08a0cc5b9a4295f69d3a07d970c4bda49c96"
-    sha256 cellar: :any_skip_relocation, ventura:       "b3771995d95cbb6fc1f1dc2af7d33110dbea06d14ec1b3563f798aab3e1eb4a9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6dea8474ac9ed2cc0a801fda6312b0c230a1ba8e7b10140e54560150aacde7cd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2af6f5554daaf2c02695e8cdcbbdbfc6ab74bca3e18022a9f4a6b666e9dad4ca"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "11ea075ce3a4ffa98d627983474b605a3b4fbe5d189258ab189b53b8f0aec5fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "4b62fc78a77c19b9e53d4df3b192ce4d58cdc8dabbc1e7b7645fdebf321609e2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f67dac0a81bc127104bce479110b7466db83b185aabcca58027bc959b3b4755b"
+    sha256 cellar: :any_skip_relocation, ventura:       "5d79209e53238f73fc71e40545dadc3a91938072131981edb3a600c3a9a82609"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "12dba274b1c2267dd70843ec7ba053232a0bad5fbf9f03912fddb3bb82128629"
   end
 
   depends_on "go" => :build

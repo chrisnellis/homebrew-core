@@ -16,7 +16,7 @@ class Libpeas < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "vala" => :build
   depends_on "gjs"
   depends_on "glib"
@@ -48,14 +48,14 @@ class Libpeas < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libpeas.h>
 
       int main(int argc, char *argv[]) {
         PeasObjectModule *mod = peas_object_module_new("test", "test", FALSE);
         return 0;
       }
-    EOS
+    C
     gettext = Formula["gettext"]
     glib = Formula["glib"]
     gobject_introspection = Formula["gobject-introspection"]

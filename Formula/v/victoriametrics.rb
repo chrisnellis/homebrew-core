@@ -1,8 +1,8 @@
 class Victoriametrics < Formula
   desc "Cost-effective and scalable monitoring solution and time series database"
   homepage "https://victoriametrics.com/"
-  url "https://github.com/VictoriaMetrics/VictoriaMetrics/archive/refs/tags/v1.104.0.tar.gz"
-  sha256 "83d19b97e0f10c734c025dcc0715779067c6e14a405d117ac4a5f1bb9e82527b"
+  url "https://github.com/VictoriaMetrics/VictoriaMetrics/archive/refs/tags/v1.106.1.tar.gz"
+  sha256 "e856eda2e9b9351d4a24ccc904a5ad9d70dfb48edf6573d18d49df8976cc37d5"
   license "Apache-2.0"
 
   # There are tags like `pmm-6401-v1.89.1` in the upstream repo. They don't
@@ -14,21 +14,22 @@ class Victoriametrics < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "d31ecad0072a20fee5542c1eca87945297b806dce341d1aa9357dda26eee4edd"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "0e7d6c482c886d34be4f77c35c8565c53820d3fdcaf5488b911dd21e0cda4a34"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "74c70cd0fab52ae62b61c34a50703e6d209ae9af9228636da183e8aaf620e4cc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "27ae33a6ecb1fa9643e31ba9f17b583272e4ea046bf15f4ba138860d9026d52f"
-    sha256 cellar: :any_skip_relocation, ventura:       "d4fec8480603552902a6c09b68620e1616ede73eac366783c6e645e689a6dc19"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ded7a6d5d48072ffa5e3d4da3c668b818dc1591dde7055cf482abfa0b1d6e89e"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "47e702c5b99ae2c30bd4b919522b18235cb652d90d216d487170f4626ae08680"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a7752dfe947beeb2cc2bf244281a3345e4b56d382acc57bf3912365a5fcb46fa"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "0fcc0eb28e20394f38acf883594c87746cb1ecfe811989883c99400db41064b2"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0a00afa0d2517176d600ce8cb7da1b49b054134a0ceff312e77f623c22feaf65"
+    sha256 cellar: :any_skip_relocation, ventura:       "d66d68da11d43819884b2d62bc6f9e656d8a13d942e0a487965d98b7e892092e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1fc3ff143a3d60ff2872872c541d22d13c3a5ef34977bee5d9bca3b0e1b0c131"
   end
 
   depends_on "go" => :build
 
   def install
-    system "make", "victoria-metrics"
-    bin.install "bin/victoria-metrics"
+    ldflags = "-s -w -X github.com/VictoriaMetrics/VictoriaMetrics/lib/buildinfo.Version=#{version}"
+    system "go", "build", *std_go_args(ldflags:, output: bin/"victoria-metrics"), "./app/victoria-metrics"
 
-    (etc/"victoriametrics/scrape.yml").write <<~EOS
+    (etc/"victoriametrics/scrape.yml").write <<~YAML
       global:
         scrape_interval: 10s
 
@@ -36,7 +37,7 @@ class Victoriametrics < Formula
         - job_name: "victoriametrics"
           static_configs:
           - targets: ["127.0.0.1:8428"]
-    EOS
+    YAML
   end
 
   service do
@@ -54,7 +55,7 @@ class Victoriametrics < Formula
   test do
     http_port = free_port
 
-    (testpath/"scrape.yml").write <<~EOS
+    (testpath/"scrape.yml").write <<~YAML
       global:
         scrape_interval: 10s
 
@@ -62,7 +63,7 @@ class Victoriametrics < Formula
         - job_name: "victoriametrics"
           static_configs:
           - targets: ["127.0.0.1:#{http_port}"]
-    EOS
+    YAML
 
     pid = fork do
       exec bin/"victoria-metrics",
@@ -72,6 +73,8 @@ class Victoriametrics < Formula
     end
     sleep 5
     assert_match "Single-node VictoriaMetrics", shell_output("curl -s 127.0.0.1:#{http_port}")
+
+    assert_match version.to_s, shell_output("#{bin}/victoria-metrics --version")
   ensure
     Process.kill(9, pid)
     Process.wait(pid)

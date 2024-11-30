@@ -1,18 +1,18 @@
 class ContentfulCli < Formula
   desc "Contentful command-line tools"
   homepage "https://github.com/contentful/contentful-cli"
-  url "https://registry.npmjs.org/contentful-cli/-/contentful-cli-3.3.18.tgz"
-  sha256 "f966d21aabddaf879deb6805b4ae953770c6d66558a00387261cd380274b5107"
+  url "https://registry.npmjs.org/contentful-cli/-/contentful-cli-3.7.0.tgz"
+  sha256 "bc61ce1c4b104290bbe1424625da96320f5224d6c71d62f2152fde906504b240"
   license "MIT"
   head "https://github.com/contentful/contentful-cli.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f7c912ba8c203e1f0ed08765fafd155b1f093a1017edf4235383e389bfea0abd"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f7c912ba8c203e1f0ed08765fafd155b1f093a1017edf4235383e389bfea0abd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f7c912ba8c203e1f0ed08765fafd155b1f093a1017edf4235383e389bfea0abd"
-    sha256 cellar: :any_skip_relocation, sonoma:        "7cb5dceddad264cd6ce54b8aabf05bbcfe04dfed2b081c901d4caa4e0f84ff39"
-    sha256 cellar: :any_skip_relocation, ventura:       "7cb5dceddad264cd6ce54b8aabf05bbcfe04dfed2b081c901d4caa4e0f84ff39"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aeeafd89da6da5469334f85f116ff93f1d98346391f598b2237a4a5e3513fd6e"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "8df1afec0e916024b07a732a8829302343476dbad4aff509a86d2cc2eedd7c89"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "8df1afec0e916024b07a732a8829302343476dbad4aff509a86d2cc2eedd7c89"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "8df1afec0e916024b07a732a8829302343476dbad4aff509a86d2cc2eedd7c89"
+    sha256 cellar: :any_skip_relocation, sonoma:        "08ad94d5fe897530ada84badbcb8ca473813e82472d7ca72d04d7bd10e16eac2"
+    sha256 cellar: :any_skip_relocation, ventura:       "08ad94d5fe897530ada84badbcb8ca473813e82472d7ca72d04d7bd10e16eac2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a6f6b510e06ff82afb8fa98f8804749639f6d134753bfac166984cab0dd0122c"
   end
 
   depends_on "node"

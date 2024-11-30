@@ -2,18 +2,18 @@ class Metricbeat < Formula
   desc "Collect metrics from your systems and services"
   homepage "https://www.elastic.co/beats/metricbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.2",
-      revision: "26daf71e4ec87172523af7f0e916cba9f79dc0d0"
+      tag:      "v8.16.1",
+      revision: "f17e0828f1de9f1a256d3f520324fa6da53daee5"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7ece99c83b50d7034fa9f25820ad5e77cfd737fe7ddce74ef73fa0702e91adad"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "01c955fc6f03b33fccf4d33e98bd7e37d24d893300d675b7ce0d85ee695b8e91"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8ace58481da357a6a1f97d278decab2d16f6695399df05e5c20dabc3f769bd46"
-    sha256 cellar: :any_skip_relocation, sonoma:        "4ca12fa97eb1cdc8a2af954b9000315e2db34ed5cfc95d28f340163152fedf75"
-    sha256 cellar: :any_skip_relocation, ventura:       "207c90264007f516c6759c5a66b0e71dac61a56b07f453620db5908b1021330a"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cd97d980e5f9cfacddf23582658a5a5e5760a76661f9525614d507d1286a94dc"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "af35e18906b37ef3d51b6e340253ddd941dcdc224e45bfc192e9d255b16e161d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "25caf57547a4022a345851621763de9949d1d67c5f828ca62fe87aed35a219cb"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "26f901b91ada341403257bc00cc29103d47e1d6a1844a507c27db2cb54b01915"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6e07cbfd0a40ebdccd3ef6039d19fa1e9760d6c8d0c07f25355335e059ce2913"
+    sha256 cellar: :any_skip_relocation, ventura:       "31da669cb712f33e9c40d966b1377dfe53114e6eb9a40e9c1721a2869f465015"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8f4d9ff70d3ef90d70f97b275900fc1f1153da5d9c0714940a51d2335e01a25c"
   end
 
   depends_on "go" => :build
@@ -58,7 +58,7 @@ class Metricbeat < Formula
   end
 
   test do
-    (testpath/"config/metricbeat.yml").write <<~EOS
+    (testpath/"config/metricbeat.yml").write <<~YAML
       metricbeat.modules:
       - module: system
         metricsets: ["load"]
@@ -67,7 +67,7 @@ class Metricbeat < Formula
         enabled: true
         path: #{testpath}/data
         filename: metricbeat
-    EOS
+    YAML
 
     (testpath/"logs").mkpath
     (testpath/"data").mkpath

@@ -1,8 +1,8 @@
 class NodeBuild < Formula
   desc "Install NodeJS versions"
   homepage "https://github.com/nodenv/node-build"
-  url "https://github.com/nodenv/node-build/archive/refs/tags/v5.3.13.tar.gz"
-  sha256 "c5cfcbe92626fcd6482c4067977d46c891aeec26edfa960023dc783de285226e"
+  url "https://github.com/nodenv/node-build/archive/refs/tags/v5.3.19.tar.gz"
+  sha256 "d151196f583c89f70cc6e9d827d0feed9864b886735486bd5acfba55a32bd91d"
   license "MIT"
   head "https://github.com/nodenv/node-build.git", branch: "master"
 
@@ -12,12 +12,12 @@ class NodeBuild < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "04a49804cb1ba8766c482c89b774d68e23aa3c5a4bf18a69e9f03a7580ea95fc"
+    sha256 cellar: :any_skip_relocation, all: "d136462aae48bac9df23e25faa441934e0ac91c0d45d91fc67ee055eda96db65"
   end
 
   depends_on "autoconf"
   depends_on "openssl@3"
-  depends_on "pkg-config"
+  depends_on "pkgconf"
 
   def install
     ENV["PREFIX"] = prefix

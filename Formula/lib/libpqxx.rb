@@ -16,14 +16,12 @@ class Libpqxx < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "8434faf947afc1526b6da021efaa8e7d5b4cd5ab680f5eef2f191e797f09b3d7"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xmlto" => :build
   depends_on "libpq"
   depends_on macos: :catalina # requires std::filesystem
 
   uses_from_macos "python" => :build, since: :catalina
-
-  fails_with gcc: "5" # for C++17
 
   def install
     ENV.append "CXXFLAGS", "-std=c++17"
@@ -34,13 +32,13 @@ class Libpqxx < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <pqxx/pqxx>
       int main(int argc, char** argv) {
         pqxx::connection con;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cpp", "-L#{lib}", "-lpqxx",
            "-I#{include}", "-o", "test"
     # Running ./test will fail because there is no running postgresql server

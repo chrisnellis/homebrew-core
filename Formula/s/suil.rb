@@ -23,7 +23,7 @@ class Suil < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "lv2"
   depends_on "qt@5"
@@ -40,14 +40,14 @@ class Suil < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <suil/suil.h>
 
       int main()
       {
         return suil_ui_supported("my-host", "my-ui");
       }
-    EOS
+    C
     lv2 = Formula["lv2"].opt_include
     system ENV.cc, "test.c", "-I#{lv2}", "-I#{include}/suil-0", "-L#{lib}", "-lsuil-0", "-o", "test"
     system "./test"

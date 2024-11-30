@@ -14,7 +14,7 @@ class CargoEdit < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:  "91a7e551e57b7ec7b6e22015bc2d4971ee8c9ec21eca1784855dd019c3b863ef"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "rustup" => :test
 
@@ -41,14 +41,14 @@ class CargoEdit < Formula
     crate = testpath/"demo-crate"
     mkdir crate do
       (crate/"src/main.rs").write "// Dummy file"
-      (crate/"Cargo.toml").write <<~EOS
+      (crate/"Cargo.toml").write <<~TOML
         [package]
         name = "demo-crate"
         version = "0.1.0"
 
         [dependencies]
         clap = "2"
-      EOS
+      TOML
 
       system bin/"cargo-set-version", "set-version", "0.2.0"
       assert_match 'version = "0.2.0"', (crate/"Cargo.toml").read

@@ -1,8 +1,8 @@
 class Gdal < Formula
   desc "Geospatial Data Abstraction Library"
   homepage "https://www.gdal.org/"
-  url "https://github.com/OSGeo/gdal/releases/download/v3.9.2/gdal-3.9.2.tar.gz"
-  sha256 "c9767e79ca7245f704bfbcb47d771b2dc317d743536b78d648c3e92b95fbc21e"
+  url "https://github.com/OSGeo/gdal/releases/download/v3.10.0/gdal-3.10.0.tar.gz"
+  sha256 "946ef444489bedbc1b04bd4c115d67ae8d3f3e4a5798d5a2f1cb2a11014105b2"
   license "MIT"
   revision 2
 
@@ -12,12 +12,13 @@ class Gdal < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "0aef74ee07b4a28f6315ea0dd608c65acfab496ac88709dee7e05db6e9b5fa45"
-    sha256 arm64_sonoma:  "c7090b39b1abd4fc76ea97e7709b98eb41915f6ea7a05cb8686fefe1970c10a8"
-    sha256 arm64_ventura: "5d0098155a5b87e24b76d29bc7b044a00954a723dc82c2839326f4573870a94a"
-    sha256 sonoma:        "89dfaaff76ec699e09c3a99a12460d08697e9e68175ca64086c646d900b11da4"
-    sha256 ventura:       "0a86d6b73575de85e53b3e0beb5cc8b2a70a4c5edb091d1bc2fcf143bec6b31e"
-    sha256 x86_64_linux:  "ba6a43221db5c1d22b34d0d90c09e07e5e7e54acc77374661ef1097c4b6bc4c2"
+    rebuild 1
+    sha256 arm64_sequoia: "602dcb21615d67e2866c09c50b8aa8f40065853a5ccdfbb55abfded0ca513f23"
+    sha256 arm64_sonoma:  "7901e6e939f0f9c965145daf2a922fb7d66a8e5cc356c431a19251d9c30d8c1a"
+    sha256 arm64_ventura: "dcf669b552fb9b11b667e97e85e5e29189ac74fe6de41281606f65327184480b"
+    sha256 sonoma:        "af8a1edb8ac4e3ff5241c9ec5820c63333507a6a7d2ef650f8e3dc00757ccbbc"
+    sha256 ventura:       "6d5f44b75ac640cf0cdad3723ecad3b42af3256db4fe25c9af4d70a4f49307e8"
+    sha256 x86_64_linux:  "5f846271f9eb598ccd3c05b4f6b1d0bb4e070e564c99486d9901498df57e032d"
   end
 
   head do
@@ -27,7 +28,7 @@ class Gdal < Formula
 
   depends_on "boost" => :build # for `libkml`
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "swig" => :build
   depends_on "apache-arrow"
@@ -44,6 +45,7 @@ class Gdal < Formula
   depends_on "json-c"
   depends_on "libaec"
   depends_on "libarchive"
+  depends_on "libdeflate"
   depends_on "libgeotiff"
   depends_on "libheif"
   depends_on "libkml"
@@ -62,7 +64,7 @@ class Gdal < Formula
   depends_on "pcre2"
   depends_on "poppler"
   depends_on "proj"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
   depends_on "qhull"
   depends_on "sqlite"
   depends_on "unixodbc"
@@ -86,22 +88,11 @@ class Gdal < Formula
   conflicts_with "avce00", because: "both install a cpl_conv.h header"
   conflicts_with "cpl", because: "both install cpl_error.h"
 
-  fails_with gcc: "5"
-
   def python3
-    "python3.12"
+    "python3.13"
   end
 
   def install
-    # Work around an Xcode 15 linker issue which causes linkage against LLVM's
-    # libunwind due to it being present in a library search path.
-    if DevelopmentTools.clang_build_version >= 1500
-      recursive_dependencies
-        .select { |d| d.name.match?(/^llvm(@\d+)?$/) }
-        .map { |llvm_dep| llvm_dep.to_formula.opt_lib }
-        .each { |llvm_lib| ENV.remove "HOMEBREW_LIBRARY_PATHS", llvm_lib }
-    end
-
     site_packages = prefix/Language::Python.site_packages(python3)
     # Work around Homebrew's "prefix scheme" patch which causes non-pip installs
     # to incorrectly try to write into HOMEBREW_PREFIX/lib since Python 3.10.

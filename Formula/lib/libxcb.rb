@@ -16,7 +16,7 @@ class Libxcb < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "c89a99c1bd6af9c2ee85f4c7bacd07906bb16e6ab515cd5d347f9f392dbd80a1"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.12" => :build # match version in `xcb-proto`
   depends_on "xcb-proto" => :build
   depends_on "libxau"
@@ -39,13 +39,13 @@ class Libxcb < Formula
       PYTHON=#{python3}
     ]
 
-    system "./configure", *std_configure_args, *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <stdlib.h>
       #include <string.h>
@@ -90,7 +90,7 @@ class Libxcb < Formula
         xcb_disconnect(connection);
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-o", "test", "-I#{include}", "-L#{lib}", "-lxcb"
     system "./test"
     assert_equal 0, $CHILD_STATUS.exitstatus

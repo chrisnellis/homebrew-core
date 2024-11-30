@@ -1,8 +1,8 @@
 class Apt < Formula
   desc "Advanced Package Tool"
   homepage "https://wiki.debian.org/Apt"
-  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.8.tar.xz"
-  sha256 "54fb7b34bdb93ea2081123ab35f893c26fe0f3e800a54e8e9eccb5f3e2ec9710"
+  url "https://deb.debian.org/debian/pool/main/a/apt/apt_2.9.16.tar.xz"
+  sha256 "f67731d7ad899b859905814fbed3b4de273cfeb85c1845043f1478c752ec9ef4"
   license "GPL-2.0-or-later"
 
   livecheck do
@@ -11,7 +11,7 @@ class Apt < Formula
   end
 
   bottle do
-    sha256 x86_64_linux: "849a80b983668551d0007ecd09a2a8c95b28d2f461f2b9a31fbe2b52c23a2e04"
+    sha256 x86_64_linux: "b8a2393037021ff127d7ef290991bd745dfa30b982b2b742f3801c0bcd77e81b"
   end
 
   keg_only "not linked to prevent conflicts with system apt"
@@ -39,8 +39,6 @@ class Apt < Formula
   depends_on "xz"
   depends_on "zlib"
   depends_on "zstd"
-
-  fails_with gcc: "5"
 
   # List this first as the modules below require it.
   resource "Module::Build" do
@@ -93,14 +91,24 @@ class Apt < Formula
     sha256 "8b87d145337dec1ee754d30871d0b105c180ad4c92c7dc0c7fadd76cec8c57d3"
   end
 
+  resource "Class::Inspector" do
+    url "https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Class-Inspector-1.36.tar.gz"
+    sha256 "cc295d23a472687c24489d58226ead23b9fdc2588e522f0b5f0747741700694e"
+  end
+
+  resource "File::ShareDir" do
+    url "https://cpan.metacpan.org/authors/id/R/RE/REHSACK/File-ShareDir-1.118.tar.gz"
+    sha256 "3bb2a20ba35df958dc0a4f2306fc05d903d8b8c4de3c8beefce17739d281c958"
+  end
+
   resource "XS::Parse::Keyword::Builder" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.42.tar.gz"
-    sha256 "7e498879e7813c9a7ecf4296c74774a32e40131e3a64efcc63c8010c0eb11382"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/XS-Parse-Keyword-0.47.tar.gz"
+    sha256 "d42fb5a9978e25c4c3f10351291b155d503fe869ccd532910c05e6b93a6b9fad"
   end
 
   resource "Syntax::Keyword::Try" do
-    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-0.29.tar.gz"
-    sha256 "cc320719d3608daa9514743a43dac2be99cb8ccd989b1fefa285290cb1d59d8f"
+    url "https://cpan.metacpan.org/authors/id/P/PE/PEVANS/Syntax-Keyword-Try-0.30.tar.gz"
+    sha256 "f068f0b9c71fff8fef6d8a9e9ed6951cb7a52b976322bd955181cc5e7b17e692"
   end
 
   def install

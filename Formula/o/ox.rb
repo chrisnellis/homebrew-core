@@ -1,18 +1,18 @@
 class Ox < Formula
   desc "Independent Rust text editor that runs in your terminal"
   homepage "https://github.com/curlpipe/ox"
-  url "https://github.com/curlpipe/ox/archive/refs/tags/0.6.6.tar.gz"
-  sha256 "1142d07846ccf5e9f12cada485da949783ab83076af2af6c62b1606df5b55d9a"
+  url "https://github.com/curlpipe/ox/archive/refs/tags/0.7.2.tar.gz"
+  sha256 "6ddcfb008f7cc86c9074dc46302f47f2763a13aea0765c00d6e9f4731d8556d2"
   license "GPL-2.0-only"
   head "https://github.com/curlpipe/ox.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f6d0205d6e8435c790237aa80cddef085db773a79a5c6c980aa093c8c75ecbfe"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "77d0cfa5f318087b4acd5b18637b234b5e76e81a072a717435f97e8edd8d7974"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "478dfeb579c7a33f383df4ae15a6637cdf197db9c88e33568e234fcd790fc97d"
-    sha256 cellar: :any_skip_relocation, sonoma:        "fcedf375aedf8efc0e4bdde2975c29f41587fd9b57ffec2a2ecc44a20172dedc"
-    sha256 cellar: :any_skip_relocation, ventura:       "894122123e9c770afd7f6f1a3b925054272d8f6ab41e1e8966165b1335f40933"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "62c55ecf868883621bc84370298b8cfff8672b1a5b7cd952b56ffc268a8d8643"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "7abca35692db07006cfdc2bd9312f3a937b07e9651ffc8694a9b368f22bc38e5"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "baef0f01cf869fdaa47f01f23d1ece49a5444ff86dbdfccd5d77850f1bc50125"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "05a6ba32c30d776496dc94115b4978e4da0bacc9ed85b6db8844d3bc77fec01d"
+    sha256 cellar: :any_skip_relocation, sonoma:        "648bbe305252eedb6cb8155412e88b9d63bd540b3b5b216a61177a1edaf094e5"
+    sha256 cellar: :any_skip_relocation, ventura:       "c5c304b3d46e7efc6e7a9d6e235bf227c08a681bb718b249f307189a37b233d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "28ddc6e09bfca415cbee588648ffaa14e49bc8e65bf4f6fb38db370ba2998bc9"
   end
 
   depends_on "rust" => :build
@@ -22,23 +22,8 @@ class Ox < Formula
   end
 
   test do
-    # Errno::EIO: Input/output error @ io_fread - /dev/pts/0
-    return if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"].present?
-
-    require "pty"
-    ENV["TERM"] = "xterm"
-
-    PTY.spawn(bin/"ox", "test.txt") do |r, w, pid|
-      sleep 1
-      w.write "Hello Homebrew!\n"
-      w.write "\cS"
-      sleep 1
-      w.write "\cQ"
-      r.read
-
-      assert_match "Hello Homebrew!\n", (testpath/"test.txt").read
-    ensure
-      Process.kill("TERM", pid)
-    end
+    # ox is a TUI application, hard to test in CI
+    # see https://github.com/curlpipe/ox/issues/178 for discussions
+    assert_match version.to_s, shell_output("#{bin}/ox --version")
   end
 end

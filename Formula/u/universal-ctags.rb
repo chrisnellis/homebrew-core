@@ -1,9 +1,9 @@
 class UniversalCtags < Formula
   desc "Maintained ctags implementation"
   homepage "https://github.com/universal-ctags/ctags"
-  url "https://github.com/universal-ctags/ctags/archive/refs/tags/p6.1.20241006.0.tar.gz"
-  version "p6.1.20241006.0"
-  sha256 "4da5cca1db22ddfaad3ed4b819a2bce2c6f2369572ee05d7ad8f98cfef15c264"
+  url "https://github.com/universal-ctags/ctags/archive/refs/tags/p6.1.20241124.0.tar.gz"
+  version "p6.1.20241124.0"
+  sha256 "37e8abcf0eeca865d63f7f546ad81d66e400ca7f12158fa6f3c611b774aff4df"
   license "GPL-2.0-only"
   head "https://github.com/universal-ctags/ctags.git", branch: "master"
 
@@ -13,18 +13,18 @@ class UniversalCtags < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "f9668057502f887d6f3c36de59db60f9572ccd7fe5d6eb9108822af93cf7a7cb"
-    sha256 cellar: :any,                 arm64_sonoma:  "2304b9fb2167146b9fec012e9cd04429212beba7cffcf48e1a8f6f0f31af0fb0"
-    sha256 cellar: :any,                 arm64_ventura: "fce12fb1b1172420cb5cf3af62313077aa03a3d6c8bc4d67b1b85ba0ce1284e8"
-    sha256 cellar: :any,                 sonoma:        "5df30f9640c422c120181deebeeee46cebf88e9c721c4d2b6aac10e9f25307dc"
-    sha256 cellar: :any,                 ventura:       "61f8155f60ae61feb11013fddfa0ee4259e9ecd8020f3258347ee3e2c911331b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "69df65261aa3823175119a2b784b8fdb46e9e18af6b8cac3c2f6d431c60c9b44"
+    sha256 cellar: :any,                 arm64_sequoia: "02b1d3061c2df28925a81d7b0b08a7a0a6d123688e38160ac8e0fe33f92e6e34"
+    sha256 cellar: :any,                 arm64_sonoma:  "f2791ec2fc9c6d4840f515b83267fbc40d035fdf847b8331ee12ae0632f2b9bb"
+    sha256 cellar: :any,                 arm64_ventura: "1695e5ebc519d361b3a13045c9e9179daa7a316ff109c6fdd013652d3a770598"
+    sha256 cellar: :any,                 sonoma:        "dcb0409d392ea8ecc1c4d3fa4df08cf303ce7540b18e58fcd013b1fee4b26fe0"
+    sha256 cellar: :any,                 ventura:       "cc0031fd48216d2108b0b1baec4269f842cd273512c3146dd0d5f0f0769ce694"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "313db9622ed119c40fa6ea597ded6127898d115d737613824635f0441cf9140a"
   end
 
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "docutils" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.12" => :build
   depends_on "jansson"
   depends_on "libyaml"
@@ -42,7 +42,7 @@ class UniversalCtags < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <stdlib.h>
 
@@ -56,7 +56,7 @@ class UniversalCtags < Formula
         func();
         return 0;
       }
-    EOS
+    C
     system bin/"ctags", "-R", "."
     assert_match(/func.*test\.c/, File.read("tags"))
   end

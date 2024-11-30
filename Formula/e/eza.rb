@@ -1,21 +1,21 @@
 class Eza < Formula
   desc "Modern, maintained replacement for ls"
   homepage "https://github.com/eza-community/eza"
-  url "https://github.com/eza-community/eza/archive/refs/tags/v0.20.2.tar.gz"
-  sha256 "8d5a573906fd362e27c601e8413b2c96b546bbac7cdedcbd1defe1332f42265d"
+  url "https://github.com/eza-community/eza/archive/refs/tags/v0.20.10.tar.gz"
+  sha256 "dbeba82ed85c18776aac20a4f91429bd3ab7e1bd3734344cd247e8f646516a13"
   license "EUPL-1.2"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "831e284735fe8759d020b41080b827601ef4ccd6343ab710bd74caf35eb6a228"
-    sha256 cellar: :any,                 arm64_sonoma:  "0f2335f0206a8c25d13d745b1c21e43b29575a40ba8ff6615fe5a9144bf01e1e"
-    sha256 cellar: :any,                 arm64_ventura: "7413e4f2282a8031593303ab230cec8b090254600b6fbbd97b6247b9afa5b725"
-    sha256 cellar: :any,                 sonoma:        "2fe3d06e1ea819d5984cf38be0a4b28135a8fede71903e6347aaa85dd99f6ee6"
-    sha256 cellar: :any,                 ventura:       "8e2cf41f11a5fd9c7510120790cb3d96188c23aa496e07cedf1727589ee26bad"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b6bad356fd74aeb758481d24162ce0f7a4cf788cca60ea353409ee5c4eb8c828"
+    sha256 cellar: :any,                 arm64_sequoia: "e0769ad434e3ac2a45ed382ddc7eeaa224227e4e70a85259b31c386274b7b77b"
+    sha256 cellar: :any,                 arm64_sonoma:  "0f993a00834b2bf4fbd3673b1730d7c1e1638087656c5a3c33927d1559cf53f0"
+    sha256 cellar: :any,                 arm64_ventura: "d04dee882601bb5411318a5fe63e90158b02535de319c9a5de8556cf870d2a4e"
+    sha256 cellar: :any,                 sonoma:        "5d199bdad7c53291349d8f2b4a052a97b179626b1ae14613edbf55a5a33164ad"
+    sha256 cellar: :any,                 ventura:       "c762c1c41a0d70ce0e7dd2cbcba4a206b49b4f0483bb53ff4cbd1c8352541009"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cee98be504226e6cd5e0a38774bae15257b2a04bd99c9fb4753d81226a48452a"
   end
 
   depends_on "pandoc" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
   depends_on "libgit2"
 

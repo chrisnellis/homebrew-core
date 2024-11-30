@@ -18,26 +18,24 @@ class Libxrender < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "4e83a61cd4894dea2942520f9147fdaa1e92b71089f288f6a1ae2fb1236b79f5"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libx11"
   depends_on "xorgproto"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/Xlib.h"
       #include "X11/extensions/Xrender.h"
 
@@ -45,7 +43,7 @@ class Libxrender < Formula
         XRenderColor color;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

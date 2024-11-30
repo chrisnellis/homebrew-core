@@ -1,22 +1,21 @@
 class Uv < Formula
   desc "Extremely fast Python package installer and resolver, written in Rust"
   homepage "https://github.com/astral-sh/uv"
-  url "https://github.com/astral-sh/uv/archive/refs/tags/0.4.20.tar.gz"
-  sha256 "a51116e92b7932f8e5a2130acf15d80fc927e73894c2e01dda2d4c082b18664d"
+  url "https://github.com/astral-sh/uv/archive/refs/tags/0.5.5.tar.gz"
+  sha256 "48108de0a14dd91acf4ce73e1b28abb24f54969a3a477389b81e362ec2c098e5"
   license any_of: ["Apache-2.0", "MIT"]
   head "https://github.com/astral-sh/uv.git", branch: "main"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "911095baf321a83c67b7737664dd612da1aa950c700b74004482ee2e7939c640"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "618adb8e92f1f3ba2ccb3ea4a25c055feb0946a189893cf81547c4c64f9a79c3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "85b3f0f0d095e41c05d9e9ffb0fee9323d3a1c39c86357166aab44c8c98e5a48"
-    sha256 cellar: :any_skip_relocation, sonoma:        "5e366fa14b9670f9580b8ad2b9981648ac73e50918f35ad6e23dec506b45edcd"
-    sha256 cellar: :any_skip_relocation, ventura:       "ba44663faeef060cffb92b37eecda516e6012f5c03f250748116af87a7c117f5"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "650dbd6a5486aa0621157a45ae23d5b5c445f98a502e5745197ff4b362181b0f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "eb006c9725bfb6180a34126e94fb224514578c12df58a4ac4895ab97fad25c13"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ad38db9bde3e70ec52b9f03c00f0b79af481e7d0c7059e526379ddff319078d5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "9e9b8d27f2ca033e52b03100aaf4361e20b1f20ed068ab9adad17e5193cc26e1"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5c34a49b7f66ab86965ec2a59cc1d9d9d8c78c5d8d4cd797b7a3bd329b27dc18"
+    sha256 cellar: :any_skip_relocation, ventura:       "ea47ccb9a5abdd235064e4000471505cc025ef782236199c5965e056a1cf0e7e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d549226aa8b1e7e077292338b3c96fc656ef4dfb2afb6df5c2532bc317fc97ce"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "rust" => :build
 
   uses_from_macos "python" => :test

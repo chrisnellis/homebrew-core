@@ -18,34 +18,32 @@ class Libsm < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux:   "b5ccc4a8f2a6436753a14697a081ba4f42d8e2a405b93d1f00265c0067372750"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "xtrans" => :build
   depends_on "libice"
 
   def install
     args = %W[
-      --prefix=#{prefix}
       --sysconfdir=#{etc}
       --localstatedir=#{var}
-      --disable-dependency-tracking
       --disable-silent-rules
       --enable-docs=no
     ]
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
     system "make"
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include "X11/SM/SMlib.h"
 
       int main(int argc, char* argv[]) {
         SmProp prop;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c"
     assert_equal 0, $CHILD_STATUS.exitstatus
   end

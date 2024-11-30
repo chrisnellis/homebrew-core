@@ -1,8 +1,8 @@
 class Fltk < Formula
   desc "Cross-platform C++ GUI toolkit"
   homepage "https://www.fltk.org/"
-  url "https://www.fltk.org/pub/fltk/1.3.9/fltk-1.3.9-source.tar.gz"
-  sha256 "d736b0445c50d607432c03d5ba5e82f3fba2660b10bc1618db8e077a42d9511b"
+  url "https://www.fltk.org/pub/fltk/1.4.0/fltk-1.4.0-source.tar.gz"
+  sha256 "59a977d58975071b04b0d2e9c176bdca805404161ab712605019a5f8ff3c3c53"
   license "LGPL-2.0-only" => { with: "FLTK-exception" }
 
   livecheck do
@@ -11,14 +11,12 @@ class Fltk < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia:  "b1f013906d83a39cbf3154b72c0834dfe0b5fddb18f091742d3d6209f5143986"
-    sha256 arm64_sonoma:   "91c7ccb23fdc7ee40d62179d011655dcf4101a524d15378a8eab10b6cdd2479f"
-    sha256 arm64_ventura:  "c5b71477f972a83b169634cda2e0dd9ad1cc7a050c4fc9e7e67e2ef67f9a30dc"
-    sha256 arm64_monterey: "ce76c6264a6b286c50effde7467af19277f3aa6687ea3defb5a73f0152753652"
-    sha256 sonoma:         "b9bb01de6143df249171a3222ac987e5f767e87a917cbde3a94b5f63e481314c"
-    sha256 ventura:        "d3445b029cec2eec979b6b64478c388759c1950cf69d3b0b8ce89aa3711d954f"
-    sha256 monterey:       "f974455eeeebd4968b82146f20259634e5eea0e3f66f93a568cb0526bbadea9e"
-    sha256 x86_64_linux:   "140c36c48ef05474e89989556e188b4993d89a770fd74ad6166f640d5be40872"
+    sha256 arm64_sequoia: "5960232ae6391fa7d9ce9ef8e966a894155e0bf7153f6eae1e4e26609a035730"
+    sha256 arm64_sonoma:  "8e0202d18c58a749eb407917a73c5974fce7c232baf8aaea57592c2d8f41383c"
+    sha256 arm64_ventura: "4585a6b4f195847dd50530b06377c9970f7c55040334ff5367e5e02c1fd9c0f0"
+    sha256 sonoma:        "bb977df395dbc40d100647cc9b49a5f63236a93be4abda4d66258c50db6d85db"
+    sha256 ventura:       "6dbf3af209d938a5e315f822e70efef76863ab05c169db6e9a0b68de172e2916"
+    sha256 x86_64_linux:  "b9f3ce48a2066a8acfa2dca7e757952bde3e6ad4408da9d1135c4cbcaf06654f"
   end
 
   head do
@@ -28,9 +26,10 @@ class Fltk < Formula
 
   depends_on "jpeg-turbo"
   depends_on "libpng"
+  uses_from_macos "zlib"
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "fontconfig"
     depends_on "libx11"
     depends_on "libxext"
@@ -44,31 +43,30 @@ class Fltk < Formula
 
   def install
     if build.head?
-      args = std_cmake_args
-
-      # Don't build docs / require doxygen
-      args << "-DOPTION_BUILD_HTML_DOCUMENTATION=OFF"
-      args << "-DOPTION_BUILD_PDF_DOCUMENTATION=OFF"
-
-      # Don't build tests
-      args << "-DFLTK_BUILD_TEST=OFF"
-
-      # Build both shared & static libs
-      args << "-DOPTION_BUILD_SHARED_LIBS=ON"
-
-      system "cmake", ".", *args
-      system "cmake", "--build", "."
-      system "cmake", "--install", "."
+      args = [
+        # Don't build docs / require doxygen
+        "-DFLTK_BUILD_HTML_DOCS=OFF",
+        "-DFLTK_BUILD_PDF_DOCS=OFF",
+        # Don't build tests
+        "-DFLTK_BUILD_TEST=OFF",
+        # Build both shared & static libs
+        "-DFLTK_BUILD_SHARED_LIBS=ON",
+      ]
+      system "cmake", "-S", ".", "-B", "build", *args, *std_cmake_args
+      system "cmake", "--build", "build"
+      system "cmake", "--install", "build"
     else
-      system "./configure", "--prefix=#{prefix}",
-                            "--enable-threads",
-                            "--enable-shared"
+      args = %w[
+        --enable-threads
+        --enable-shared
+      ]
+      system "./configure", *args, *std_configure_args
       system "make", "install"
     end
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <FL/Fl.H>
       #include <FL/Fl_Window.H>
       #include <FL/Fl_Box.H>
@@ -82,7 +80,7 @@ class Fltk < Formula
         window->end();
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "test.cpp", "-L#{lib}", "-lfltk", "-o", "test"
     system "./test"
   end

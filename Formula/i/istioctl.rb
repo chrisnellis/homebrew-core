@@ -1,8 +1,8 @@
 class Istioctl < Formula
   desc "Istio configuration command-line utility"
   homepage "https://istio.io/"
-  url "https://github.com/istio/istio/archive/refs/tags/1.23.2.tar.gz"
-  sha256 "d4db1a44275f0f1a1a209960c9087e7006de5df7e41a04716283feacf333aa7b"
+  url "https://github.com/istio/istio/archive/refs/tags/1.24.1.tar.gz"
+  sha256 "316886f4a5a72d54342dd6a2bfb5e8bc26af29e37d7045870aa95741558a8690"
   license "Apache-2.0"
   head "https://github.com/istio/istio.git", branch: "master"
 
@@ -12,12 +12,12 @@ class Istioctl < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "93fc940dae393c05deaa639c68c68d402e61a0bd05093c65584cb5e4dee5818a"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4437e167625082c123550a01624dca004356ad966b5ecd477eda3d336584e723"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "87ea5537d1416a86ad9f46e78655b256229ff35f265d630ee9776d9bdc0a0191"
-    sha256 cellar: :any_skip_relocation, sonoma:        "b0313773b0d99aef43009bd862ad1e8fbe1f0216201ff8b1c822b5328ad2e30c"
-    sha256 cellar: :any_skip_relocation, ventura:       "fc85d32a8b71d6265b13814d23f6d050b5defdc760fe7d8b5c1fe56b508e600c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "41fc0fb60580820b709a8307d0baca19bef0628040f40ef2a1f63adcf49589d3"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e64896c30201dafd9e4005c49d75aa87706bd67dc87c5beaf7c75f7285e8b3e7"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "35e61460f619970dd99bfef57d3bd959928d445f3331d25ebbd426d0d8d2f869"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "fca849f726fe9ffdbdeed6537207f655934b4a31d8ead64e33f77fc2a945a6e3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "1c104c73a44544f2fa527a173d3b4262837835cf273074e2feb9b0292ee96f85"
+    sha256 cellar: :any_skip_relocation, ventura:       "399b6cbfdbea5970ffb3fbec6225ce9f5fff45df9c3a10492c9f6ae97784ef25"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8ae3b188609668bbbbc02408a4dd89ac37f7d3055e4a3a6f2dc027a36838ac69"
   end
 
   depends_on "go" => :build

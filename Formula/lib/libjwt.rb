@@ -28,18 +28,18 @@ class Libjwt < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "jansson"
   depends_on "openssl@3"
 
   def install
     system "autoreconf", "--force", "--install", "--verbose" if build.head?
-    system "./configure", *std_configure_args, "--disable-silent-rules"
+    system "./configure", "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdlib.h>
       #include <jwt.h>
 
@@ -48,7 +48,7 @@ class Libjwt < Formula
         if (jwt_new(&jwt) != 0) return 1;
         return 0;
       }
-    EOS
+    C
     system ENV.cc, "test.c", "-L#{lib}", "-I#{include}", "-ljwt", "-o", "test"
     system "./test"
   end

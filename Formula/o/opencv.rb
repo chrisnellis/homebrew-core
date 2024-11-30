@@ -4,7 +4,7 @@ class Opencv < Formula
   url "https://github.com/opencv/opencv/archive/refs/tags/4.10.0.tar.gz"
   sha256 "b2171af5be6b26f7a06b1229948bbb2bdaa74fcf5cd097e0af6378fce50a6eb9"
   license "Apache-2.0"
-  revision 11
+  revision 13
   head "https://github.com/opencv/opencv.git", branch: "4.x"
 
   livecheck do
@@ -13,15 +13,15 @@ class Opencv < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:  "3b056a2b5fe47fbad4128abfe9ca30e207116359fbad459a1492d6eb6ba72c74"
-    sha256 arm64_ventura: "5bfc81f73ec3a3c66fd8bdf79f9d95f7d5d3315120cc29216f6ccbb11b9ffa34"
-    sha256 sonoma:        "41f609f5ed694a68d6771b11fa9dad0ba985b1400151845d2d7deb89bf0178b6"
-    sha256 ventura:       "aae4e6d2de588e94c26471d1235ee73057228e18397b1076cf98bb12cd832602"
-    sha256 x86_64_linux:  "f8ba815fc2d4bb80709b5a3bd7476cea23d30b09cc5cfe75ad8e72119e779fc7"
+    sha256 arm64_sonoma:  "bf43b38e6a09a8d1ba8c0ad0c4479f0f501249deac2a467d9c65cd4c3dab56d5"
+    sha256 arm64_ventura: "c528be2ccfc3d79b29637d7456bd62eec5b86236a03fd6affe46d8857747846e"
+    sha256 sonoma:        "808e7ddfd2caac3a9c0600996d089486332fcb784d4a7ae4d845777885632fe8"
+    sha256 ventura:       "216dd9d482272049a4cc4e6941693edff66fa8299575294419023ba62780d14f"
+    sha256 x86_64_linux:  "44355b4fb091fd0955949887e2913d02011033aa312e366160bfa4f26b8b94b8"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python-setuptools" => :build
   depends_on "abseil"
   depends_on "ceres-solver"
@@ -61,8 +61,6 @@ class Opencv < Formula
     depends_on "glib"
     depends_on "gtk+3"
   end
-
-  fails_with gcc: "5" # ffmpeg is compiled with GCC
 
   resource "contrib" do
     url "https://github.com/opencv/opencv_contrib/archive/refs/tags/4.10.0.tar.gz"
@@ -176,16 +174,16 @@ class Opencv < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <opencv2/opencv.hpp>
       #include <iostream>
       int main() {
         std::cout << CV_VERSION << std::endl;
         return 0;
       }
-    EOS
+    CPP
     system ENV.cxx, "-std=c++17", "test.cpp", "-I#{include}/opencv4", "-o", "test"
-    assert_equal shell_output("./test").strip, version.to_s
+    assert_equal version.to_s, shell_output("./test").strip
 
     output = shell_output("#{python3} -c 'import cv2; print(cv2.__version__)'")
     assert_equal version.to_s, output.chomp

@@ -16,7 +16,7 @@ class Libhubbub < Formula
   end
 
   depends_on "netsurf-buildsystem" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "libparserutils"
 
   uses_from_macos "gperf" => :build
@@ -31,7 +31,7 @@ class Libhubbub < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <hubbub/parser.h>
 
@@ -47,7 +47,7 @@ class Libhubbub < Formula
           hubbub_parser_destroy(parser);
           return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-o", "test", "-L#{lib}", "-lhubbub"
     system "./test"

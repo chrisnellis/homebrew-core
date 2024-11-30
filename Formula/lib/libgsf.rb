@@ -23,7 +23,7 @@ class Libgsf < Formula
     depends_on "libtool" => :build
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "glib"
 
   uses_from_macos "bzip2"
@@ -36,13 +36,13 @@ class Libgsf < Formula
 
   def install
     configure = build.head? ? "./autogen.sh" : "./configure"
-    system configure, *std_configure_args, "--disable-silent-rules"
+    system configure, "--disable-silent-rules", *std_configure_args
     system "make", "install"
   end
 
   test do
     system bin/"gsf", "--help"
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <gsf/gsf-utils.h>
       int main()
       {
@@ -50,11 +50,11 @@ class Libgsf < Formula
           gsf_init (void);
           return 0;
       }
-    EOS
-    system ENV.cc, "-I#{include}/libgsf-1",
+    C
+    system ENV.cc, "test.c", "-o", "test",
+           "-I#{include}/libgsf-1",
            "-I#{Formula["glib"].opt_include}/glib-2.0",
-           "-I#{Formula["glib"].opt_lib}/glib-2.0/include",
-           testpath/"test.c", "-o", testpath/"test"
+           "-I#{Formula["glib"].opt_lib}/glib-2.0/include"
     system "./test"
   end
 end

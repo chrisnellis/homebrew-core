@@ -19,16 +19,16 @@ class Unicorn < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   def install
-    system "cmake", "-S", ".", "-B", "build", *std_cmake_args, "-DUNICORN_SHARE=yes"
+    system "cmake", "-S", ".", "-B", "build", "-DUNICORN_SHARE=yes", *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"test1.c").write <<~EOS
+    (testpath/"test1.c").write <<~C
       /* Adapted from https://www.unicorn-engine.org/docs/tutorial.html
        * shamelessly and without permission. This almost certainly needs
        * replacement, but for now it should be an OK placeholder
@@ -70,9 +70,8 @@ class Unicorn < Formula
         puts("Emulation complete.");
         return 0;
       }
-    EOS
-    system ENV.cc, "-o", testpath/"test1", testpath/"test1.c",
-                   "-pthread", "-lpthread", "-lm", "-L#{lib}", "-lunicorn"
+    C
+    system ENV.cc, "-o", "test1", "test1.c", "-pthread", "-lpthread", "-lm", "-L#{lib}", "-lunicorn"
     system testpath/"test1"
   end
 end

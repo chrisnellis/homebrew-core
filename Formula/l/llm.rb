@@ -3,18 +3,17 @@ class Llm < Formula
 
   desc "Access large language models from the command-line"
   homepage "https://llm.datasette.io/"
-  url "https://files.pythonhosted.org/packages/7e/cc/57294e607f85c2d922c14f53078ae7545f7bec951e5514416ad88bd72a32/llm-0.16.tar.gz"
-  sha256 "6f8780308d021bb8df755e58e0188ab34af0961f64e303e808f928b456ccc51b"
+  url "https://files.pythonhosted.org/packages/8d/f1/0fb7b1fd468eb9d80ddb583cc1badcadbebf4549c3cdf4a7ff26f62803a6/llm-0.18.tar.gz"
+  sha256 "1c4243dea5ec3e7ee50f4fd0b8ccd6475b8f5a6cca2b9aac8270c0e843c0e490"
   license "Apache-2.0"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "6f3e55940fce7aaf742af59ad060efa19a7e97b67109f84d3e48b20a1e3bcbba"
-    sha256 cellar: :any,                 arm64_sonoma:  "09f6a140ebb40e5de7b689c30ace38d3c535443d3a2d644c79a860b68df73072"
-    sha256 cellar: :any,                 arm64_ventura: "af52125fb67bdadf10f1cb4510a20d7ce7f276068c9555c03e6a17056694f468"
-    sha256 cellar: :any,                 sonoma:        "054af70ae290c90fdc8d6cd9186caa619e794c2a5f5bd38052dae48328a484ca"
-    sha256 cellar: :any,                 ventura:       "3c19168e3cecb92c0e341c5ac435164c928f5789615c6dec46ae6aac01cc9a93"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e3e8d5eeab6aecc0a89518c2e8779d0aec35d46be09177f6d5ad59fc1644cd0e"
+    sha256 cellar: :any,                 arm64_sequoia: "d95c42e348403a63b1b54981584e0f043ee93341bd62c5b3967293ae42b47e8e"
+    sha256 cellar: :any,                 arm64_sonoma:  "64381169260c695b8baaa90441e19caf52da3dd6f553c53a8ac5b0377b9132e4"
+    sha256 cellar: :any,                 arm64_ventura: "22c13c24acd89540b08d2ff2bb33acb942125e215799ada13f75ca03f76f6489"
+    sha256 cellar: :any,                 sonoma:        "ec7483192cd192fa582984056a962bfcc28c5f6bcd8ae1a848bea1597c1ccfc8"
+    sha256 cellar: :any,                 ventura:       "5ccd90c38bc57666c28c1c6624e41391681c3930b9af4647c60afeb2f4e1d8de"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cfd914078e5e118ba910a47c8bb8c9355f29e34daaf300633e312556dff6c77a"
   end
 
   depends_on "rust" => :build
@@ -28,8 +27,8 @@ class Llm < Formula
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/78/49/f3f17ec11c4a91fe79275c426658e509b07547f874b14c1a526d86a83fc8/anyio-4.6.0.tar.gz"
-    sha256 "137b4559cbb034c477165047febb6ff83f390fc3b20bf181c1fc0a728cb8beeb"
+    url "https://files.pythonhosted.org/packages/9f/09/45b9b7a6d4e45c6bcb5bf61d19e3ab87df68e0601fa8c5293de3542546cc/anyio-4.6.2.post1.tar.gz"
+    sha256 "4c8bc31ccdb51c7f7bd251f51c609e038d63e34219b44aa86e47576389880b4c"
   end
 
   resource "click" do
@@ -53,8 +52,8 @@ class Llm < Formula
   end
 
   resource "httpcore" do
-    url "https://files.pythonhosted.org/packages/b6/44/ed0fa6a17845fb033bd885c03e842f08c1b9406c86a2e60ac1ae1b9206a6/httpcore-1.0.6.tar.gz"
-    sha256 "73f6dbd6eb8c21bbf7ef8efad555481853f5f6acdeaff1edb0694289269ee17f"
+    url "https://files.pythonhosted.org/packages/6a/41/d7d0a89eb493922c37d343b607bc1b5da7f5be7e383740b4753ad8943e90/httpcore-1.0.7.tar.gz"
+    sha256 "8551cb62a169ec7162ac7be8d4817d561f60e08eaa485234898414bb5a8a0b4c"
   end
 
   resource "httpx" do
@@ -68,18 +67,23 @@ class Llm < Formula
   end
 
   resource "jiter" do
-    url "https://files.pythonhosted.org/packages/26/ef/64458dfad180debd70d9dd1ca4f607e52bb6de748e5284d748556a0d5173/jiter-0.6.1.tar.gz"
-    sha256 "e19cd21221fc139fb032e4112986656cb2739e9fe6d84c13956ab30ccc7d4449"
+    url "https://files.pythonhosted.org/packages/46/e5/50ff23c9bba2722d2f0f55ba51e57f7cbab9a4be758e6b9b263ef51e6024/jiter-0.7.1.tar.gz"
+    sha256 "448cf4f74f7363c34cdef26214da527e8eeffd88ba06d0b80b485ad0667baf5d"
   end
 
   resource "openai" do
-    url "https://files.pythonhosted.org/packages/95/64/9a5279138b5ea6c2f0e5443d5d93b4510cb87fa6fe7be0c92b837087124e/openai-1.51.2.tar.gz"
-    sha256 "c6a51fac62a1ca9df85a522e462918f6bb6bc51a8897032217e453a0730123a6"
+    url "https://files.pythonhosted.org/packages/7e/95/83845be5ddd46ce0a35fd602a3366ec2d7fd6b2be6fb760ca553e2488ea1/openai-1.54.4.tar.gz"
+    sha256 "50f3656e45401c54e973fa05dc29f3f0b0d19348d685b2f7ddb4d92bf7b1b6bf"
   end
 
   resource "pluggy" do
     url "https://files.pythonhosted.org/packages/96/2d/02d4312c973c6050a18b314a5ad0b3210edb65a906f868e31c111dede4a6/pluggy-1.5.0.tar.gz"
     sha256 "2cffa88e94fdc978c4c574f15f9e59b7f4201d439195c3715ca9e2486f1d0cf1"
+  end
+
+  resource "puremagic" do
+    url "https://files.pythonhosted.org/packages/09/2d/40599f25667733e41bbc3d7e4c7c36d5e7860874aa5fe9c584e90b34954d/puremagic-1.28.tar.gz"
+    sha256 "195893fc129657f611b86b959aab337207d6df7f25372209269ed9e303c1a8c0"
   end
 
   resource "pydantic" do
@@ -108,8 +112,8 @@ class Llm < Formula
   end
 
   resource "setuptools" do
-    url "https://files.pythonhosted.org/packages/27/b8/f21073fde99492b33ca357876430822e4800cdf522011f18041351dfa74b/setuptools-75.1.0.tar.gz"
-    sha256 "d59a21b17a275fb872a9c3dae73963160ae079f1049ed956880cd7c09b120538"
+    url "https://files.pythonhosted.org/packages/c8/db/722a42ffdc226e950c4757b3da7b56ff5c090bb265dccd707f7b8a3c6fee/setuptools-75.5.0.tar.gz"
+    sha256 "5c4ccb41111392671f02bb5f8436dfc5a9a7185e80500531b133f5775c4163ef"
   end
 
   resource "six" do
@@ -143,8 +147,8 @@ class Llm < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/58/83/6ba9844a41128c62e810fddddd72473201f3eacde02046066142a2d96cc5/tqdm-4.66.5.tar.gz"
-    sha256 "e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad"
+    url "https://files.pythonhosted.org/packages/e8/4f/0153c21dc5779a49a0598c445b1978126b1344bab9ee71e53e44877e14e0/tqdm-4.67.0.tar.gz"
+    sha256 "fe5a6f95e6fe0b9755e9469b77b9c3cf850048224ecaa8293d7d2d31f97d869a"
   end
 
   resource "typing-extensions" do

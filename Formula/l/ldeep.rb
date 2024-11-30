@@ -3,23 +3,22 @@ class Ldeep < Formula
 
   desc "LDAP enumeration utility"
   homepage "https://github.com/franc-pentest/ldeep"
-  url "https://files.pythonhosted.org/packages/23/92/618f60c1a399e9fe7fc41495631026eb15f3e10c3005d2a447f6f1c25089/ldeep-1.0.70.tar.gz"
-  sha256 "c3af636af9b6410a743992acf8a0b8a4cfc303ddef7190f26b24300e79336d74"
+  url "https://files.pythonhosted.org/packages/3b/d1/5767d53713542c68ce12f8104adef95fbbd5d612017c5b997142d125d6db/ldeep-1.0.76.tar.gz"
+  sha256 "4d254ea3a38ad0353530f69a483f69f0ba4abf64db595ddef9495cc0a532b1df"
   license "MIT"
   head "https://github.com/franc-pentest/ldeep.git", branch: "master"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "0df672d2b2b8869f132e152a463afc402816f1cc4a483477b2760064a1f89140"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6c20a96fe331ddb3bb314cdd88b927bd1aac31aee32af52bcf0ecfbbdbfa3265"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9d20a449b8f486d667cf1788c614b32cd7e5770ed0ced289a61602cad701e4e0"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ab1e98ef10c3cd16b474940be7d51a8400b4f0e67b39bee4be5cb443a772cbec"
-    sha256 cellar: :any_skip_relocation, ventura:       "e3917af99325788557805c605ed4fc2a9398410321e40d649d5292b077506b40"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3f72c4c9ace4bdd000a2810244bc99327a795401fdbc174f423648da1dcb0596"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "51b0bdc5b8d61c16e37f441eb34559c16dfc04810f073bf7ef09c0066b9d5f8a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c3c9d3c6c7ef2f0c1022b538a5ad937bf92e1c1d00263cfffb827007c3762c74"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "941233516e066b0e835fa352cdf886398101ddc900f9be969d2bef429b3b77ff"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8c19bbb164b0faa2100430852e260319ab870f5c08a98c49349d311c02423ee9"
+    sha256 cellar: :any_skip_relocation, ventura:       "7ff78120671dfad75d08c4325845f376722992e6ff2cd066de45710d4c7656cf"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6efb4b927aa9493bcc273362b21657aaa74c64b6e6f754cc235cfc9cbe6ea9e2"
   end
 
   depends_on "cryptography"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "krb5"
 
@@ -84,12 +83,9 @@ class Ldeep < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/58/83/6ba9844a41128c62e810fddddd72473201f3eacde02046066142a2d96cc5/tqdm-4.66.5.tar.gz"
-    sha256 "e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad"
+    url "https://files.pythonhosted.org/packages/a8/4b/29b4ef32e036bb34e4ab51796dd745cdba7ed47ad142a9f4a1eb8e0c744d/tqdm-4.67.1.tar.gz"
+    sha256 "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
   end
-
-  # support py3.13 build
-  patch :DATA
 
   def install
     virtualenv_install_with_resources
@@ -100,18 +96,3 @@ class Ldeep < Formula
     assert_match "[!] Unable to open connection with ldap://127.0.0.1:389", output
   end
 end
-
-__END__
-diff --git a/pyproject.toml b/pyproject.toml
-index c432644..9a5854d 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -19,7 +19,7 @@ dependencies = [
-     "termcolor >= 2.3.0, < 3",
-     "tqdm >= 4.26.0, < 5",
- ]
--requires-python = ">=3.8.1,<3.13"
-+requires-python = ">=3.8.1,<3.14"
- readme = "README.rst"
- keywords = [
-     "pentesting security windows active-directory networks",

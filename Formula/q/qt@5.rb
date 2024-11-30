@@ -6,10 +6,10 @@ class QtAT5 < Formula
   desc "Cross-platform application and UI framework"
   homepage "https://www.qt.io/"
   # NOTE: Use *.diff for GitLab/KDE patches to avoid their checksums changing.
-  url "https://download.qt.io/official_releases/qt/5.15/5.15.15/single/qt-everywhere-opensource-src-5.15.15.tar.xz"
-  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.15/single/qt-everywhere-opensource-src-5.15.15.tar.xz"
-  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.15/single/qt-everywhere-opensource-src-5.15.15.tar.xz"
-  sha256 "b423c30fe3ace7402e5301afbb464febfb3da33d6282a37a665be1e51502335e"
+  url "https://download.qt.io/official_releases/qt/5.15/5.15.16/single/qt-everywhere-opensource-src-5.15.16.tar.xz"
+  mirror "https://mirrors.dotsrc.org/qtproject/archive/qt/5.15/5.15.16/single/qt-everywhere-opensource-src-5.15.16.tar.xz"
+  mirror "https://mirrors.ocf.berkeley.edu/qt/archive/qt/5.15/5.15.16/single/qt-everywhere-opensource-src-5.15.16.tar.xz"
+  sha256 "efa99827027782974356aceff8a52bd3d2a8a93a54dd0db4cca41b5e35f1041c"
   license all_of: ["GFDL-1.3-only", "GPL-2.0-only", "GPL-3.0-only", "LGPL-2.1-only", "LGPL-3.0-only"]
 
   livecheck do
@@ -18,19 +18,19 @@ class QtAT5 < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "d1afd63dc1e62e946c88c80e4192be654df4ac2fc11b82a0f71cd64c0f08fbfa"
-    sha256 cellar: :any,                 arm64_sonoma:  "a0cfeeacfefeb3c3158b03fd3b35e04bdc72d627148bb00c4bc8f196b4d2c360"
-    sha256 cellar: :any,                 arm64_ventura: "0acdf9040c7100ed5750d146191f51d055888f05cb25e57b6cd551d5c11017fc"
-    sha256 cellar: :any,                 sonoma:        "57fb8ee5275428ee49452441bac8e0145c7cb2a6e3247a6f782359b56470df31"
-    sha256 cellar: :any,                 ventura:       "37819927d329989f6b6e6b76e71ecce8f1731488a4b95356d98ff34d6a31fcb3"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0c8ac60dbe7163744f27d127a8d5e47f6074ab21e6412a156d5a6cf5b71bf7c3"
+    sha256 cellar: :any,                 arm64_sequoia: "138ebf51a5f10c4114aa8c1f8693c69bbbc86c26a9db2151ade5b92e07e77dbb"
+    sha256 cellar: :any,                 arm64_sonoma:  "21e95319cad6ad9f660e45f2972c4e033b0c48324f4553e655278d021d98a319"
+    sha256 cellar: :any,                 arm64_ventura: "6bf97e444438c798e380f5915e468754feb8710b2e4977f01c02f73eeea74b91"
+    sha256 cellar: :any,                 sonoma:        "82c708126a40cab234cf57513b7396446bd4e2987084543e1de6c7828a2cf1b9"
+    sha256 cellar: :any,                 ventura:       "d4b2863b35f4372b4079cfcab30838ca7b032170f4d1087e8a88b12628a270eb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5a0c883f4b2c6b293f030d3292209b6bc3d6dff6d11d653fb6834ddb2c96a3f6"
   end
 
   keg_only :versioned_formula
 
   depends_on "node" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.12" => :build # Python 3.13 fails with ModuleNotFoundError: No module named 'pipes'
   depends_on xcode: :build
   depends_on "freetype"
   depends_on "glib"
@@ -62,7 +62,7 @@ class QtAT5 < Formula
     depends_on "expat"
     depends_on "fontconfig"
     depends_on "harfbuzz"
-    depends_on "icu4c@75"
+    depends_on "icu4c@76"
     depends_on "libdrm"
     depends_on "libevent"
     depends_on "libice"
@@ -97,12 +97,10 @@ class QtAT5 < Formula
     depends_on "xcb-util-wm"
   end
 
-  fails_with gcc: "5"
-
   resource "qtwebengine" do
     url "https://code.qt.io/qt/qtwebengine.git",
-        tag:      "v5.15.17-lts",
-        revision: "17fd3176988586168bee8654008a097a5f23ec1d"
+        tag:      "v5.15.18-lts",
+        revision: "87ceb6a2ef5ee25d56f765dc533728c4ca4787e0"
 
     # Use Arch Linux's patch for ICU 75 support
     patch do
@@ -156,33 +154,6 @@ class QtAT5 < Formula
     directory "qtlocation/src/3rdparty/mapbox-gl-native"
   end
 
-  # Fix qmake with Xcode 15.
-  # https://bugreports.qt.io/browse/QTBUG-117225
-  # Likely can remove with 5.15.16.
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/086e8cf/qt5/qt5-qmake-xcode15.patch"
-    sha256 "802f29c2ccb846afa219f14876d9a1d67477ff90200befc2d0c5759c5081c613"
-  end
-
-  # Fix qtmultimedia build with Xcode 15
-  # https://bugreports.qt.io/browse/QTBUG-113782
-  # https://github.com/hmaarrfk/qt-main-feedstock/blob/0758b98854a3a3b9c99cded856176e96c9b8c0c5/recipe/patches/0014-remove-usage-of-unary-operator.patch
-  patch do
-    url "https://raw.githubusercontent.com/Homebrew/formula-patches/3f509180/qt5/qt5-qtmultimedia-xcode15.patch"
-    sha256 "887d6cb4fd115ce82323d17e69fafa606c51cef98c820b82309ab38288f21e08"
-  end
-
-  # Fix use of macOS 14 only memory_resource on macOS 13
-  # The `_cpp_lib_memory_resource` feature test macro should be sufficient but a bug in the SDK means
-  # the extra checks are required. This part of the patch will likely be fixed in a future SDK.
-  # https://bugreports.qt.io/browse/QTBUG-114316
-  # This can likely be removed in 5.15.16.
-  patch :p0 do
-    url "https://raw.githubusercontent.com/macports/macports-ports/56a9af76a6bcecc3d12c3a65f2465c25e05f2559/aqua/qt5/files/patch-qtbase-memory_resource.diff"
-    sha256 "87967d685b08f06e91972a6d8c5e2e1ff672be9a2ba1d7d7084eba1413f641d5"
-    directory "qtbase"
-  end
-
   # CVE-2023-51714
   # Remove with Qt 5.15.17
   patch do
@@ -193,6 +164,30 @@ class QtAT5 < Formula
   patch do
     url "https://download.qt.io/official_releases/qt/5.15/0002-CVE-2023-51714-qtbase-5.15.diff"
     sha256 "99d5d32527e767d6ab081ee090d92e0b11f27702619a4af8966b711db4f23e42"
+    directory "qtbase"
+  end
+
+  # CVE-2024-25580
+  # Remove with Qt 5.15.17
+  patch do
+    url "https://download.qt.io/official_releases/qt/5.15/CVE-2024-25580-qtbase-5.15.diff"
+    sha256 "7cc9bf74f696de8ec5386bb80ce7a2fed5aa3870ac0e2c7db4628621c5c1a731"
+    directory "qtbase"
+  end
+
+  # CVE-2024-36048
+  # Remove with Qt 5.15.17
+  patch do
+    url "https://download.qt.io/official_releases/qt/5.15/CVE-2024-36048-qtnetworkauth-5.15.diff"
+    sha256 "e5d385d636b5241b59ac16c4a75359e21e510506b26839a4e2033891245f33f9"
+    directory "qtnetworkauth"
+  end
+
+  # CVE-2024-39936
+  # Remove with Qt 5.15.18
+  patch do
+    url "https://download.qt.io/official_releases/qt/5.15/CVE-2024-39936-qtbase-5.15.patch"
+    sha256 "2cc23afba9d7e48f8faf8664b4c0324a9ac31a4191da3f18bd0accac5c7704de"
     directory "qtbase"
   end
 
@@ -289,7 +284,7 @@ class QtAT5 < Formula
     # Remove reference to shims directory
     inreplace prefix/"mkspecs/qmodule.pri",
               /^PKG_CONFIG_EXECUTABLE = .*$/,
-              "PKG_CONFIG_EXECUTABLE = #{Formula["pkg-config"].opt_bin}/pkg-config"
+              "PKG_CONFIG_EXECUTABLE = #{Formula["pkgconf"].opt_bin}/pkg-config"
 
     # Fix find_package call using QtWebEngine version to find other Qt5 modules.
     inreplace lib.glob("cmake/Qt5WebEngine*/*Config.cmake"),
@@ -370,7 +365,7 @@ class QtAT5 < Formula
       SOURCES  += main.cpp
     EOS
 
-    (testpath/"main.cpp").write <<~EOS
+    (testpath/"main.cpp").write <<~CPP
       #include <QCoreApplication>
       #include <QDebug>
 
@@ -380,15 +375,15 @@ class QtAT5 < Formula
         qDebug() << "Hello World!";
         return 0;
       }
-    EOS
+    CPP
 
     # Work around "error: no member named 'signbit' in the global namespace"
     ENV.delete "CPATH"
 
     system bin/"qmake", testpath/"hello.pro"
     system "make"
-    assert_predicate testpath/"hello", :exist?
-    assert_predicate testpath/"main.o", :exist?
+    assert_path_exists testpath/"hello"
+    assert_path_exists testpath/"main.o"
     system "./hello"
   end
 end

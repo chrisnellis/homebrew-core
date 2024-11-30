@@ -73,21 +73,21 @@ class Rtags < Formula
 
   test do
     mkpath testpath/"src"
-    (testpath/"src/foo.c").write <<~EOS
+    (testpath/"src/foo.c").write <<~C
       void zaphod() {
       }
 
       void beeblebrox() {
         zaphod();
       }
-    EOS
+    C
     (testpath/"src/README").write <<~EOS
       42
     EOS
 
     rdm = fork do
-      $stdout.reopen("/dev/null")
-      $stderr.reopen("/dev/null")
+      $stdout.reopen(File::NULL)
+      $stderr.reopen(File::NULL)
       exec "#{bin}/rdm", "--exclude-filter=\"\"", "-L", "log"
     end
 

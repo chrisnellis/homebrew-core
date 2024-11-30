@@ -1,18 +1,18 @@
 class Bacon < Formula
   desc "Background rust code check"
   homepage "https://dystroy.org/bacon/"
-  url "https://github.com/Canop/bacon/archive/refs/tags/v3.0.0.tar.gz"
-  sha256 "ff2460da9f527f48c899fbf40fb7e2645dc3eb28e04677490d7fbab2bdaf8fea"
+  url "https://github.com/Canop/bacon/archive/refs/tags/v3.3.0.tar.gz"
+  sha256 "640a6a76213ef4b7337c7a3495afba3056ee5d58b3b7aefebe35edfc9c179e16"
   license "AGPL-3.0-or-later"
   head "https://github.com/Canop/bacon.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "63115e77fe6bb868db544cc5889c2b80c5436cf92d905474c0ce602969b75bd2"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "238fcce605b488082cb8391204869a8f7fb9036e51be13f16ddbdf6df0d2db15"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "7ac5336e8676277c395ec9b95407ae30d88c7f1378e8acdc0e98d6a2fe72f899"
-    sha256 cellar: :any_skip_relocation, sonoma:        "321d525118678bbffc6e3ca080b4f4f817da49a2fcc62ed0b69fd8ff2ba89fa4"
-    sha256 cellar: :any_skip_relocation, ventura:       "aea0dd43bff127e5bed0686b3aa2c653af58635fe4048224b7745106d2eef7ba"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8d1a47e5ca5913cffc3b4abf00bd95917a72df26aad789c56d9c3938bfb06b07"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "47cf8f3045d8b5e8c57a28f76397201b09c02bcc7b3db3014f062511adf33ca0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "62d1578a5aabad3db9263edbbdb9865f15edda0402209da5f3e546c53f128f18"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "46f23ac97a5a47007d0971c1c593c66f461b8b6782b3fe51582d19eb10ae32bc"
+    sha256 cellar: :any_skip_relocation, sonoma:        "463bef0a9c3c47d3a24efe44cac09e50cea316c10e39bb0c3e72d3745e09ca72"
+    sha256 cellar: :any_skip_relocation, ventura:       "11f9c86cad951ec5c1fa451311ddf0503f7335270edb3b0ccbbd348b473e39bd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "002ea633505c605c90641eac2040abd75bf2de9b7732d9ad1b5abcf90665227c"
   end
 
   depends_on "rust" => :build
@@ -31,7 +31,7 @@ class Bacon < Formula
 
     crate = testpath/"demo-crate"
     mkdir crate do
-      (crate/"src/main.rs").write <<~EOS
+      (crate/"src/main.rs").write <<~RUST
         #[cfg(test)]
         mod tests {
           #[test]
@@ -39,13 +39,13 @@ class Bacon < Formula
             assert_eq!(1 + 1, 2);
           }
         }
-      EOS
-      (crate/"Cargo.toml").write <<~EOS
+      RUST
+      (crate/"Cargo.toml").write <<~TOML
         [package]
         name = "demo-crate"
         version = "0.1.0"
         license = "MIT"
-      EOS
+      TOML
 
       system bin/"bacon", "--init"
       assert_match "[jobs.check]", (crate/"bacon.toml").read

@@ -3,18 +3,18 @@ class Fwupd < Formula
 
   desc "Firmware update daemon"
   homepage "https://github.com/fwupd/fwupd"
-  url "https://github.com/fwupd/fwupd/releases/download/2.0.0/fwupd-2.0.0.tar.xz"
-  sha256 "60a62b850e2c3a818f3178cb1de0f632b1e04c6ab07c02483af398940713548a"
+  url "https://github.com/fwupd/fwupd/releases/download/2.0.2/fwupd-2.0.2.tar.xz"
+  sha256 "a36563ae377ea692d4925671b3cd73b1da3391c61f8f32a1ba22cb7233fa75ee"
   license "LGPL-2.1-or-later"
   head "https://github.com/fwupd/fwupd.git", branch: "main"
 
   bottle do
-    sha256 arm64_sequoia: "fed0cf431e6dca495a2257061ccd5c0ab212c458fb006c0410d5a056752159c0"
-    sha256 arm64_sonoma:  "d893e48a58bf493132b7633c758e44159c44686ed57869a09e24f013d3f1a009"
-    sha256 arm64_ventura: "73adaf9d75b4184f8315afc341f0f72d2b620ebcf804218f24a2bad2c4307e40"
-    sha256 sonoma:        "9ba5fa0c05d0780f4bfd7e7e633bd850d2237fe9452dd30441bd5e5964ee61c0"
-    sha256 ventura:       "3da4d235721deac49543a3297e7e05aceaff8d0caf6990fad046488a3e64ae75"
-    sha256 x86_64_linux:  "b47413186119a04504022b58651fcad83e5c6bf10c4b3775e869552bfaba777f"
+    sha256 arm64_sequoia: "a9caa52f8cc05e1c65e235fe741dd512c6b1025d237d0821a9990330fc60b8db"
+    sha256 arm64_sonoma:  "be8eb591a6376293234ddce29dd4a3c60ab39aa78535d8bafad0de08e2015d6f"
+    sha256 arm64_ventura: "638419dac4cb2e9afd6227a9d7e9e1bac4cd7e6e7518146e696f932117e8d7b6"
+    sha256 sonoma:        "86cde656c901e480f9172c3dbcf491eb17c0df44856c247db7b25e752340cff9"
+    sha256 ventura:       "de77108d6c7f0bbc9780ca662437d5a4f4a0a38e242340c31011a8d504362f20"
+    sha256 x86_64_linux:  "9645a62dc34cf4ac1f010cebb938310371be5cd9122ad4bdcce22d6d6ea66b03"
   end
 
   depends_on "gettext" => :build
@@ -22,7 +22,7 @@ class Fwupd < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "python@3.12" => :build
   depends_on "vala" => :build
 
@@ -47,14 +47,18 @@ class Fwupd < Formula
     depends_on "gettext"
   end
 
+  on_linux do
+    depends_on "util-linux"
+  end
+
   resource "jinja2" do
     url "https://files.pythonhosted.org/packages/ed/55/39036716d19cab0747a5020fc7e907f362fbf48c984b14e62127f7e68e5d/jinja2-3.1.4.tar.gz"
     sha256 "4a3aee7acbbe7303aede8e9648d13b8bf88a429282aa6122a993f0ac800cb369"
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/87/5b/aae44c6655f3801e81aa3eef09dbbf012431987ba564d7231722f68df02d/MarkupSafe-2.1.5.tar.gz"
-    sha256 "d283d37a890ba4c1ae73ffadf8046435c76e7bc2247bbb63c00bd1a709c6544b"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   def python3
@@ -89,17 +93,17 @@ class Fwupd < Formula
 
   test do
     # check apps like gnome-firmware can link
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <fwupd.h>
       int main(int argc, char *argv[]) {
         FwupdClient *client = fwupd_client_new();
         g_assert_nonnull(client);
         return 0;
       }
-    EOS
+    C
 
-    pkg_config_flags = shell_output("pkg-config --cflags --libs fwupd").chomp.split
-    system ENV.cc, "test.c", "-o", "test", *pkg_config_flags
+    pkgconf_flags = shell_output("pkgconf --cflags --libs fwupd").chomp.split
+    system ENV.cc, "test.c", "-o", "test", *pkgconf_flags
     system "./test"
 
     # this is a lame test, but fwupdtool requires root access to do anything much interesting

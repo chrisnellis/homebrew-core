@@ -3,18 +3,17 @@ class Cryfs < Formula
 
   desc "Encrypts your files so you can safely store them in Dropbox, iCloud, etc."
   homepage "https://www.cryfs.org"
-  url "https://github.com/cryfs/cryfs/releases/download/0.11.4/cryfs-0.11.4.tar.gz"
-  sha256 "6caca6276ce5aec40bf321fd0911b0af7bcffc44c3cb82ff5c5af944d6f75a45"
+  url "https://github.com/cryfs/cryfs/releases/download/1.0.1/cryfs-1.0.1.tar.gz"
+  sha256 "5383cd77c4ef606bb44568e9130c35a996f1075ee1bdfb68471ab8bc8229e711"
   license "LGPL-3.0-or-later"
-  revision 7
   head "https://github.com/cryfs/cryfs.git", branch: "develop"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "8aa0f0aded58dd01325c470c0411ff61d6b3be3e0e8f99b4c68ae7aa8afbe47e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "a25dfa60bd7eab0ff27f0a913f3d584a914e4b1d84ac88238edc0cd6d115d96c"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "python@3.13" => :build
   depends_on "boost"
   depends_on "curl"
@@ -24,13 +23,12 @@ class Cryfs < Formula
   depends_on "range-v3"
   depends_on "spdlog"
 
-  fails_with gcc: "5"
-
   def install
-    system "cmake", "-B", "build", "-S", ".", *std_cmake_args,
+    system "cmake", "-B", "build", "-S", ".",
                     "-DBUILD_TESTING=off",
                     "-DCRYFS_UPDATE_CHECKS=OFF",
-                    "-DDEPENDENCY_CONFIG=cmake-utils/DependenciesFromLocalSystem.cmake"
+                    "-DDEPENDENCY_CONFIG=cmake-utils/DependenciesFromLocalSystem.cmake",
+                    *std_cmake_args
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
   end

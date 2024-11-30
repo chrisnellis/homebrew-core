@@ -18,7 +18,7 @@ class AtSpi2Core < Formula
   depends_on "gobject-introspection" => :build
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
 
   depends_on "dbus"
   depends_on "glib"
@@ -40,7 +40,7 @@ class AtSpi2Core < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       /*
        * List the applications registered on at-spi.
        */
@@ -70,7 +70,7 @@ class AtSpi2Core < Formula
 
         return 1;
       }
-    EOS
+    C
 
     pkg_config_cflags = shell_output("pkg-config --cflags --libs atspi-2").chomp.split
     system ENV.cc, "test.c", *pkg_config_cflags, "-lgobject-2.0", "-o", "test"

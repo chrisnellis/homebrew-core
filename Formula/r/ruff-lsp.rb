@@ -3,13 +3,12 @@ class RuffLsp < Formula
 
   desc "Language Server Protocol implementation for Ruff"
   homepage "https://github.com/astral-sh/ruff-lsp"
-  url "https://files.pythonhosted.org/packages/96/b0/ddbd3ead49d20741462874032c5238ee99be755bf9838c9f96470ddfbaa8/ruff_lsp-0.0.57.tar.gz"
-  sha256 "559b72ba460d0b90aab66ca11785b90ad8c6931509eb56db7dea2a8922bf41a8"
+  url "https://files.pythonhosted.org/packages/fa/4f/d855c6c298326384b2d8c6396f21e3ab421ea9bf089c1ead0718f0bfce36/ruff_lsp-0.0.59.tar.gz"
+  sha256 "340a9d42b6fbdbc09f6a5c6d641bd4fa1e7f51868427467109a1331955c52754"
   license "MIT"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, all: "b8322356abd470ee27ddd18114380716de176723e69fd6ef3a2740d4a819c356"
+    sha256 cellar: :any_skip_relocation, all: "0ee57d863d9f0e0fe49f9af398575e3f28a6cf8637da6aa0ca33ea7c7ca0e95e"
   end
 
   depends_on "python@3.13"
@@ -31,8 +30,8 @@ class RuffLsp < Formula
   end
 
   resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/d0/63/68dbb6eb2de9cb10ee4c9c14a0148804425e13c4fb20d61cce69f53106da/packaging-24.2.tar.gz"
+    sha256 "c228a6dc5e932d346bc5739379109d49e8853dd8223571c7c5b55260edc0b97f"
   end
 
   resource "pygls" do

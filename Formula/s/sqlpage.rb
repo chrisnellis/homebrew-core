@@ -1,18 +1,18 @@
 class Sqlpage < Formula
-  desc "Web application framework, for creation of websites with simple database queries"
-  homepage "https://sql.ophir.dev/"
-  url "https://github.com/lovasoa/SQLpage/archive/refs/tags/v0.29.0.tar.gz"
-  sha256 "a4e8a802173287f72ca302722a15c2b3b3e6614ec6664a462eefd50aa1c63e58"
+  desc "Web app builder using SQL queries to create dynamic webapps quickly"
+  homepage "https://sql-page.com/"
+  url "https://github.com/sqlpage/SQLpage/archive/refs/tags/v0.31.0.tar.gz"
+  sha256 "f1547945fdc4a8191a0ddd626f43fa0463f378d2d508877d74cd707d7626e589"
   license "MIT"
-  head "https://github.com/lovasoa/SQLpage.git", branch: "main"
+  head "https://github.com/sqlpage/SQLpage.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "f1cfa3ee91122ac1f8419092cb4fe75df27b1accd256e9ae568b0f4bf84fa44c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "54f91dc9657c49858505141db8aa475e1bca53d488a9b5f9193d11682af67593"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f131a7a815d8dd8c9ceed637755fcebf6cf3c08da28c2e0cb1cad2a56fbb38ea"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e9dbe7dc46aaab4993837a6e09841f3259cd38a1e853b353d27dffc7fed78236"
-    sha256 cellar: :any_skip_relocation, ventura:       "8bfa51b75aba59c0bd551d54ddcd011897c4ecd1e0390ecee89f953d4dd497e2"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d2c04c6c8918d007e2d10518330741ae700694312b9c4d32eb66889c260e3262"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e16d96d3dcc50fdf4ed11cbc81aa0668d12bcf1f76853888d669226ea44dc8b2"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "775e65540a76af9ac21e781859408985476877b40142f374aeb0e28625a1eae5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a401cdd6fab63bcc35e926e20ef877bf33e86fb9a8af7f19d88141b7f5723aaf"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0dab2e6b9f6c9ef697f4c5d911949a8bdc58a473a74fbf7cdc9001a54736335b"
+    sha256 cellar: :any_skip_relocation, ventura:       "c4f3fee67e94049fbd43af76e3650aac42e9b3b36d9f97f56a45ee4f296c2468"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "cf7e4a5f0f16a91c4222e79e88ee530fc22a6a243d8d33732b3d08bae170b810"
   end
 
   depends_on "rust" => :build

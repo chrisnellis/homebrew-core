@@ -1,8 +1,8 @@
 class Teleport < Formula
   desc "Modern SSH server for teams managing distributed infrastructure"
   homepage "https://goteleport.com/"
-  url "https://github.com/gravitational/teleport/archive/refs/tags/v16.4.2.tar.gz"
-  sha256 "fad4e2d248417925498b05b9d2c52352f6580af95968c691bd2e2ddc129d73c2"
+  url "https://github.com/gravitational/teleport/archive/refs/tags/v17.0.2.tar.gz"
+  sha256 "213dd9cc016fd8873843d8f7f67a15eb162b61af5986a8b627681b3de24e7aec"
   license all_of: ["AGPL-3.0-or-later", "Apache-2.0"]
   head "https://github.com/gravitational/teleport.git", branch: "master"
 
@@ -18,18 +18,16 @@ class Teleport < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "e28b59dea0536a7a34a259b371221e63f6110af106d0a52d24345181fc4a47e3"
-    sha256 cellar: :any,                 arm64_sonoma:  "a9e155141bf6ae01f2d1957ba71e43f016527b88906c19fa98e884df1033f048"
-    sha256 cellar: :any,                 arm64_ventura: "3d7fb1861b3b1608902a1b73c8404ce75bb2d6d63d60360a7ffcce836bd82cb5"
-    sha256 cellar: :any,                 sonoma:        "cfe5435f3606343bb5532da629111a90532c766a2b9f5688c63bb434d55a0d0a"
-    sha256 cellar: :any,                 ventura:       "a75cdf8c3e27e8f7e5d96fcacc0b15b28e4eb1a6279335dc534f3da30d7f07fd"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f651428efd417d822372aab204d4f4cbcba64793b45bf584f3d9a4b1f94df578"
+    sha256 cellar: :any,                 arm64_sequoia: "5234394250b6af2001b2be0bccfdd2b5f2f2edebd6acd8536e4ca4e43925b359"
+    sha256 cellar: :any,                 arm64_sonoma:  "355ec90750cdf68545b3a3718afea6f0d0ba9a60dc2806379f6de7983102e863"
+    sha256 cellar: :any,                 arm64_ventura: "98df22a6bee26567046e6f880138b7890ec891bc01e36461ce9019d92f0a1d8a"
+    sha256 cellar: :any,                 sonoma:        "3e9d907b426cccf5d3b1ead2aa6aea2b76753a69aefad3cda4ab4fd802ecaf16"
+    sha256 cellar: :any,                 ventura:       "8747688889e5ca7fffc911dcb5711b7434dd88b1394e51c71e61a0113403c6d2"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0cc319d21ba1b6982d2fe482018765460b7524c2b4529822ef3aecf8cf80b1a0"
   end
 
-  # Use "go" again after https://github.com/gravitational/teleport/commit/e4010172501f0ed18bb260655c83606dfa872fbd
-  # is released, likely in a version 17.x.x (or later?):
-  depends_on "go@1.22" => :build
-  depends_on "pkg-config" => :build
+  depends_on "go" => :build
+  depends_on "pkgconf" => :build
   depends_on "pnpm" => :build
   depends_on "rust" => :build
   # TODO: try to remove rustup dependancy, see https://github.com/Homebrew/homebrew-core/pull/191633#discussion_r1774378671
@@ -61,7 +59,7 @@ class Teleport < Formula
     assert_match version.to_s, shell_output("#{bin}/tctl version")
 
     mkdir testpath/"data"
-    (testpath/"config.yml").write <<~EOS
+    (testpath/"config.yml").write <<~YAML
       version: v2
       teleport:
         nodename: testhost
@@ -69,7 +67,7 @@ class Teleport < Formula
         log:
           output: stderr
           severity: WARN
-    EOS
+    YAML
 
     fork do
       exec "#{bin}/teleport start --roles=proxy,node,auth --config=#{testpath}/config.yml"
@@ -78,8 +76,8 @@ class Teleport < Formula
     sleep 10
     system "curl", "--insecure", "https://localhost:3080"
 
-    status = shell_output("#{bin}/tctl --config=#{testpath}/config.yml status")
-    assert_match(/Cluster\s*testhost/, status)
-    assert_match(/Version\s*#{version}/, status)
+    status = shell_output("#{bin}/tctl status --config=#{testpath}/config.yml")
+    assert_match(/Cluster:\s*testhost/, status)
+    assert_match(/Version:\s*#{version}/, status)
   end
 end

@@ -3,22 +3,21 @@ class Conan < Formula
 
   desc "Distributed, open source, package manager for C/C++"
   homepage "https://conan.io"
-  url "https://files.pythonhosted.org/packages/af/04/9953e47e414c7e6bc79d797cdb34833219ff966088167f52fd7bc12f303d/conan-2.8.0.tar.gz"
-  sha256 "ca80403fea7eb99a8e7b89ba7629f5d0d8a22fdcefd4c74f378dbad4b0ffd1bb"
+  url "https://files.pythonhosted.org/packages/89/49/9fcbd9d07ff974b10e37dfbe8bb40ad3b353a04442ec692686653e43ce8d/conan-2.9.3.tar.gz"
+  sha256 "4c3f0ce7302fe081c603080c8babb981dc1ab7ed698480e378b389bcef700a2b"
   license "MIT"
   head "https://github.com/conan-io/conan.git", branch: "develop"
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "7654b16f2c3e2373bcceaf060a677b5f60b9392ad52a2e7a3fe0b53101b6e0e8"
-    sha256 cellar: :any,                 arm64_sonoma:  "592b3defb1fec20aa60ce6af524c9b967f5c8110e902529ea499a8e65407f7b9"
-    sha256 cellar: :any,                 arm64_ventura: "ca8199823470b86e78f9d83ec560161fd5527835c092fadca93b9e670f212b0d"
-    sha256 cellar: :any,                 sonoma:        "2ac755b670bb8d6d8e14b26f7a4c320d5655ff3dd6a5aa3f003ad15a84038021"
-    sha256 cellar: :any,                 ventura:       "41126cf8eddef62d64f9de22767de49ff5f58bc750cc9294385820161e4e7c7c"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "12a5db48c42ae2d6ce4ee38599785f9dd7120a26bf5534b31752f6f5eaf390fa"
+    sha256 cellar: :any,                 arm64_sequoia: "7080095d26e054f351db8f9ce010c322e2b45da85cd77ea337b46c6be0ea973b"
+    sha256 cellar: :any,                 arm64_sonoma:  "fcd59821ff8719d508965e8760389020d2d3803f34e6bd47d65f5edfae341ed1"
+    sha256 cellar: :any,                 arm64_ventura: "42d7b4d28a302a24844ad57a88f60e01acfe745b761fe053bec27171a0655909"
+    sha256 cellar: :any,                 sonoma:        "71c161356f0b92a64b1e46d52475223154a9db3a0dab43853d0aa9a34ce94f24"
+    sha256 cellar: :any,                 ventura:       "c506068a6aab25f13085c3dc7ebefbd49496b4c13f279308b2edfbf8be8e35d7"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa6212b07b364d7e9c0f77caf04f1f43e4a5d8714aa02641845963e71919b4e6"
   end
 
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "cmake" => :test
   depends_on "certifi"
   depends_on "libyaml"
@@ -35,8 +34,8 @@ class Conan < Formula
   end
 
   resource "distro" do
-    url "https://files.pythonhosted.org/packages/fc/f8/98eea607f65de6527f8a2e8885fc8015d3e6f5775df186e443e0964a11c3/distro-1.9.0.tar.gz"
-    sha256 "2fa77c6fd8940f116ee1d6b94a2f90b13b5ea8d019b98bc8bafdcabcdd9bdbed"
+    url "https://files.pythonhosted.org/packages/4b/89/eaa3a3587ebf8bed93e45aa79be8c2af77d50790d15b53f6dfc85b57f398/distro-1.8.0.tar.gz"
+    sha256 "02e111d1dc6a50abb8eed6bf31c3e48ed8b0830d1ea2a1b78c61765c2513fdd8"
   end
 
   resource "fasteners" do
@@ -55,13 +54,13 @@ class Conan < Formula
   end
 
   resource "markupsafe" do
-    url "https://files.pythonhosted.org/packages/b4/d2/38ff920762f2247c3af5cbbbbc40756f575d9692d381d7c520f45deb9b8f/markupsafe-3.0.1.tar.gz"
-    sha256 "3e683ee4f5d0fa2dde4db77ed8dd8a876686e3fc417655c2ece9a90576905344"
+    url "https://files.pythonhosted.org/packages/b2/97/5d42485e71dfc078108a86d6de8fa46db44a1a9295e89c5d6d4a06e23a62/markupsafe-3.0.2.tar.gz"
+    sha256 "ee55d3edf80167e48ea11a923c7386f4669df67d7994554387f84e7d8b0a2bf0"
   end
 
   resource "patch-ng" do
-    url "https://files.pythonhosted.org/packages/2a/f0/f61a7368ae332d9a45534068c740d4eee4a06ece6cf48af5c3eb9e4bc50e/patch-ng-1.18.0.tar.gz"
-    sha256 "da067628d6d5fd9dc5a55eab37951d46bd95661b7219fab364b711366abcc690"
+    url "https://files.pythonhosted.org/packages/ee/c0/53a2f017ac5b5397a7064c2654b73c3334ac8461315707cbede6c12199eb/patch-ng-1.18.1.tar.gz"
+    sha256 "52fd46ee46f6c8667692682c1fd7134edc65a2d2d084ebec1d295a6087fc0291"
   end
 
   resource "python-dateutil" do

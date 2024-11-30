@@ -1,8 +1,8 @@
 class TraefikAT2 < Formula
   desc "Modern reverse proxy"
   homepage "https://traefik.io/"
-  url "https://github.com/traefik/traefik/releases/download/v2.11.12/traefik-v2.11.12.src.tar.gz"
-  sha256 "4877795dbc5ac9bd3e7e3f68e1f6965bb8ad818e43d0a5b79a1dff386f5d4be5"
+  url "https://github.com/traefik/traefik/releases/download/v2.11.14/traefik-v2.11.14.src.tar.gz"
+  sha256 "2cc17757fd095f1f86bad2682ccc0c06f189c3c22dd5706654970728e36c9055"
   license "MIT"
 
   livecheck do
@@ -11,12 +11,12 @@ class TraefikAT2 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5faa5e9a6df9e51d99b8a4415d16338cf76f9f26779101517948ed6b1ef59db5"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "3a4259df5ee7140b3294cc3f75101471c2805eb2f7ac9841be4b20fee30836bb"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "5bac3b920c6763146d0faa893728602555413db0612f7730fd859564153e4f0e"
-    sha256 cellar: :any_skip_relocation, sonoma:        "5f99499fa48baee49ca566f43ceb75c08febd43a90af44cc6a393d90a2577cd1"
-    sha256 cellar: :any_skip_relocation, ventura:       "c6ea7a17f09484dd2233a01fcd39b8d2abe899e8ad27f85b5590ccaae326d2ac"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "49f6e5e5c41905f0bff4fb3df1519c6c7e4d13c30fd226f71ae17cae94516e39"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "2124ad0dc74e88aa389698ee53728f1ab5e62238893350906ac5d05d762e8a6b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "48abecaa236a9b3954d09685eedff9c672fff3963092b9302888b1f25d3b04e1"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "25102fd1035e7e2e4aad7f0cf962ae3db673ad7ac58b6a78c0c0e4b6980557b9"
+    sha256 cellar: :any_skip_relocation, sonoma:        "7365bbf0ecfe62521b5ccd2843e15e2f59d9858457f068aaec63157a3eccd387"
+    sha256 cellar: :any_skip_relocation, ventura:       "994056fec7152f94fe73190faa67a08cf09748392a5453ee07e8f2d7558fe1fb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "af42594faf24857eabf5debc0f7f9f8289228933454ee3f187359c9dd32d6ccd"
   end
 
   keg_only :versioned_formula
@@ -47,7 +47,7 @@ class TraefikAT2 < Formula
     ui_port = free_port
     http_port = free_port
 
-    (testpath/"traefik.toml").write <<~EOS
+    (testpath/"traefik.toml").write <<~TOML
       [entryPoints]
         [entryPoints.http]
           address = ":#{http_port}"
@@ -56,7 +56,7 @@ class TraefikAT2 < Formula
       [api]
         insecure = true
         dashboard = true
-    EOS
+    TOML
 
     begin
       pid = fork do

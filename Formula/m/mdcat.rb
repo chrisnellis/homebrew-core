@@ -1,25 +1,27 @@
 class Mdcat < Formula
   desc "Show markdown documents on text terminals"
   homepage "https://github.com/swsnr/mdcat"
-  url "https://github.com/swsnr/mdcat/archive/refs/tags/mdcat-2.5.0.tar.gz"
-  sha256 "fc7855277a2f5e0c9ca74f9a9f72c8f527dde8ae16d2aa9bbe6a249040592aea"
+  url "https://github.com/swsnr/mdcat/archive/refs/tags/mdcat-2.7.0.tar.gz"
+  sha256 "e372a82291a139f95d77c12325a2f595f47f6d6b4c2de70e50ab2117e975734f"
   license "MPL-2.0"
   head "https://github.com/swsnr/mdcat.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e091e8f07d47fb1fa69efae631c459a9e3f793ba8efee226a01f5de4201f80e6"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ed13411f7ccee13439c01c33afa8be8f98746dc204744bda9dc55d1fc8fdb404"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "597aa7f1d640efb41bf3c9fad7b1869a2c91237a29fc712dbbbad2e9de71b9dc"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9b282b41eea98066429f5bd4b19418ed0281fabc258292801199f45ba4b2a835"
-    sha256 cellar: :any_skip_relocation, ventura:       "7757a1701707005ddabb6c8ee4fbe76641396029a6a8677eec1b7dd37d1939c0"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "24dfd12efa1d77060747414c2c03796a11e6aa47489ba6af81a5b80848757d40"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ca38875152be98d69833fbb90851625cad41ea408d2988d1b692e0514eea7d6d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "919a746231ece9f3525138673946ad329656f3eb58970ee356f614aaa91eaeb9"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "53f91d8e89afb3542a7a496027fd41a37935a0cd99d5d0a6fc36081d86187856"
+    sha256 cellar: :any_skip_relocation, sonoma:        "fe51c3e6cfc2b64039d1b9ce584b9b9655c293c76f5fae35737a3d94e1da9f01"
+    sha256 cellar: :any_skip_relocation, ventura:       "9ffb94fac81a11124aa4668fbbc4a35891706a915f18b9c3e29f5262b8f2c549"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "36ad557b7e0f95bf84b13d2fd11fb8592ffac94a5fd9207d92436e3e7b23ac6a"
   end
 
   depends_on "asciidoctor" => :build
   depends_on "rust" => :build
 
+  uses_from_macos "curl"
+
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "openssl@3"
   end
 
@@ -33,9 +35,9 @@ class Mdcat < Formula
   end
 
   test do
-    (testpath/"test.md").write <<~EOS
+    (testpath/"test.md").write <<~MARKDOWN
       _lorem_ **ipsum** dolor **sit** _amet_
-    EOS
+    MARKDOWN
     output = shell_output("#{bin}/mdcat --no-colour test.md")
     assert_match "lorem ipsum dolor sit amet", output
   end

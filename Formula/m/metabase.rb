@@ -1,8 +1,8 @@
 class Metabase < Formula
   desc "Business intelligence report server"
   homepage "https://www.metabase.com/"
-  url "https://downloads.metabase.com/v0.50.29/metabase.jar"
-  sha256 "52b5220df0dffd2823ddd922e70197cef1a9d78821976c3d932bf0476ff6eb5e"
+  url "https://downloads.metabase.com/v0.51.5/metabase.jar"
+  sha256 "719dce78c62f6d7845f04dc1cb7bc3e9164035279cfb0522f63e0daf7b57ce83"
   license "AGPL-3.0-only"
 
   livecheck do
@@ -11,7 +11,7 @@ class Metabase < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, all: "888accbdee3e924f4ad1f3a2e419955494020eb655987be1b2730b8dde97c470"
+    sha256 cellar: :any_skip_relocation, all: "14bb8b40bba376d02ecab32d6a7505b57d814776350ab1451666fd6f02d63c43"
   end
 
   head do
@@ -41,7 +41,7 @@ class Metabase < Formula
     require_root true
     working_dir var/"metabase"
     log_path var/"metabase/server.log"
-    error_log_path "/dev/null"
+    error_log_path File::NULL
   end
 
   test do

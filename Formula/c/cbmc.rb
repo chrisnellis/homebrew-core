@@ -2,17 +2,17 @@ class Cbmc < Formula
   desc "C Bounded Model Checker"
   homepage "https://www.cprover.org/cbmc/"
   url "https://github.com/diffblue/cbmc.git",
-      tag:      "cbmc-6.3.1",
-      revision: "d2b4455a109383562735cfb8b52ed8a6d2b6e197"
+      tag:      "cbmc-6.4.1",
+      revision: "c902db34beb113815f151c4d1f635e745ac79c0c"
   license "BSD-4-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "1e50e314bf1f1ddaa9253d40c4dc70f3770232308dcab4295337661437b1460f"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "133d3d72f113fcb12292e08a39d2449f16fb4510567e52d35e384142fe659db5"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c06dea047e5c78eb95354b17dcc40cc59abcf9db38680d9ead760202501540cf"
-    sha256 cellar: :any_skip_relocation, sonoma:        "c45b99b6975d0f2fa78b5aed64751e58f12367aaa91edd06b34b86782b3b5c10"
-    sha256 cellar: :any_skip_relocation, ventura:       "de04d1c43dc85344c103d79b1f7d143593122d86793b759328d57160b5d8a30b"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "bdcfa01760c11979adb3ee153bd3dd67ea2df230e171ced004473999b05ce936"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e05561fe7d5ebef7193131e715a51ba3333f7a7049053c0515197b266ed0f44d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "dfdce5719d48d31342be5de4ffbc058c75379cd6761b482c35f6580de9caaa7d"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c585f645ff7ddb8ba111fb6bb767232e3326eb980786e56c3c4d7141e19b9dac"
+    sha256 cellar: :any_skip_relocation, sonoma:        "268f4fc857d8162123a86ce5a21f88425dbc65b27612708864db748078fc09ce"
+    sha256 cellar: :any_skip_relocation, ventura:       "8babc8404f37fb21553dcbee759dd94f029a53764bd85ac9db8b1cd63b2ce763"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1f500a38f6ccd2e0b9c321e6cd09b522ed2885b46691e06bdc04cc1c16785a04"
   end
 
   depends_on "cmake" => :build
@@ -22,8 +22,6 @@ class Cbmc < Formula
 
   uses_from_macos "bison" => :build
   uses_from_macos "flex" => :build
-
-  fails_with gcc: "5"
 
   def install
     # Fixes: *** No rule to make target 'bin/goto-gcc',
@@ -41,13 +39,13 @@ class Cbmc < Formula
 
   test do
     # Find a pointer out of bounds error
-    (testpath/"main.c").write <<~EOS
+    (testpath/"main.c").write <<~C
       #include <stdlib.h>
       int main() {
         char *ptr = malloc(10);
         char c = ptr[10];
       }
-    EOS
+    C
     assert_match "VERIFICATION FAILED",
                  shell_output("#{bin}/cbmc --pointer-check main.c", 10)
   end

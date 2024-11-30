@@ -1,48 +1,37 @@
 class Kiota < Formula
   desc "OpenAPI based HTTP Client code generator"
   homepage "https://aka.ms/kiota/docs"
-  url "https://github.com/microsoft/kiota/archive/refs/tags/v1.19.0.tar.gz"
-  sha256 "39d7b64a6da36fd34ad887159a89640c7f2bd3bc921b8c787480374f04628f66"
+  url "https://github.com/microsoft/kiota/archive/refs/tags/v1.20.0.tar.gz"
+  sha256 "2090ed62884c77ae26ba1f0c37b9c250c2dc7b7229c0e18fbdfcb67c8b2c96bc"
   license "MIT"
   head "https://github.com/microsoft/kiota.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ab074e15fdae5c836c81ae19c8e339150947c82a4e1efc639456429ec2b7862b"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a10f7f7355a83251ea704c4c14243a1e3ddc22bd49d38eea5a553fd1ca587e84"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "10a391964f4a7b146d9db31e7ae4ec462318fbd596b6fb39d1e258a616a1b0de"
-    sha256 cellar: :any_skip_relocation, sonoma:        "e0bc1e4294e0577800927e03d862875877093f9fae7db4e49d2d885c6674599e"
-    sha256 cellar: :any_skip_relocation, ventura:       "330d081563bc910d265c8865827f44413d331785c8d1afea2f6cbedc059e59e7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "c093b4380d75606e739e11123632a8c943ac4f5ff42ef83c6d4785d9c71bbdce"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "865c01272fdc2876d975e803c3d53f9ae79daf3df4b25610ec597ed97f0e24db"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "cc0a93beed7dc18463c7fde3439850274d7e4deaf380b4adfa4db8137471a180"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "83f8bc3a3ed1077dd2c7c0d0713aa2fcc11c673d8e1c62df070ea6a0bc412401"
+    sha256 cellar: :any_skip_relocation, ventura:       "19c59b7d77264e17ba527926f1fa282ffcf5cf602552edff9e135d48605c27d0"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9b665d4cc03d6f7bd1c6f70c63e2cd8ab114f6b314dc7c00fef5512340b8fcdd"
   end
 
-  depends_on "dotnet"
-
-  # compiler version mismatch patch, upstream pr ref, https://github.com/microsoft/kiota/pull/5548
-  patch do
-    url "https://github.com/microsoft/kiota/commit/13f564c59a29db31339e587d1d788fba433978fc.patch?full_index=1"
-    sha256 "5c026bbf483d9e8053c6b89d9815308dad1ac27cc8bb16f711ce5b6648a80cf8"
-  end
+  depends_on "dotnet@8"
 
   def install
-    dotnet = Formula["dotnet"]
-    os = OS.mac? ? "osx" : OS.kernel_name.downcase
-    arch = Hardware::CPU.intel? ? "x64" : Hardware::CPU.arch.to_s
+    dotnet = Formula["dotnet@8"]
 
     args = %W[
       --configuration Release
       --framework net#{dotnet.version.major_minor}
       --output #{libexec}
-      --runtime #{os}-#{arch}
       --no-self-contained
+      --use-current-runtime
       -p:TargetFramework=net#{dotnet.version.major_minor}
       -p:PublishSingleFile=true
-      -p:Version=#{version}
     ]
+    args << "-p:Version=#{version}" if build.stable?
 
     system "dotnet", "publish", "src/kiota/kiota.csproj", *args
-
-    (bin/"kiota").write_env_script libexec/"kiota",
-      DOTNET_ROOT: "${DOTNET_ROOT:-#{dotnet.opt_libexec}}"
+    (bin/"kiota").write_env_script libexec/"kiota", DOTNET_ROOT: dotnet.opt_libexec
   end
 
   test do

@@ -1,23 +1,17 @@
 class PostgresqlAT12 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v12.20/postgresql-12.20.tar.bz2"
-  sha256 "2d543af3009fec7fd5af35f7a70c95085d3eef6b508e517aa9493e99b15e9ea9"
+  url "https://ftp.postgresql.org/pub/source/v12.22/postgresql-12.22.tar.bz2"
+  sha256 "8df3c0474782589d3c6f374b5133b1bd14d168086edbc13c6e72e67dd4527a3b"
   license "PostgreSQL"
-  revision 1
-
-  livecheck do
-    url "https://ftp.postgresql.org/pub/source/"
-    regex(%r{href=["']?v?(12(?:\.\d+)+)/?["' >]}i)
-  end
 
   bottle do
-    sha256 arm64_sequoia: "96d2d8acaf1fbe9e7ff89c45012b859349baa3fa6727fa95c3483003322cc726"
-    sha256 arm64_sonoma:  "9b85ef425587f9817e18c3a2b1ae095c53c5dcb460573578f916527f6174025e"
-    sha256 arm64_ventura: "edd1c5855962e667a48b16e1f7efa76286642d335231d034cdde468cee183136"
-    sha256 sonoma:        "a0e92d9720543ed2c92248136b8e2c231d5414d39101cd0820e73ce991ff5b85"
-    sha256 ventura:       "cb62c501bc2f49e5e98f0e6671572140d3e6906cbedc50d089386720ba7d1801"
-    sha256 x86_64_linux:  "6feea907198b1bfc2448fdf25639ac0676ae67880d9de7b75967588c5ad7cb10"
+    sha256 arm64_sequoia: "a5c78e7ce55f654e10a6e085189375874c1d4cbc3f9945a3af7e19649e7d5ce7"
+    sha256 arm64_sonoma:  "6f7188fb76d7f3b3d5b49cbca78710a93fb6db29e13147339f7b96938e31f233"
+    sha256 arm64_ventura: "2c2feaefff5d7ce821e0e1d4ec3f0283a2627a963bfff99b5952e901743ff3a4"
+    sha256 sonoma:        "0c6108e5234284468ee08d5421e12bfbfdd36c6261e85333533d71ad8bf21a6a"
+    sha256 ventura:       "16de899595cb443c6991899310cc159aa1efbe8a6994438ac5d204e217d9adc3"
+    sha256 x86_64_linux:  "f02f9134dbeccca31ce2649d12ac4e4ba5dffbc0f8de30b36c11b443bc51a218"
   end
 
   keg_only :versioned_formula
@@ -25,8 +19,8 @@ class PostgresqlAT12 < Formula
   # https://www.postgresql.org/support/versioning/
   deprecate! date: "2024-11-14", because: :unsupported
 
-  depends_on "pkg-config" => :build
-  depends_on "icu4c@75"
+  depends_on "pkgconf" => :build
+  depends_on "icu4c@76"
 
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.

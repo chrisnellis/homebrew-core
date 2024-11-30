@@ -1,17 +1,17 @@
 class Pocketbase < Formula
   desc "Open source backend for your next project in 1 file"
   homepage "https://pocketbase.io/"
-  url "https://github.com/pocketbase/pocketbase/archive/refs/tags/v0.22.21.tar.gz"
-  sha256 "641f015a9c978f24741626898b470b4a01c2122731c4b7e8a057333122d5a967"
+  url "https://github.com/pocketbase/pocketbase/archive/refs/tags/v0.23.3.tar.gz"
+  sha256 "35eccd3b1e68bc50e8b0e69449b2ea0cd88523d30b36bb990550fb344ea1c8cc"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "95598f3e44316728c91aa2291e59def859633d90b8e6bb838bc74aa26d76398c"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "95598f3e44316728c91aa2291e59def859633d90b8e6bb838bc74aa26d76398c"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "95598f3e44316728c91aa2291e59def859633d90b8e6bb838bc74aa26d76398c"
-    sha256 cellar: :any_skip_relocation, sonoma:        "1ce3652993c1ae4af10c3c81a3a65e053016ce5a7b5af06fd10bf61839dd52e4"
-    sha256 cellar: :any_skip_relocation, ventura:       "1ce3652993c1ae4af10c3c81a3a65e053016ce5a7b5af06fd10bf61839dd52e4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "081685dc3b26e6eb08662673196889128a2baa15f59debea6ec35a18e6ad309f"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c386b54d04c1f0bd40fdf4b1f6c847e93925c29cadadd3529120d527a45f5ba0"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c386b54d04c1f0bd40fdf4b1f6c847e93925c29cadadd3529120d527a45f5ba0"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c386b54d04c1f0bd40fdf4b1f6c847e93925c29cadadd3529120d527a45f5ba0"
+    sha256 cellar: :any_skip_relocation, sonoma:        "2ad31e8b5eefef89dbfc6300add2a822d1ff43fd046cfdbfc37e333b9a96d115"
+    sha256 cellar: :any_skip_relocation, ventura:       "2ad31e8b5eefef89dbfc6300add2a822d1ff43fd046cfdbfc37e333b9a96d115"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "9f4dcb42c676dd59efafa67cd573788f3b40019bc5e0aa39fd1be80f5299fa04"
   end
 
   depends_on "go" => :build
@@ -32,7 +32,6 @@ class Pocketbase < Formula
     sleep 5
 
     system "nc", "-z", "localhost", port
-    Process.kill "SIGINT", pid
 
     assert_predicate testpath/"pb_data", :exist?, "pb_data directory should exist"
     assert_predicate testpath/"pb_data", :directory?, "pb_data should be a directory"
@@ -40,7 +39,9 @@ class Pocketbase < Formula
     assert_predicate testpath/"pb_data/data.db", :exist?, "pb_data/data.db should exist"
     assert_predicate testpath/"pb_data/data.db", :file?, "pb_data/data.db should be a file"
 
-    assert_predicate testpath/"pb_data/logs.db", :exist?, "pb_data/logs.db should exist"
-    assert_predicate testpath/"pb_data/logs.db", :file?, "pb_data/logs.db should be a file"
+    assert_predicate testpath/"pb_data/auxiliary.db", :exist?, "pb_data/auxiliary.db should exist"
+    assert_predicate testpath/"pb_data/auxiliary.db", :file?, "pb_data/auxiliary.db should be a file"
+  ensure
+    Process.kill "TERM", pid
   end
 end

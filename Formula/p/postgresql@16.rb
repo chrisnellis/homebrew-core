@@ -1,10 +1,9 @@
 class PostgresqlAT16 < Formula
   desc "Object-relational database system"
   homepage "https://www.postgresql.org/"
-  url "https://ftp.postgresql.org/pub/source/v16.4/postgresql-16.4.tar.bz2"
-  sha256 "971766d645aa73e93b9ef4e3be44201b4f45b5477095b049125403f9f3386d6f"
+  url "https://ftp.postgresql.org/pub/source/v16.6/postgresql-16.6.tar.bz2"
+  sha256 "23369cdaccd45270ac5dcc30fa9da205d5be33fa505e1f17a0418d2caeca477b"
   license "PostgreSQL"
-  revision 1
 
   livecheck do
     url "https://ftp.postgresql.org/pub/source/"
@@ -12,12 +11,12 @@ class PostgresqlAT16 < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "e6edefb2047f4695538636c2830e3fb5522496032498aeb09bdd923cf82a1d2f"
-    sha256 arm64_sonoma:  "371a0cd3cfb41549c4735703476e80be2e3c347aaad93ecfc7ae199b3704cc2c"
-    sha256 arm64_ventura: "f91e841d971be121b21124baefcc5942a175210ae70c44fb1933af630995fcf5"
-    sha256 sonoma:        "e8d4dab6ebc9b58957bdc0ba0730bb7a1142771f7eae3f7ae33d1ebf7edb90f7"
-    sha256 ventura:       "37059a0086dbef38e2871a09770a42ba66794b99d6e90047729727d31ea70d3a"
-    sha256 x86_64_linux:  "d114c8bd935ea0e911ce14c438d4006a1afe2c3789cc938a5f995b45cf49cc18"
+    sha256 arm64_sequoia: "6e3782edae9998def84db4d9eedb6776d4f84defb782311520b713814f510075"
+    sha256 arm64_sonoma:  "88d77209b367e4449ba5b73d8f9381d92b62c919c8c83cdc07bed7276eab43d9"
+    sha256 arm64_ventura: "046778957b5ab89c0cee710c7818b4aa9bf53b720fd07db97e839c6119dc735b"
+    sha256 sonoma:        "c2ab884ddb8c67204bc7347424f220b2a3bb30fb8fd09a726e3176f743a200f4"
+    sha256 ventura:       "d7b2fae695261b6444afcabf73371cfcc44bf02bed9b96714b078b7e3e6e3d6d"
+    sha256 x86_64_linux:  "5066742d66aade04e29bce8d08ebb48eb43e6fb816ebbc8d35a392ca72819f9e"
   end
 
   keg_only :versioned_formula
@@ -26,8 +25,8 @@ class PostgresqlAT16 < Formula
   deprecate! date: "2028-11-09", because: :unsupported
 
   depends_on "gettext" => :build
-  depends_on "pkg-config" => :build
-  depends_on "icu4c@75"
+  depends_on "pkgconf" => :build
+  depends_on "icu4c@76"
 
   # GSSAPI provided by Kerberos.framework crashes when forked.
   # See https://github.com/Homebrew/homebrew-core/issues/47494.
@@ -59,12 +58,13 @@ class PostgresqlAT16 < Formula
     ENV.prepend "CPPFLAGS", "-I#{Formula["openssl@3"].opt_include} -I#{Formula["readline"].opt_include}"
 
     # Fix 'libintl.h' file not found for extensions
+    # Update config to fix `error: could not find function 'gss_store_cred_into' required for GSSAPI`
     if OS.mac?
-      ENV.prepend "LDFLAGS", "-L#{Formula["gettext"].opt_lib}"
-      ENV.prepend "CPPFLAGS", "-I#{Formula["gettext"].opt_include}"
+      ENV.prepend "LDFLAGS", "-L#{Formula["gettext"].opt_lib} -L#{Formula["krb5"].opt_lib}"
+      ENV.prepend "CPPFLAGS", "-I#{Formula["gettext"].opt_include} -I#{Formula["krb5"].opt_include}"
     end
 
-    args = std_configure_args + %W[
+    args = %W[
       --datadir=#{opt_pkgshare}
       --libdir=#{opt_lib}
       --includedir=#{opt_include}
@@ -91,7 +91,7 @@ class PostgresqlAT16 < Formula
     # which does not work on CLT-only installs.
     args << "PG_SYSROOT=#{MacOS.sdk_path}" if OS.mac? && MacOS.sdk_root_needed?
 
-    system "./configure", *args
+    system "./configure", *args, *std_configure_args
 
     # Work around busted path magic in Makefile.global.in. This can't be specified
     # in ./configure, but needs to be set here otherwise install prefixes containing
@@ -150,7 +150,7 @@ class PostgresqlAT16 < Formula
   test do
     system bin/"initdb", testpath/"test" unless ENV["HOMEBREW_GITHUB_ACTIONS"]
     assert_equal opt_pkgshare.to_s, shell_output("#{bin}/pg_config --sharedir").chomp
-    assert_equal opt_lib.to_s, shell_output("#{bin}/pg_config --libdir").chomp
+    assert_equal lib.to_s, shell_output("#{bin}/pg_config --libdir").chomp
     assert_equal (opt_lib/"postgresql").to_s, shell_output("#{bin}/pg_config --pkglibdir").chomp
     assert_equal (opt_include/"postgresql").to_s, shell_output("#{bin}/pg_config --pkgincludedir").chomp
     assert_equal (opt_include/"postgresql/server").to_s, shell_output("#{bin}/pg_config --includedir-server").chomp

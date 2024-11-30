@@ -1,21 +1,18 @@
 class GitSpice < Formula
   desc "Manage stacked Git branches"
   homepage "https://github.com/abhinav/git-spice"
-  url "https://github.com/abhinav/git-spice/archive/refs/tags/v0.7.0.tar.gz"
-  sha256 "cfef3ebaaf750d83ae9480663f256c611a9abffd2fd6af95398187313e11fa1e"
-  license all_of: [
-    "GPL-3.0-or-later",
-    "BSD-3-Clause", # internal/komplete/{komplete.go, komplete_test.go}
-  ]
+  url "https://github.com/abhinav/git-spice/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "c798cc30845b43e9df1a530af6ba132e4a95770cd861f5b030925e11a2c8a3fd"
+  license "GPL-3.0-or-later"
   head "https://github.com/abhinav/git-spice.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ca908bb6e964f706c4e369f76c8a28566a70524532ce202bf35c847f561211e3"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "ca908bb6e964f706c4e369f76c8a28566a70524532ce202bf35c847f561211e3"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "ca908bb6e964f706c4e369f76c8a28566a70524532ce202bf35c847f561211e3"
-    sha256 cellar: :any_skip_relocation, sonoma:        "2e082872f5301e821398a345a35d47921baf1146326e1d9d11c4c0e344d3b49d"
-    sha256 cellar: :any_skip_relocation, ventura:       "2e082872f5301e821398a345a35d47921baf1146326e1d9d11c4c0e344d3b49d"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1e13a55d1031914733756c2f9779a04de4f2f2052b0f0175fce2e6b6ec61862a"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a52f0b4649f858c8ea073b70fc5d7c56be025232b0d7e12cd2b65496367c831b"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a52f0b4649f858c8ea073b70fc5d7c56be025232b0d7e12cd2b65496367c831b"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a52f0b4649f858c8ea073b70fc5d7c56be025232b0d7e12cd2b65496367c831b"
+    sha256 cellar: :any_skip_relocation, sonoma:        "0a352af4894f7bf28dff834dd9c6cfcf6eee07e344accf03e0406ce749f6de71"
+    sha256 cellar: :any_skip_relocation, ventura:       "0a352af4894f7bf28dff834dd9c6cfcf6eee07e344accf03e0406ce749f6de71"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e8ca7adea8fa623ab630a2c832b5c4f4d9ece69535a6cfe5a28e51aa8f6a15c5"
   end
 
   depends_on "go" => :build

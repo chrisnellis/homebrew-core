@@ -1,18 +1,16 @@
 class Qxmpp < Formula
   desc "Cross-platform C++ XMPP client and server library"
   homepage "https://github.com/qxmpp-project/qxmpp/"
-  url "https://github.com/qxmpp-project/qxmpp/archive/refs/tags/v1.8.1.tar.gz"
-  sha256 "f307dde71dbaf9e17dc0472fafe68cabe2572b22ae759b6af24f8e1183b8db71"
+  url "https://github.com/qxmpp-project/qxmpp/archive/refs/tags/v1.9.1.tar.gz"
+  sha256 "940b9510ce21ec1daac2047fc2fbbe899d17c868dd872af03c6c8f9b3490b4d6"
   license "LGPL-2.1-or-later"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:   "35ecf017c6e3831bfde3214cd3e3494640487ded3181aae0b976633fbd4b8357"
-    sha256 cellar: :any,                 arm64_ventura:  "9552066925505dfbe08a5cf08047612e591b3df2e3ee5004f0bb582dd7d0e029"
-    sha256 cellar: :any,                 arm64_monterey: "9154b994b01159d648d18cdfabc70f262905d6b34dbc8d65eaf5c2bdd86f6b13"
-    sha256 cellar: :any,                 sonoma:         "f3a50a20f603418572d79ecb09ea82a3b0f7288358ef349fbca4a91c2ea8704f"
-    sha256 cellar: :any,                 ventura:        "c2b5b8702dbd5705c238bd7ce83fb69515c81b265ea5298590ca5fa363125444"
-    sha256 cellar: :any,                 monterey:       "a71c28054571afc618796c9b9b0193a9be622a94ea7dc8a1024ee6f58fac75a4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "29bd2b35ecf089919a9938af9fbeb2d582a364e3a53d14a3e21b60043be42fd1"
+    sha256 cellar: :any,                 arm64_sonoma:  "f70e267d813451b26a607eb2f2d862af79cbff2e867250c2f00cb612e41c2e7b"
+    sha256 cellar: :any,                 arm64_ventura: "c8c99536acde50d5eca7fcd79354f1f512e251f8430afbf8f57540c13204bcea"
+    sha256 cellar: :any,                 sonoma:        "8cabcc7518f2dd1504ee72dc534aaf52fd124c8d578e0dd449da3301ac29d721"
+    sha256 cellar: :any,                 ventura:       "35dfaecf5bbe7031cf02a4741434326d6382321bb9fed8dbe61646b45b588ccb"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50e12f28863dad989751d4c5e74d4b5ee2e9832d51cc04cde0a30c066b4be2b5"
   end
 
   depends_on "cmake" => :build
@@ -56,13 +54,13 @@ class Qxmpp < Formula
       QMAKE_RPATHDIR += #{lib}
     EOS
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <QXmppQt6/QXmppClient.h>
       int main() {
         QXmppClient client;
         return 0;
       }
-    EOS
+    CPP
 
     system "#{Formula["qt"].bin}/qmake", "test.pro"
     system "make"

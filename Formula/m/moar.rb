@@ -1,17 +1,17 @@
 class Moar < Formula
   desc "Nice to use pager for humans"
   homepage "https://github.com/walles/moar"
-  url "https://github.com/walles/moar/archive/refs/tags/v1.27.2.tar.gz"
-  sha256 "c1aa0c217dd5b59535b0cbe6b0a6e02a14cdff01bbe2146ea1b0968036c9a412"
+  url "https://github.com/walles/moar/archive/refs/tags/v1.30.0.tar.gz"
+  sha256 "a26954fca06c95604a94b6f208f62eff247e50c8d239262322a13d0959074de1"
   license "BSD-2-Clause"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c8b2fe002af52128a8b2fee5d0c85e69845d97bbb44bfa4aba08543ea72e8599"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c8b2fe002af52128a8b2fee5d0c85e69845d97bbb44bfa4aba08543ea72e8599"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "c8b2fe002af52128a8b2fee5d0c85e69845d97bbb44bfa4aba08543ea72e8599"
-    sha256 cellar: :any_skip_relocation, sonoma:        "9996d9c346df96536d64d24a768cc8784666907a8e38bd97782c3681b3f185eb"
-    sha256 cellar: :any_skip_relocation, ventura:       "9996d9c346df96536d64d24a768cc8784666907a8e38bd97782c3681b3f185eb"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "fde48d67ac5c4564882e843240c57bedc898b175532c812da84c7528bcadafeb"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "c459b0aae8386b7b331a44030747603165c00ba244f359eda279da264bf2705c"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c459b0aae8386b7b331a44030747603165c00ba244f359eda279da264bf2705c"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c459b0aae8386b7b331a44030747603165c00ba244f359eda279da264bf2705c"
+    sha256 cellar: :any_skip_relocation, sonoma:        "a54c7ca178391beef65f7c07cb563c655077796aff0e39ae6923833725874cb6"
+    sha256 cellar: :any_skip_relocation, ventura:       "a54c7ca178391beef65f7c07cb563c655077796aff0e39ae6923833725874cb6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "d480a9fcfbcd23e70432419b68e8f1712cd7b13f4694824cfdcb4ed3525c759d"
   end
 
   depends_on "go" => :build

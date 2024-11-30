@@ -6,15 +6,15 @@ class Vineyard < Formula
   url "https://github.com/v6d-io/v6d/releases/download/v0.23.2/v6d-0.23.2.tar.gz"
   sha256 "2a2788ed77b9459477b3e90767a910e77e2035a34f33c29c25b9876568683fd4"
   license "Apache-2.0"
-  revision 6
+  revision 8
 
   bottle do
-    sha256                               arm64_sequoia: "f207ec66068890b869177a0eadad0c42e5347f4da45b0536746d792b4559e76f"
-    sha256                               arm64_sonoma:  "55bd20736624b45cb6c1315f64fe92f11b8c401a9ae4a6208208ddd4d6351383"
-    sha256                               arm64_ventura: "15f8603be5c0d72954bf36b5b78b2690c29649f497ba28f96366f0355fe43676"
-    sha256                               sonoma:        "a813107094d2dd535d1e53133c397f8be7e6bf026812abe3528526b4c4aa903c"
-    sha256                               ventura:       "33a196fda4385724478f30de6323fd65c3b6e143797ca3f199142fec5fc426ee"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a858805f653607fb358050102b941bb00a06fecdf99dc97d2296e8f76966d961"
+    sha256                               arm64_sequoia: "c3982ddb1a64ee380eeef99b61ffbc33c47d1c0992611d87d16bbf6e5c4c50dc"
+    sha256                               arm64_sonoma:  "696c5f08c347318705f15b2a6332487ebbcaab2fed8cf57415e32d650983c17c"
+    sha256                               arm64_ventura: "4113f2f41c782c487df205939962749282530a81ac64f81baf1540d929fd6374"
+    sha256                               sonoma:        "88d607cbc4fa28ffd036aaa993032cb0f958cdc3c191a118389333ddded63a57"
+    sha256                               ventura:       "92bbb9470d41cb797804d4a711ea2b789355ecd13785be9aa42730e19a491096"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "0e94c5feb40414e25b77fb2665a6546135169fbbd5b029c065649eee144954f1"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -71,7 +71,7 @@ class Vineyard < Formula
   end
 
   test do
-    (testpath/"test.cc").write <<~EOS
+    (testpath/"test.cc").write <<~CPP
       #include <iostream>
       #include <memory>
 
@@ -87,9 +87,9 @@ class Vineyard < Formula
 
         return 0;
       }
-    EOS
+    CPP
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
 
       project(vineyard-test LANGUAGES C CXX)
@@ -99,7 +99,7 @@ class Vineyard < Formula
       add_executable(vineyard-test ${CMAKE_CURRENT_SOURCE_DIR}/test.cc)
       target_include_directories(vineyard-test PRIVATE ${VINEYARD_INCLUDE_DIRS})
       target_link_libraries(vineyard-test PRIVATE ${VINEYARD_LIBRARIES})
-    EOS
+    CMAKE
 
     # Remove Homebrew's lib directory from LDFLAGS as it is not available during
     # `shell_output`.

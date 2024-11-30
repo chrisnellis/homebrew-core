@@ -1,8 +1,8 @@
 class Geph4 < Formula
   desc "Modular Internet censorship circumvention system to deal with national filtering"
   homepage "https://geph.io/"
-  url "https://github.com/geph-official/geph4-client/archive/refs/tags/v4.99.8.tar.gz"
-  sha256 "3925c16f35d1b10705b36f2a19ef9fda596cb0d07bd6bab2e1e7b9b0ce7a2c72"
+  url "https://github.com/geph-official/geph4-client/archive/refs/tags/v4.99.20.tar.gz"
+  sha256 "e30d0f3d03851b502eb200d1fa62b74b91a8695a5079769cd04cb6d0543c0c19"
   license "GPL-3.0-only"
   head "https://github.com/geph-official/geph4-client.git", branch: "master"
 
@@ -12,18 +12,18 @@ class Geph4 < Formula
   end
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "9b919bafb02ced4c2324e6890c5e4a2eb58c0465f2776863a9fb9e122bf0d2cf"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "5a7ed24a5b9d7dee353de07f35afa7b7a6c8cc68b16149dfd768b99d1bc853bd"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "8f412ad80864741a26b3bf2ebdd602960565a8f10d0a3ef3724d8900c464213a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "677760fb46ff4e7396436824390d0705a201111978e264165b6c3fb6fcb7e7a1"
-    sha256 cellar: :any_skip_relocation, ventura:       "c99580b0dbb2b059c698847a2061ce7b6e81a4f3abdf49679c004452a9b9b0d9"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "1b972d152bcf60ad799429c4220ba79629c66ab4aefee49b4fd880256c190912"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "cdc0e98a2ad5595d54d6d0a198731b92a7be977dbfd79fe59aca720535cc1de1"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "bfaf5bc6e6e9e05a368c13e3cbe7ad16c6b0fe597ac8bd70e7d38569a1c4b0bd"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "ec7c5ed3a058620627cd57c2db253c19a5b45596ea7d7b981f3cda6abd5bb52a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "8c1e7194c05a848e947ee688d6eb5d52aaae9be3ccbc25f41d02f9276bf7d52b"
+    sha256 cellar: :any_skip_relocation, ventura:       "eb71e811451e484f676a19cc2886b62582ae1ea54a59afbf7c22da9f2b277828"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "f640502ace9fe4d07a5b2b36dec76e27256d77d8c0811b1b30c4a70bcc924006"
   end
 
   depends_on "rust" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "openssl@3"
   end
 

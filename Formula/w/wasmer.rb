@@ -1,18 +1,18 @@
 class Wasmer < Formula
   desc "Universal WebAssembly Runtime"
   homepage "https://wasmer.io"
-  url "https://github.com/wasmerio/wasmer/archive/refs/tags/v4.4.0.tar.gz"
-  sha256 "c6af8119593be975000ebb322c666677579bd39748f5b63592785c1b0628ec86"
+  url "https://github.com/wasmerio/wasmer/archive/refs/tags/v5.0.2.tar.gz"
+  sha256 "7e6aecadf26266bb6015da333be8d3b7b472af74e5882cf3ee996bbd20d2c95a"
   license "MIT"
   head "https://github.com/wasmerio/wasmer.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "5da4e8eb35a041b04816a3559fa89905c98f7f6b1d31097cfd91c2cf57d70bd0"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "4afde51f5b6dbe874c79db21cd14a5cbc2eb8abc9dbbb76052893ae0d55dbb85"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "f024defe733c6d8cdbad520c89f8214c50bcfe69afa8bc7b520a0f492363245a"
-    sha256 cellar: :any_skip_relocation, sonoma:        "262343bc90e25f038ed469e300df1a25c4ec456365dcb80ad91fefa5d36e86fd"
-    sha256 cellar: :any_skip_relocation, ventura:       "6ca5f1311b857116068b7c7e8019271806b07e24f701afa3954abe19f24c8ac4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "ceb4746b2778dd083d4c78dc570c0044d85401f584408b4750ce56ee783210a5"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "336d161608c70d24914130f64f66df928621d4e3cbd056ab3adbab390b85c687"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c54a6ddafc894b1a6b2656e21659f47e2f713d8e7cd848f958a2369cef2e5de8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "13e00b552e8f1bb5db3cfa6a3f285307e87ba0166ef10c9e417f498d3e7b3659"
+    sha256 cellar: :any_skip_relocation, sonoma:        "cb7a0c2fa45476f06a4028409c3e9b26c03727e72fd79071f058caba7eba9181"
+    sha256 cellar: :any_skip_relocation, ventura:       "737f984d8cb3ce1285eeb7f1c381d16c3b71bd1ce9ffa52bd818a80d9804efdd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "aa0fbc1f94ac34f38e69171963bcc1f0b7fbf216568bde544fc2c212a5a54aa9"
   end
 
   depends_on "cmake" => :build
@@ -20,7 +20,7 @@ class Wasmer < Formula
   depends_on "wabt" => :build
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "libxkbcommon"
   end
 

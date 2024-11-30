@@ -10,14 +10,20 @@ class Qt < Formula
     { "GPL-3.0-only" => { with: "Qt-GPL-exception-1.0" } },
     "LGPL-3.0-only",
   ]
-  revision 1
   head "https://code.qt.io/qt/qt5.git", branch: "dev"
 
   stable do
-    url "https://download.qt.io/official_releases/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz"
-    mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz"
-    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.2/single/qt-everywhere-src-6.7.2.tar.xz"
-    sha256 "0aaea247db870193c260e8453ae692ca12abc1bd841faa1a6e6c99459968ca8a"
+    url "https://download.qt.io/official_releases/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    mirror "https://qt.mirror.constant.com/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    mirror "https://mirrors.ukfast.co.uk/sites/qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.tar.xz"
+    sha256 "a3f1d257cbb14c6536585ffccf7c203ce7017418e1a0c2ed7c316c20c729c801"
+
+    # Backport fix for Xcode 16. Remove in the next release
+    patch do
+      url "https://github.com/qt/qtwebengine-chromium/commit/8c5cf527c520edf9cd96c143af02ac94966fc2af.patch?full_index=1"
+      sha256 "ab14d8559c0470cc28f6ba279015dac9e7411135f5f58c285c6a7cf5995e61b4"
+      directory "qtwebengine/src/3rdparty"
+    end
 
     # Backport support for FFMpeg 7.
     # Ref: https://bugreports.qt.io/browse/QTBUG-125227
@@ -49,18 +55,19 @@ class Qt < Formula
   end
 
   bottle do
-    sha256 cellar: :any,                 arm64_sonoma:  "de0596d68828545edb19f9b4fdbd4231f55665ffe24445982cde1d8cab158e76"
-    sha256 cellar: :any,                 arm64_ventura: "15292f50c614f96b44909d9e6bd7740332d6f0aaea7d58867b72b4a92bcc91c6"
-    sha256 cellar: :any,                 sonoma:        "dde328f798bab68dfec97e5e0531cbc2047f22d350bb59fc7bfdf5fd739f1ded"
-    sha256 cellar: :any,                 ventura:       "b4fb7663f99e75b5e46e909002c415f0e7619bf5c5d2370071ebd4e1683e3182"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "660595e4ee37395e5929df612556de6dc044bec8937f9e7ce584d10e8a593c74"
+    sha256 cellar: :any,                 arm64_sonoma:  "736b15e97ce01368cd314e96c7b46bad0d9b48e4258913511ab5f1b9ef16779b"
+    sha256 cellar: :any,                 arm64_ventura: "295299335e44701169635bb8672f588aa87d9265c539dcc4d7fe31ccd998e050"
+    sha256 cellar: :any,                 sonoma:        "7132f1d6dca9d0e78c6ba629fa798dea394be92d55ad98c3a1829a139904d21e"
+    sha256 cellar: :any,                 ventura:       "5a16728c19d459550d2f369498f431a164569a727475298a53fea542bfaddf77"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "50dc2df98af451dc46de70ccd130bf8b3ce2edc9364173af87f3c03870f3e78f"
   end
 
   depends_on "cmake" => [:build, :test]
+  depends_on maximum_macos: [:sonoma, :build] # https://bugreports.qt.io/browse/QTBUG-128900
   depends_on "ninja" => :build
   depends_on "node" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "vulkan-headers" => [:build, :test]
   depends_on "vulkan-loader" => [:build, :test]
   depends_on xcode: :build
@@ -73,7 +80,7 @@ class Qt < Formula
   depends_on "glib"
   depends_on "harfbuzz"
   depends_on "hunspell"
-  depends_on "icu4c@75"
+  depends_on "icu4c@76"
   depends_on "jasper"
   depends_on "jpeg-turbo"
   depends_on "libb2"
@@ -137,8 +144,6 @@ class Qt < Formula
     depends_on "xcb-util-wm"
   end
 
-  fails_with gcc: "5"
-
   resource "html5lib" do
     url "https://files.pythonhosted.org/packages/ac/b6/b55c3f49042f1df3dcd422b7f224f939892ee94f22abcf503a9b7339eaf2/html5lib-1.1.tar.gz"
     sha256 "b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"
@@ -155,7 +160,7 @@ class Qt < Formula
   end
 
   def install
-    python3 = "python3.12"
+    python3 = "python3.13"
 
     # Allow -march options to be passed through, as Qt builds
     # arch-specific code with runtime detection of capabilities:
@@ -367,7 +372,7 @@ class Qt < Formula
   end
 
   test do
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION #{Formula["cmake"].version})
 
       project(test VERSION 1.0.0 LANGUAGES CXX)
@@ -390,7 +395,7 @@ class Qt < Formula
         Qt6::Sql Qt6::Concurrent Qt6::3DCore Qt6::Svg Qt6::Quick3D
         Qt6::Network Qt6::NetworkAuth Qt6::Gui Qt6::WebEngineCore
       )
-    EOS
+    CMAKE
 
     (testpath/"test.pro").write <<~EOS
       QT       += core svg 3dcore network networkauth quick3d \
@@ -403,7 +408,7 @@ class Qt < Formula
       INCLUDEPATH += #{Formula["vulkan-headers"].opt_include}
     EOS
 
-    (testpath/"main.cpp").write <<~EOS
+    (testpath/"main.cpp").write <<~CPP
       #undef QT_NO_DEBUG
       #include <QCoreApplication>
       #include <Qt3DCore>
@@ -442,7 +447,7 @@ class Qt < Formula
         }
         return 0;
       }
-    EOS
+    CPP
 
     ENV["QT_VULKAN_LIB"] = Formula["vulkan-loader"].opt_lib/shared_library("libvulkan")
     ENV["QT_QPA_PLATFORM"] = "minimal" if OS.linux? && ENV["HOMEBREW_GITHUB_ACTIONS"]

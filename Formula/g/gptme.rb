@@ -3,24 +3,24 @@ class Gptme < Formula
 
   desc "AI assistant in your terminal"
   homepage "https://gptme.org/docs/"
-  url "https://files.pythonhosted.org/packages/2f/2a/983ea2f82b7d57b2f1178411d0918113b293f337f44f9ad03b81474c3771/gptme-0.20.0.tar.gz"
-  sha256 "17604fd3dc148b0c565a78eecf9c2971dab9a78a356663902cf43b24dae75927"
+  url "https://files.pythonhosted.org/packages/1d/8f/4c9068d0ea9a7b9c043e6d69fb82b250df64debe060a03d60c180b503b08/gptme-0.24.1.tar.gz"
+  sha256 "932cd784e5e23d142ac02c753df4b730d42d82927f56585380025576267a0af7"
   license "MIT"
   head "https://github.com/ErikBjare/gptme.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "f1d99e0b58971e800a6cfa666ab599719f8446e1b0a31cabc6dc405ae997e3c0"
-    sha256 cellar: :any,                 arm64_sonoma:  "b87daf152a9de5c0a015d494b3826392308b59f7ff71c08a4b10534a4a92699a"
-    sha256 cellar: :any,                 arm64_ventura: "4e5d6726a8cc8bca3f4681cd5ac9a27e95dbb66e90914fde76982182947082de"
-    sha256 cellar: :any,                 sonoma:        "2a3d5ce891a222fbfbc9d4251268d2f6e10811b7ebdcf9516190dc7838031206"
-    sha256 cellar: :any,                 ventura:       "50db8fa530531490634b0f4743626c46f632465b1ac05f5867537b01c7b55a01"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b052b1eff055f6d668dcaa3705ce2895542aae69617eeb0769bb109ff68b396e"
+    sha256 cellar: :any,                 arm64_sequoia: "7780298adb0151a87fe0879b0fb57952beaf3d07bd0edb4d2262b5951364e89c"
+    sha256 cellar: :any,                 arm64_sonoma:  "b9f6a1dd7e21c2f1ec24eeda0f3660d1e7ef3db6f7ffe8fc3b8c2bd745022b7c"
+    sha256 cellar: :any,                 arm64_ventura: "4a9334c872a022a43a8249fc8e798804e1d9603a603a067da8d6edf139d5bd87"
+    sha256 cellar: :any,                 sonoma:        "0e8822192e0ca1656c564ac11ddc2be314141f61966539d299cd3025e5706982"
+    sha256 cellar: :any,                 ventura:       "827dc79ff2637f77e66bb053986c9f079cc6ec6282eb23f0d5e44ac9ac202565"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "6a04a015458f3a67f8471d4af7b8466abdc0318666bed9fa13b4a47a9aafec89"
   end
 
   depends_on "rust" => :build
   depends_on "certifi"
   depends_on "libyaml"
-  depends_on "python@3.12"
+  depends_on "python@3.13"
 
   uses_from_macos "libxml2", since: :ventura
   uses_from_macos "libxslt"
@@ -31,13 +31,13 @@ class Gptme < Formula
   end
 
   resource "anthropic" do
-    url "https://files.pythonhosted.org/packages/d6/a6/10efc0ca36712673a11ac90095bdb84a299cd6f591d5111bfa9acbb2e76e/anthropic-0.34.2.tar.gz"
-    sha256 "808ea19276f26646bfde9ee535669735519376e4eeb301a2974fc69892be1d6e"
+    url "https://files.pythonhosted.org/packages/4d/d9/c39005f04c602607d68d48d1c917b35af8d16b687b7ca427ca787c39d8b9/anthropic-0.40.0.tar.gz"
+    sha256 "3efeca6d9e97813f93ed34322c6c7ea2279bf0824cd0aa71b59ce222665e2b87"
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/78/49/f3f17ec11c4a91fe79275c426658e509b07547f874b14c1a526d86a83fc8/anyio-4.6.0.tar.gz"
-    sha256 "137b4559cbb034c477165047febb6ff83f390fc3b20bf181c1fc0a728cb8beeb"
+    url "https://files.pythonhosted.org/packages/9f/09/45b9b7a6d4e45c6bcb5bf61d19e3ab87df68e0601fa8c5293de3542546cc/anyio-4.6.2.post1.tar.gz"
+    sha256 "4c8bc31ccdb51c7f7bd251f51c609e038d63e34219b44aa86e47576389880b4c"
   end
 
   resource "asttokens" do
@@ -75,34 +75,19 @@ class Gptme < Formula
     sha256 "8ea27ddd260da8150fa5a708269c4a10e76161e2496ec3e587da9e3c0fe4b9ab"
   end
 
-  resource "filelock" do
-    url "https://files.pythonhosted.org/packages/9d/db/3ef5bb276dae18d6ec2124224403d1d67bccdbefc17af4cc8f553e341ab1/filelock-3.16.1.tar.gz"
-    sha256 "c249fbfcd5db47e5e2d6d62198e565475ee65e4831e2561c8e313fa7eb961435"
-  end
-
-  resource "fsspec" do
-    url "https://files.pythonhosted.org/packages/62/7c/12b0943011daaaa9c35c2a2e22e5eb929ac90002f08f1259d69aedad84de/fsspec-2024.9.0.tar.gz"
-    sha256 "4b0afb90c2f21832df142f292649035d80b421f60a9e1c027802e5a0da2b04e8"
-  end
-
   resource "h11" do
     url "https://files.pythonhosted.org/packages/f5/38/3af3d3633a34a3316095b39c8e8fb4853a28a536e55d347bd8d8e9a14b03/h11-0.14.0.tar.gz"
     sha256 "8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"
   end
 
   resource "httpcore" do
-    url "https://files.pythonhosted.org/packages/b6/44/ed0fa6a17845fb033bd885c03e842f08c1b9406c86a2e60ac1ae1b9206a6/httpcore-1.0.6.tar.gz"
-    sha256 "73f6dbd6eb8c21bbf7ef8efad555481853f5f6acdeaff1edb0694289269ee17f"
+    url "https://files.pythonhosted.org/packages/6a/41/d7d0a89eb493922c37d343b607bc1b5da7f5be7e383740b4753ad8943e90/httpcore-1.0.7.tar.gz"
+    sha256 "8551cb62a169ec7162ac7be8d4817d561f60e08eaa485234898414bb5a8a0b4c"
   end
 
   resource "httpx" do
-    url "https://files.pythonhosted.org/packages/78/82/08f8c936781f67d9e6b9eeb8a0c8b4e406136ea4c3d1f89a5db71d42e0e6/httpx-0.27.2.tar.gz"
-    sha256 "f7c2be1d2f3c3c3160d441802406b206c2b76f5947b11115e6df10c6c65e66c2"
-  end
-
-  resource "huggingface-hub" do
-    url "https://files.pythonhosted.org/packages/df/fd/5f81bae67096c5ab50d29a0230b8374f0245916cca192f8ee2fada51f4f6/huggingface_hub-0.25.2.tar.gz"
-    sha256 "a1014ea111a5f40ccd23f7f7ba8ac46e20fa3b658ced1f86a00c75c06ec6423c"
+    url "https://files.pythonhosted.org/packages/10/df/676b7cf674dd1bdc71a64ad393c89879f75e4a0ab8395165b498262ae106/httpx-0.28.0.tar.gz"
+    sha256 "0858d3bab51ba7e386637f22a61d8ccddaeec5f3fe4209da3a6168dbb91573e0"
   end
 
   resource "idna" do
@@ -111,18 +96,18 @@ class Gptme < Formula
   end
 
   resource "ipython" do
-    url "https://files.pythonhosted.org/packages/f7/21/48db7d9dd622b9692575004c7c98f85f5629428f58596c59606d36c51b58/ipython-8.28.0.tar.gz"
-    sha256 "0d0d15ca1e01faeb868ef56bc7ee5a0de5bd66885735682e8a322ae289a13d1a"
+    url "https://files.pythonhosted.org/packages/d8/8b/710af065ab8ed05649afa5bd1e07401637c9ec9fb7cfda9eac7e91e9fbd4/ipython-8.30.0.tar.gz"
+    sha256 "cb0a405a306d2995a5cbb9901894d240784a9f341394c6ba3f4fe8c6eb89ff6e"
   end
 
   resource "jedi" do
-    url "https://files.pythonhosted.org/packages/d6/99/99b493cec4bf43176b678de30f81ed003fd6a647a301b9c927280c600f0a/jedi-0.19.1.tar.gz"
-    sha256 "cf0496f3651bc65d7174ac1b7d043eff454892c708a87d1b683e57b569927ffd"
+    url "https://files.pythonhosted.org/packages/72/3a/79a912fbd4d8dd6fbb02bf69afd3bb72cf0c729bb3063c6f4498603db17a/jedi-0.19.2.tar.gz"
+    sha256 "4770dc3de41bde3966b02eb84fbcf557fb33cce26ad23da12c742fb50ecb11f0"
   end
 
   resource "jiter" do
-    url "https://files.pythonhosted.org/packages/26/ef/64458dfad180debd70d9dd1ca4f607e52bb6de748e5284d748556a0d5173/jiter-0.6.1.tar.gz"
-    sha256 "e19cd21221fc139fb032e4112986656cb2739e9fe6d84c13956ab30ccc7d4449"
+    url "https://files.pythonhosted.org/packages/78/1e/3462be93c2443392a710ae1c2bba2239f44bbf0c826baea77da9f8311678/jiter-0.8.0.tar.gz"
+    sha256 "86fee98b569d4cc511ff2e3ec131354fafebd9348a487549c31ad371ae730310"
   end
 
   resource "lxml" do
@@ -151,13 +136,8 @@ class Gptme < Formula
   end
 
   resource "openai" do
-    url "https://files.pythonhosted.org/packages/95/64/9a5279138b5ea6c2f0e5443d5d93b4510cb87fa6fe7be0c92b837087124e/openai-1.51.2.tar.gz"
-    sha256 "c6a51fac62a1ca9df85a522e462918f6bb6bc51a8897032217e453a0730123a6"
-  end
-
-  resource "packaging" do
-    url "https://files.pythonhosted.org/packages/51/65/50db4dda066951078f0a96cf12f4b9ada6e4b811516bf0262c0f4f7064d4/packaging-24.1.tar.gz"
-    sha256 "026ed72c8ed3fcce5bf8950572258698927fd1dbda10a5e981cdf0ac37f4f002"
+    url "https://files.pythonhosted.org/packages/1e/39/d4859d897da053b61b84403f67dbef1abd075e441cb354892ff14f98e2c7/openai-1.55.3.tar.gz"
+    sha256 "547e85b94535469f137a779d8770c8c5adebd507c2cc6340ca401a7c4d5d16f0"
   end
 
   resource "parso" do
@@ -196,13 +176,13 @@ class Gptme < Formula
   end
 
   resource "pydantic" do
-    url "https://files.pythonhosted.org/packages/a9/b7/d9e3f12af310e1120c21603644a1cd86f59060e040ec5c3a80b8f05fae30/pydantic-2.9.2.tar.gz"
-    sha256 "d155cef71265d1e9807ed1c32b4c8deec042a44a50a4188b25ac67ecd81a9c0f"
+    url "https://files.pythonhosted.org/packages/41/86/a03390cb12cf64e2a8df07c267f3eb8d5035e0f9a04bb20fb79403d2a00e/pydantic-2.10.2.tar.gz"
+    sha256 "2bc2d7f17232e0841cbba4641e65ba1eb6fafb3a08de3a091ff3ce14a197c4fa"
   end
 
   resource "pydantic-core" do
-    url "https://files.pythonhosted.org/packages/e2/aa/6b6a9b9f8537b872f552ddd46dd3da230367754b6f707b8e1e963f515ea3/pydantic_core-2.23.4.tar.gz"
-    sha256 "2584f7cf844ac4d970fba483a717dbe10c1c1c96a969bf65d61ffe94df1b2863"
+    url "https://files.pythonhosted.org/packages/a6/9f/7de1f19b6aea45aeb441838782d68352e71bfa98ee6fa048d5041991b33e/pydantic_core-2.27.1.tar.gz"
+    sha256 "62a763352879b84aa31058fc931884055fd75089cccbd9d58bb6afd01141b235"
   end
 
   resource "pygments" do
@@ -215,14 +195,9 @@ class Gptme < Formula
     sha256 "e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca"
   end
 
-  resource "pyyaml" do
-    url "https://files.pythonhosted.org/packages/54/ed/79a089b6be93607fa5cdaedf301d7dfb23af5f25c398d5ead2525b063e17/pyyaml-6.0.2.tar.gz"
-    sha256 "d584d9ec91ad65861cc08d42e834324ef890a082e591037abe114850ff7bbc3e"
-  end
-
   resource "regex" do
-    url "https://files.pythonhosted.org/packages/f9/38/148df33b4dbca3bd069b963acab5e0fa1a9dbd6820f8c322d0dd6faeff96/regex-2024.9.11.tar.gz"
-    sha256 "6c188c307e8433bcb63dc1915022deb553b4203a70722fc542c363bf120a01fd"
+    url "https://files.pythonhosted.org/packages/8e/5f/bd69653fbfb76cf8604468d3b4ec4c403197144c7bfe0e6a5fc9e02a07cb/regex-2024.11.6.tar.gz"
+    sha256 "7ab159b063c52a0333c884e4679f8d7a85112ee3078fe3d9004b2dd875585519"
   end
 
   resource "requests" do
@@ -231,8 +206,8 @@ class Gptme < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/aa/9e/1784d15b057b0075e5136445aaea92d23955aad2c93eaede673718a40d95/rich-13.9.2.tar.gz"
-    sha256 "51a2c62057461aaf7152b4d611168f93a9fc73068f8ded2790f29fe2b5366d0c"
+    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
+    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
   end
 
   resource "six" do
@@ -256,13 +231,8 @@ class Gptme < Formula
   end
 
   resource "tiktoken" do
-    url "https://files.pythonhosted.org/packages/c4/4a/abaec53e93e3ef37224a4dd9e2fc6bb871e7a538c2b6b9d2a6397271daf4/tiktoken-0.7.0.tar.gz"
-    sha256 "1077266e949c24e0291f6c350433c6f0971365ece2b173a23bc3b9f9defef6b6"
-  end
-
-  resource "tokenizers" do
-    url "https://files.pythonhosted.org/packages/d7/fb/373b66ba58cbf5eda371480e4e051d8892ea1433a73f1f92c48657a699a6/tokenizers-0.20.1.tar.gz"
-    sha256 "84edcc7cdeeee45ceedb65d518fffb77aec69311c9c8e30f77ad84da3025f002"
+    url "https://files.pythonhosted.org/packages/37/02/576ff3a6639e755c4f70997b2d315f56d6d71e0d046f4fb64cb81a3fb099/tiktoken-0.8.0.tar.gz"
+    sha256 "9ccbb2740f24542534369c5635cfd9b2b3c2490754a78ac8831d99f89f94eeb2"
   end
 
   resource "tomlkit" do
@@ -271,8 +241,8 @@ class Gptme < Formula
   end
 
   resource "tqdm" do
-    url "https://files.pythonhosted.org/packages/58/83/6ba9844a41128c62e810fddddd72473201f3eacde02046066142a2d96cc5/tqdm-4.66.5.tar.gz"
-    sha256 "e1020aef2e5096702d8a025ac7d16b1577279c9d63f8375b63083e9a5f0fcbad"
+    url "https://files.pythonhosted.org/packages/a8/4b/29b4ef32e036bb34e4ab51796dd745cdba7ed47ad142a9f4a1eb8e0c744d/tqdm-4.67.1.tar.gz"
+    sha256 "f8aef9c52c08c13a65f30ea34f4e5aac3fd1a34959879d7e59e63027286627f2"
   end
 
   resource "traitlets" do
@@ -295,11 +265,6 @@ class Gptme < Formula
     sha256 "72ea0c06399eb286d978fdedb6923a9eb47e1c486ce63e9b4e64fc18303972b5"
   end
 
-  resource "youtube-transcript-api" do
-    url "https://files.pythonhosted.org/packages/a6/e9/82d16b9639bb9fedade810f87ecb18f705591160b5768a79001ac5b99a82/youtube_transcript_api-0.6.2.tar.gz"
-    sha256 "cad223d7620633cec44f657646bffc8bbc5598bd8e70b1ad2fa8277dec305eb7"
-  end
-
   def install
     virtualenv_install_with_resources
   end
@@ -309,7 +274,7 @@ class Gptme < Formula
 
     assert_match version.to_s, shell_output("#{bin}/gptme --version")
 
-    assert_match "No model specified, using recommended model",
+    assert_match "Found OpenAI API key, using OpenAI provider",
       shell_output("#{bin}/gptme -n 2>&1")
   end
 end

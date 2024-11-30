@@ -1,18 +1,19 @@
 class Recc < Formula
   desc "Remote Execution Caching Compiler"
   homepage "https://buildgrid.gitlab.io/recc"
-  url "https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/1.2.24/buildbox-1.2.24.tar.gz"
-  sha256 "098de85fa2dc25c3aff4c91d9b7482dfc5842125344e51571991b0eddecbb1c2"
+  url "https://gitlab.com/BuildGrid/buildbox/buildbox/-/archive/1.2.33/buildbox-1.2.33.tar.gz"
+  sha256 "26a06dd0e591e1b98d0c15763084872ff05a8c7a28e7c2a1824e31cb91312901"
   license "Apache-2.0"
+  revision 1
   head "https://gitlab.com/BuildGrid/buildbox/buildbox.git", branch: "master"
 
   bottle do
-    sha256 arm64_sequoia: "183dfd1da635da84e7b5ad05f7d2039c328ed9fafc4859840936e69bcd2c3578"
-    sha256 arm64_sonoma:  "54134c21c95d54b97716380ac73aaa496850ed149fc9731634d21654deeae7dd"
-    sha256 arm64_ventura: "fbbdd33b2fed59f07eb7c73bd033fa0a9788985ee26122579d0006c6a627e3d5"
-    sha256 sonoma:        "89a15307fe615f1a871774776c12f37cd4c61a860fe4431ecd858bcbc939126d"
-    sha256 ventura:       "c855341953276bba6a882e7755c62bda47ade2d364f322ee18efeb85eac1f166"
-    sha256 x86_64_linux:  "145386d6b43da859dc86b85b830cfac10291e74428c2297915ff1f2068d8c656"
+    sha256 arm64_sequoia: "954bf708a2494949d8c0445bcbeb7f7820aa6623636e2160715497c1cb2f15dd"
+    sha256 arm64_sonoma:  "e68d323c60be7b310467e3ae3bda059348051ac952dd36634bdee00bf844ca42"
+    sha256 arm64_ventura: "023046bf86fc593df51882d30e519dfddd5ec6cae2c1d24ff801e34215ff8525"
+    sha256 sonoma:        "ba02c3b73bcb4746b9708f0a5947c91ecdb3127cc95dc2665c40a34088572ba1"
+    sha256 ventura:       "cc22decfab077a21a9945eb6c82a6024646302445c68ae3b7b193eebed53b90f"
+    sha256 x86_64_linux:  "5bdcc658eea605a81b66d38d06c4f57c8f66bfcd6ef1c7c7ad8cf9abcfc846ea"
   end
 
   depends_on "cmake" => :build
@@ -32,7 +33,7 @@ class Recc < Formula
   end
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "util-linux"
   end
 
@@ -61,31 +62,30 @@ class Recc < Formula
     system "cmake", "--build", "build"
     system "cmake", "--install", "build"
 
-    ENV["RECC_BIN"] = bin/"recc"
-    system "command envsubst < scripts/wrapper-templates/recc-c++.in > recc-c++"
-    system "command envsubst < scripts/wrapper-templates/recc-cc.in > recc-cc"
-    bin.install "recc-c++"
-    bin.install "recc-cc"
-
-    ENV["RECC_CONFIG_PREFIX"] = "$(brew --prefix)/etc"
-    ENV["RECC_CONFIG_DIRECTORY"] = "\"${RECC_CONFIG_DIRECTORY}\""
-    ENV["RECC_SERVER"] = "unix://#{var}/recc/casd/casd.sock"
-    ENV["RECC_INSTANCE"] = "recc-server"
-    ENV["RECC_REMOTE_PLATFORM_ISA"] = Hardware::CPU.arch.to_s
-    ENV["RECC_REMOTE_PLATFORM_OS"] = OS.kernel_name.downcase
-    ENV["RECC_REMOTE_PLATFORM_OS_VERSION"] = OS.kernel_version.to_s
-    system "command envsubst < scripts/wrapper-templates/recc.conf.in > recc.conf"
+    makefile_args = %W[
+      RECC=#{opt_bin}/recc
+      RECC_CONFIG_PREFIX=#{etc}
+      RECC_SERVER=unix://#{var}/recc/casd/casd.sock
+      RECC_INSTANCE=recc-server
+      RECC_REMOTE_PLATFORM_ISA=#{Hardware::CPU.arch}
+      RECC_REMOTE_PLATFORM_OSFamily=#{OS.kernel_name.downcase}
+      RECC_REMOTE_PLATFORM_OSRelease=#{OS.kernel_version}
+    ]
+    system "make", "-f", "scripts/wrapper-templates/Makefile", *makefile_args
     etc.install "recc.conf"
+    bin.install "recc-cc"
+    bin.install "recc-c++"
 
     bin.install "scripts/wrapper-templates/casd-helper" => "recc-server"
   end
 
   service do
-    run [opt_bin/"recc-server", "--local-server-instance", "recc-server", "#{var}/recc/casd}"]
+    run [opt_bin/"recc-server", "--local-server-instance", "recc-server", "#{var}/recc/casd"]
     keep_alive true
     working_dir var/"recc"
     log_path var/"log/recc-server.log"
     error_log_path var/"log/recc-server-error.log"
+    environment_variables PATH: std_service_path_env
   end
 
   def caveats

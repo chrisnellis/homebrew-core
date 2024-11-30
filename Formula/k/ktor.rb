@@ -1,18 +1,18 @@
 class Ktor < Formula
   desc "Generates Ktor projects through the command-line interface"
   homepage "https://github.com/ktorio/ktor-cli"
-  url "https://github.com/ktorio/ktor-cli/archive/refs/tags/0.2.1.tar.gz"
-  sha256 "63a98fe44f912c9305e513d7c0428e06afdeb0f35c2088b1d500c9c9235f5226"
+  url "https://github.com/ktorio/ktor-cli/archive/refs/tags/0.3.1.tar.gz"
+  sha256 "d733b4e1bdb6dc1c24bdc5952805449e5fab974728c1491cbb680d94c88687bd"
   license "Apache-2.0"
   head "https://github.com/ktorio/ktor-cli.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "da21184d7653719644bd43e485f9a9fe5209bbd5760ee408123339fcb7d31235"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "da21184d7653719644bd43e485f9a9fe5209bbd5760ee408123339fcb7d31235"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "da21184d7653719644bd43e485f9a9fe5209bbd5760ee408123339fcb7d31235"
-    sha256 cellar: :any_skip_relocation, sonoma:        "f2db82b992dcc990a985a350ec48691e463d6aceec3f92da717e8b93a1829290"
-    sha256 cellar: :any_skip_relocation, ventura:       "f2db82b992dcc990a985a350ec48691e463d6aceec3f92da717e8b93a1829290"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e4dbabc68d684985930c294bdcc47ab59007dd4f7570191eaf17f2d879699ca7"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "6b7a13b7df5cabdf75f7b5e672f53c01c60d83849222931f8b8d4adff4d6de91"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "6b7a13b7df5cabdf75f7b5e672f53c01c60d83849222931f8b8d4adff4d6de91"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "6b7a13b7df5cabdf75f7b5e672f53c01c60d83849222931f8b8d4adff4d6de91"
+    sha256 cellar: :any_skip_relocation, sonoma:        "5695e2ba9dab74be6437b89e40655a77da6f174b46ff08560c7a25b3adc69fe6"
+    sha256 cellar: :any_skip_relocation, ventura:       "5695e2ba9dab74be6437b89e40655a77da6f174b46ff08560c7a25b3adc69fe6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3ea8d0c87d24e4d2adec9724111c151e4a2f9034a32a12ea979ada403a84ed5e"
   end
 
   depends_on "go" => :build

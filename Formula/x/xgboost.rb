@@ -2,19 +2,17 @@ class Xgboost < Formula
   desc "Scalable, Portable and Distributed Gradient Boosting Library"
   homepage "https://xgboost.ai/"
   url "https://github.com/dmlc/xgboost.git",
-      tag:      "v2.1.1",
-      revision: "9c9db1259240bffe9040ed7ca6e3fb2c1bda80e4"
+      tag:      "v2.1.3",
+      revision: "600be4dbb54ec5cda4cb61a2bb8fc4bce6f3fc58"
   license "Apache-2.0"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia:  "a16524cd548ed9d1defc9f876f9c1969f285db57ee0eae4d5cbbaac3e96278c0"
-    sha256 cellar: :any,                 arm64_sonoma:   "079cdf25dbb24f4281aefc2d9be96639998620f4573726cff02e3b311ef4f6de"
-    sha256 cellar: :any,                 arm64_ventura:  "f07b673e9e91531443027a6431eff980a0d961139e619da47c65008bf6f284e7"
-    sha256 cellar: :any,                 arm64_monterey: "3a6e7c9f3b47f5ba04810e44233db85776265a65a444979b218acbb9a90b8146"
-    sha256 cellar: :any,                 sonoma:         "f960825b4c60be06665add54fda26b4e623a3a0e8849c4f7bcc4c4e6b08da7cd"
-    sha256 cellar: :any,                 ventura:        "9a5d10ae6daf0df9b1284eb0e7b78926e3913eccdd9a98891adead4ba5228c60"
-    sha256 cellar: :any,                 monterey:       "80d8b98d6b5f6cb54a8267c22930a8f54aa743efdf23622c556e0cdc3b2731d7"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "dbedd7e752cec14fb02548e07a068e9413bc7b8c8ff71e367fa1bd3f57c74f40"
+    sha256 cellar: :any,                 arm64_sequoia: "a0075a6544e7b15a206b7aecf0ac964cc673dd6699669fe448ce248f664104ff"
+    sha256 cellar: :any,                 arm64_sonoma:  "3be8ebdf13a1730fdb3520e59b4b8609384cfc2b31436d99b43c741d77a88981"
+    sha256 cellar: :any,                 arm64_ventura: "2ef9d0c0e59eadb8c75d0d2fa26c1e71eaf4cd9312f9e038f25d3be29ef3197f"
+    sha256 cellar: :any,                 sonoma:        "c5a7a97e55d29e873479975a24983d9736f8d3f8e775e3bd00d3b09da8590fec"
+    sha256 cellar: :any,                 ventura:       "306b70f20fb3a2f0c58750718542ef3b950c4c352e7ba410e99cc457cbb37ea4"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "3880a47a621a002f8b14166368e11dfbd265edce32649dc6f3d8b9be4f764310"
   end
 
   depends_on "cmake" => :build
@@ -51,7 +49,7 @@ class Xgboost < Formula
   test do
     cp_r (pkgshare/"demo"), testpath
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <xgboost/c_api.h>
       #include <iostream>
 
@@ -99,7 +97,7 @@ class Xgboost < Formula
         std::cout << "Test completed successfully" << std::endl;
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "test.cpp", "-I#{include}", "-L#{lib}", "-lxgboost", "-o", "test"
     system "./test"

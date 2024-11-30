@@ -8,12 +8,13 @@ class Alpscore < Formula
   head "https://github.com/ALPSCore/ALPSCore.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any,                 arm64_sequoia: "b0b37cab12958e277e30b3a5a7c02ecfef33e3b6d99c962503776b049f436d63"
-    sha256 cellar: :any,                 arm64_sonoma:  "db8dc89b1424e97e6f82b09c0b8fd51c5ae9f2e8a12bfac8f77c59b80524b687"
-    sha256 cellar: :any,                 arm64_ventura: "8a97f12d5020decbb6af615cef1b06f095cf61050ee1da2d07640c4463ed98a4"
-    sha256 cellar: :any,                 sonoma:        "6e3428ea16b46226e1cb905ca2626720e33826779c6de5083508113d208a7f25"
-    sha256 cellar: :any,                 ventura:       "6d0ad2d5d76f50ae49277b54a30b933ad6f9978dcbcfa9bd0dfccd1607245669"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "74a4fe1f03be0984b0a8858af603e3edf6b3c41a5671413aa3774727024a6973"
+    rebuild 2
+    sha256 cellar: :any,                 arm64_sequoia: "4a5c92030e5c1a446db1062b1007ffc8d1314cd77efdf5f9194ac8347b5cdbe4"
+    sha256 cellar: :any,                 arm64_sonoma:  "241dd3c647a0d5191a7e50d97f57cdfafd10cad5d1cbb8fac7b9f3065587fa09"
+    sha256 cellar: :any,                 arm64_ventura: "9290875a72e7c89cef6888519d3ea0c0f3ae95fb08c6d0cef0e4f07443cb7693"
+    sha256 cellar: :any,                 sonoma:        "87f9dbe716b04a95d46c7d850b9778a21abf5dec122d58de265b65420c494437"
+    sha256 cellar: :any,                 ventura:       "8a7ca50ba1331ad8a116d7c3189dfe258bec8f476963659c767292680406efc6"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "e6592d3e7563ea45cd9fd053c1b1341c1f7e0b784616fd887b680ecb7fefa494"
   end
 
   depends_on "cmake" => [:build, :test]
@@ -58,7 +59,7 @@ class Alpscore < Formula
   end
 
   test do
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <alps/mc/api.hpp>
       #include <alps/mc/mcbase.hpp>
       #include <alps/accumulators.hpp>
@@ -73,17 +74,17 @@ class Alpscore < Formula
         p["myparam"] = 1.0;
         cout << set["a"] << endl << p["myparam"] << endl;
       }
-    EOS
+    CPP
 
-    (testpath/"CMakeLists.txt").write <<~EOS
+    (testpath/"CMakeLists.txt").write <<~CMAKE
       cmake_minimum_required(VERSION 3.5)
       project(test)
-      set(CMAKE_CXX_STANDARD 11)
+      set(CMAKE_CXX_STANDARD 14)
       find_package(HDF5 REQUIRED)
       find_package(ALPSCore REQUIRED mc accumulators params)
       add_executable(test test.cpp)
       target_link_libraries(test ${ALPSCore_LIBRARIES})
-    EOS
+    CMAKE
 
     system "cmake", "."
     system "cmake", "--build", "."

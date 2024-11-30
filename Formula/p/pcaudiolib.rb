@@ -34,7 +34,7 @@ class Pcaudiolib < Formula
   end
 
   on_linux do
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "alsa-lib"
     depends_on "pulseaudio"
   end
@@ -46,7 +46,7 @@ class Pcaudiolib < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       #include <pcaudiolib/audio.h>
 
@@ -59,7 +59,7 @@ class Pcaudiolib < Formula
         audio_object_destroy(my_audio);
         return error;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c", "-o", "test", "-L#{lib}", "-lpcaudio"
     system "./test"

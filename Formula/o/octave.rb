@@ -5,7 +5,7 @@ class Octave < Formula
   mirror "https://ftpmirror.gnu.org/octave/octave-9.2.0.tar.xz"
   sha256 "21417afb579105b035cac0bea09201522e384893ae90a781b8727efa32765807"
   license "GPL-3.0-or-later"
-  revision 1
+  revision 3
 
   # New tarballs appear on https://ftp.gnu.org/gnu/octave/ before a release is
   # announced, so we check the octave.org download page instead.
@@ -15,11 +15,11 @@ class Octave < Formula
   end
 
   bottle do
-    sha256 arm64_sonoma:  "eaba3042a683132820050d28e43c85f2a12b56f20af27c2712e7be396a428e25"
-    sha256 arm64_ventura: "f261ca0b6b3a4024228d3f0f5c14c0a59f6bc41b09d0a5500caee4841dd61f4b"
-    sha256 sonoma:        "0a7e9049bb310f613b1145f83f3dc5a73f01d37862acabe773ade658686761d5"
-    sha256 ventura:       "bf27e37a8e660d94a4bf4c1614b5a8229eda97530c1be46d9905d8f01a1505cf"
-    sha256 x86_64_linux:  "b3b7c0c2eb41dfba1154bd368921a79e6a1a30408f90295060d94e7a201da093"
+    sha256 arm64_sonoma:  "6b054b347149fdb9f895d0826a3ddfe19b9073ec69a593495c6eab6604c89b04"
+    sha256 arm64_ventura: "942cffcc4cf845683ecfa339d9a363bb7566c02cf0eed1706c3eac2071817028"
+    sha256 sonoma:        "e78c8cf8381ebec4148d7ef861b88f55d4080454538724096f245c4c80a38444"
+    sha256 ventura:       "9f5e718dd008b07f296158d0e34beeafa43396116bb74d9e6f10e9936b774128"
+    sha256 x86_64_linux:  "bf6732da770cd8e4a8b5ef6ae7e38d7e49d3d005eef2fa691c5ff4a1c68a849f"
   end
 
   head do
@@ -35,7 +35,7 @@ class Octave < Formula
   # Complete list of dependencies at https://wiki.octave.org/Building
   depends_on "gnu-sed" => :build # https://lists.gnu.org/archive/html/octave-maintainers/2016-09/msg00193.html
   depends_on "openjdk" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "arpack"
   depends_on "epstool"
   depends_on "fftw"
@@ -82,8 +82,6 @@ class Octave < Formula
 
   # Dependencies use Fortran, leading to spurious messages about GCC
   cxxstdlib_check :skip
-
-  fails_with gcc: "5"
 
   def install
     # Default configuration passes all linker flags to mkoctfile, to be

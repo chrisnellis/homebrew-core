@@ -2,18 +2,19 @@ class Podman < Formula
   desc "Tool for managing OCI containers and pods"
   homepage "https://podman.io/"
   url "https://github.com/containers/podman.git",
-      tag:      "v5.2.4",
-      revision: "76d0859d9f6e5d7c84392da9dcd2fae3447f789d"
+      tag:      "v5.3.1",
+      revision: "4cbdfde5d862dcdbe450c0f1d76ad75360f67a3c"
   license all_of: ["Apache-2.0", "GPL-3.0-or-later"]
   head "https://github.com/containers/podman.git", branch: "main"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "4da39d3fbebbc9abf77b743cc608d5920bba702f16c61667f6acc2824a0a7383"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "66d592ecf1206c24e3d9cf4d6bb4568f51d24a3780b17f36bf86cbcd3dbbb8e4"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "1119f378c89dfccd27deac5c6341808354449bfeaaa37c11bbe135297be47046"
-    sha256 cellar: :any_skip_relocation, sonoma:        "88a6e9d579afafbb67fa3b725a20cec502c6ff80a197d66f9dc9020a3b1a66bb"
-    sha256 cellar: :any_skip_relocation, ventura:       "a6a485de41a14569c53a3948f794cb9274ddcae7836d22d10bdb098a4b07293c"
-    sha256                               x86_64_linux:  "7d0d4f90e04ba2fd4b71ddb1bb57b3fbfe1b854dab820e02bffc6876cf2476e2"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "fcea80c47624a035c054c065421d166a373a9eaeb876f44ea98d6715ec9df87d"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "c0902976fdacd66894bf60a5d38483066e33ffeb6ecf268490bebf998158ed59"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "148659c386bc90a6c8283f7bb3c6a1ad52efdb1de3f2ed57f1e614f6d49372d3"
+    sha256 cellar: :any_skip_relocation, sonoma:        "6e7181c7b38df04c2622e9da5b76b2836667608b3b891c7e6a05e11a2642a452"
+    sha256 cellar: :any_skip_relocation, ventura:       "dc77238d65e819accc8201b116a5431facad157e3bfb7bfe5afdb7b131e1d2b9"
+    sha256                               x86_64_linux:  "7abe33ae4577b5785c3940a8e5223e92d5aabfd0d720f429a21335da7666f991"
   end
 
   depends_on "go" => :build
@@ -29,7 +30,7 @@ class Podman < Formula
     depends_on "autoconf" => :build
     depends_on "automake" => :build
     depends_on "libtool" => :build
-    depends_on "pkg-config" => :build
+    depends_on "pkgconf" => :build
     depends_on "protobuf" => :build
     depends_on "rust" => :build
     depends_on "conmon"
@@ -44,8 +45,8 @@ class Podman < Formula
 
   resource "gvproxy" do
     on_macos do
-      url "https://github.com/containers/gvisor-tap-vsock/archive/refs/tags/v0.7.5.tar.gz"
-      sha256 "d635bc55dbb97cf2a469427fb84b7a90f37540f14b090c21356cce2e549b46e0"
+      url "https://github.com/containers/gvisor-tap-vsock/archive/refs/tags/v0.8.0.tar.gz"
+      sha256 "460b576073c05229663766637f3b05e0a1fbcf0764843730923064f253021558"
     end
   end
 
@@ -65,15 +66,15 @@ class Podman < Formula
 
   resource "netavark" do
     on_linux do
-      url "https://github.com/containers/netavark/archive/refs/tags/v1.12.2.tar.gz"
-      sha256 "d1e5a7e65b825724fd084b0162084d9b61db8cda1dad26de8a07be1bd6891dbc"
+      url "https://github.com/containers/netavark/archive/refs/tags/v1.13.0.tar.gz"
+      sha256 "34862383aee916677333b586f57d8b1d29f94676029da23c9a1ad1fcb509d1c1"
     end
   end
 
   resource "aardvark-dns" do
     on_linux do
-      url "https://github.com/containers/aardvark-dns/archive/refs/tags/v1.12.2.tar.gz"
-      sha256 "19317d97525c19135b31f76101b9c13bf2b009cecfc11f467b2ab30fb2641867"
+      url "https://github.com/containers/aardvark-dns/archive/refs/tags/v1.13.1.tar.gz"
+      sha256 "8c21dbdb6831d61d52dde6ebc61c851cfc96ea674cf468530b44de6ee9e6f49e"
     end
   end
 
@@ -121,9 +122,9 @@ class Podman < Formula
       system "make"
       system "make", "install", "install.completions"
 
-      (prefix/"etc/containers/policy.json").write <<~EOS
+      (prefix/"etc/containers/policy.json").write <<~JSON
         {"default":[{"type":"insecureAcceptAnything"}]}
-      EOS
+      JSON
 
       (prefix/"etc/containers/storage.conf").write <<~EOS
         [storage]
@@ -171,7 +172,7 @@ class Podman < Formula
   end
 
   service do
-    run linux: [opt_bin/"podman", "system", "service", "--time=0"]
+    run linux: [opt_bin/"podman", "system", "service", "--time", "0"]
     environment_variables PATH: std_service_path_env
     working_dir HOMEBREW_PREFIX
   end

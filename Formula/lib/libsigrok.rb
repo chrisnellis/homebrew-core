@@ -69,7 +69,7 @@ class Libsigrok < Formula
   depends_on "doxygen" => :build
   depends_on "graphviz" => :build
   depends_on "libtool" => :build
-  depends_on "pkg-config" => [:build, :test]
+  depends_on "pkgconf" => [:build, :test]
   depends_on "python-setuptools" => :build
   depends_on "sdcc" => :build
   depends_on "swig" => :build
@@ -157,7 +157,7 @@ class Libsigrok < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <libsigrok/libsigrok.h>
 
       int main() {
@@ -170,14 +170,14 @@ class Libsigrok < Formula
         }
         return 0;
       }
-    EOS
-    flags = shell_output("#{Formula["pkg-config"].opt_bin}/pkg-config --cflags --libs libsigrok").strip.split
+    C
+    flags = shell_output("#{Formula["pkgconf"].opt_bin}/pkgconf --cflags --libs libsigrok").strip.split
     system ENV.cc, "test.c", "-o", "test", *flags
     system "./test"
 
-    system python3, "-c", <<~EOS
+    system python3, "-c", <<~PYTHON
       import sigrok.core as sr
       sr.Context.create()
-    EOS
+    PYTHON
   end
 end

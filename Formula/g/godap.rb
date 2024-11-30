@@ -1,19 +1,17 @@
 class Godap < Formula
   desc "Complete TUI (terminal user interface) for LDAP"
   homepage "https://github.com/Macmod/godap"
-  url "https://github.com/Macmod/godap/archive/refs/tags/v2.7.5.tar.gz"
-  sha256 "06de1810cbb739658d77fcaae837a6bd91e1b0c0465bf418c75afe841d9c9d4e"
+  url "https://github.com/Macmod/godap/archive/refs/tags/v2.9.0.tar.gz"
+  sha256 "5463a81998659600737a71f60535e18d795f44aa995f92c9d57e854f6be92b4d"
   license "MIT"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia:  "665c3f1ac6693f160ef39133d57581edd09da500c20d289a0eea999047860649"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:   "665c3f1ac6693f160ef39133d57581edd09da500c20d289a0eea999047860649"
-    sha256 cellar: :any_skip_relocation, arm64_ventura:  "665c3f1ac6693f160ef39133d57581edd09da500c20d289a0eea999047860649"
-    sha256 cellar: :any_skip_relocation, arm64_monterey: "665c3f1ac6693f160ef39133d57581edd09da500c20d289a0eea999047860649"
-    sha256 cellar: :any_skip_relocation, sonoma:         "c9910e2217a37e46971e83f6539b3434d1a6da07f263a8bf03e7d5ba2e4fabb4"
-    sha256 cellar: :any_skip_relocation, ventura:        "c9910e2217a37e46971e83f6539b3434d1a6da07f263a8bf03e7d5ba2e4fabb4"
-    sha256 cellar: :any_skip_relocation, monterey:       "c9910e2217a37e46971e83f6539b3434d1a6da07f263a8bf03e7d5ba2e4fabb4"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:   "566af6ffd5e4710b5b987631f0c56034a4202d8783511e32d742d7ea02947c89"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "a19805a8ebb8898b1e9dd587714aea7978b42ccb48fbecf6bccb9c6e03ef1fd8"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "a19805a8ebb8898b1e9dd587714aea7978b42ccb48fbecf6bccb9c6e03ef1fd8"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "a19805a8ebb8898b1e9dd587714aea7978b42ccb48fbecf6bccb9c6e03ef1fd8"
+    sha256 cellar: :any_skip_relocation, sonoma:        "56fee2cf80268e660612ee4bfaad512e65f187c980832b4d44748cfa33dbefcd"
+    sha256 cellar: :any_skip_relocation, ventura:       "56fee2cf80268e660612ee4bfaad512e65f187c980832b4d44748cfa33dbefcd"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "b890945d2b28c4157145937429d406d2d1ffa48bfa14feae51de830a697d050f"
   end
 
   depends_on "go" => :build

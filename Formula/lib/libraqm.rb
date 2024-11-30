@@ -16,7 +16,7 @@ class Libraqm < Formula
 
   depends_on "meson" => :build
   depends_on "ninja" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "freetype"
   depends_on "fribidi"
   depends_on "harfbuzz"
@@ -28,13 +28,13 @@ class Libraqm < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <raqm.h>
 
       int main() {
         return 0;
       }
-    EOS
+    C
 
     system ENV.cc, "test.c",
                    "-I#{include}",

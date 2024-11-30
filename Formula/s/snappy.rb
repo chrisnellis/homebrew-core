@@ -18,7 +18,7 @@ class Snappy < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
 
   # Fix issue where Mojave clang fails due to entering a __GNUC__ block
   on_macos do
@@ -54,7 +54,7 @@ class Snappy < Formula
     # Force use of Clang on Mojave
     ENV.clang if OS.mac?
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include <assert.h>
       #include <snappy.h>
       #include <string>
@@ -70,7 +70,7 @@ class Snappy < Formula
         assert(source == decompressed);
         return 0;
       }
-    EOS
+    CPP
 
     system ENV.cxx, "-std=c++11", "test.cpp", "-L#{lib}", "-lsnappy", "-o", "test"
     system "./test"

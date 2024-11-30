@@ -3,18 +3,18 @@ class Codelimit < Formula
 
   desc "Your Refactoring Alarm"
   homepage "https://github.com/getcodelimit/codelimit"
-  url "https://files.pythonhosted.org/packages/9b/54/f6fe026726846c0504da0f641e00738c4dbb2ba527dc642344186571fda8/codelimit-0.9.5.tar.gz"
-  sha256 "73556a83abb85b1595bd016c980f789d4c484bb1925c9f1dadb914fb62f3e91d"
+  url "https://files.pythonhosted.org/packages/e8/2c/6989c481e2635c4e464edcc8a5b1d142312539e005afed22575e3fb0bc0c/codelimit-0.10.0.tar.gz"
+  sha256 "735e4f699aca08d69f821f50aa76eabfdb4be9ad0c879a5d3ad097684fda3c1c"
   license "GPL-3.0-or-later"
+  revision 1
 
   bottle do
-    rebuild 1
-    sha256 cellar: :any,                 arm64_sequoia: "4be61ba00cdf1cca28c428158a5248499a148914cb66cf394da364c92fe67de4"
-    sha256 cellar: :any,                 arm64_sonoma:  "475a383f4cb5d808913f1c2f4634cc0d0d6cae4b02b03f5f916bfc8cd1b763fb"
-    sha256 cellar: :any,                 arm64_ventura: "7c0b76151f43abf450e54f3465ff54384f03eaedeb6558e46fb925db82d2e433"
-    sha256 cellar: :any,                 sonoma:        "83cfb51426941a07585833184d7514495cda0d525f029815cfc920bdaab87bf8"
-    sha256 cellar: :any,                 ventura:       "f54665b05dd7617433c3436dfd63ad9b8f6179d209db6a6e399dcfd3be3b9e29"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "2b3ff5f8de49d2cdcacc25fd1b43bd8a1f75041c32031d3e640199cdd3806b2a"
+    sha256 cellar: :any,                 arm64_sequoia: "cb69862445339bf0d50908cd1d835641f1aaaab52ce25a14b3b3fc3e85b1db0e"
+    sha256 cellar: :any,                 arm64_sonoma:  "e443b317ad39607918a6889cae8fd2c8e6ccd826df4f71de598746981ded9412"
+    sha256 cellar: :any,                 arm64_ventura: "bf4225b7b9e9dcc5906b7e2cce676a1ee749a6b222f6c8e66efb76868eae6ae6"
+    sha256 cellar: :any,                 sonoma:        "17110b0503bf03e1d194ba9fa75d106c31790234f6797af0b134e7bf705f7bc8"
+    sha256 cellar: :any,                 ventura:       "b14677a5568198ed3ac00d0b4573e222ddd96642933131fabde4167564121d97"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "a94c93b2440ac1ceea8f3dad620e790633cdc21868dfc1097a98e6a726518ee5"
   end
 
   depends_on "certifi"
@@ -27,8 +27,8 @@ class Codelimit < Formula
   end
 
   resource "aiohttp" do
-    url "https://files.pythonhosted.org/packages/17/7e/16e57e6cf20eb62481a2f9ce8674328407187950ccc602ad07c685279141/aiohttp-3.10.10.tar.gz"
-    sha256 "0631dd7c9f0822cc61c88586ca76d5b5ada26538097d0f1df510b082bad3411a"
+    url "https://files.pythonhosted.org/packages/1d/cd/af0e573bdb77ae7df1148fe8e4ea854215a37db0b116aac6b5496335095e/aiohttp-3.11.4.tar.gz"
+    sha256 "9d95cce8bb010597b3f2217155befe4708e0538d3548aa08d640ebf54e3f57cb"
   end
 
   resource "aiosignal" do
@@ -52,8 +52,8 @@ class Codelimit < Formula
   end
 
   resource "frozenlist" do
-    url "https://files.pythonhosted.org/packages/cf/3d/2102257e7acad73efc4a0c306ad3953f68c504c16982bbdfee3ad75d8085/frozenlist-1.4.1.tar.gz"
-    sha256 "c037a86e8513059a2613aaba4d817bb90b9d9b6b69aace3ce9c877e8c8ed402b"
+    url "https://files.pythonhosted.org/packages/8f/ed/0f4cec13a93c02c47ec32d81d11c0c1efbadf4a471e3f3ce7cad366cbbd3/frozenlist-1.5.0.tar.gz"
+    sha256 "81d5af29e61b9c8348e876d442253723928dce6433e0e76cd925cd83f1b4b817"
   end
 
   resource "idna" do
@@ -102,8 +102,8 @@ class Codelimit < Formula
   end
 
   resource "rich" do
-    url "https://files.pythonhosted.org/packages/aa/9e/1784d15b057b0075e5136445aaea92d23955aad2c93eaede673718a40d95/rich-13.9.2.tar.gz"
-    sha256 "51a2c62057461aaf7152b4d611168f93a9fc73068f8ded2790f29fe2b5366d0c"
+    url "https://files.pythonhosted.org/packages/ab/3a/0316b28d0761c6734d6bc14e770d85506c986c85ffb239e688eeaab2c2bc/rich-13.9.4.tar.gz"
+    sha256 "439594978a49a09530cff7ebc4b5c7103ef57baf48d5ea3184f21d9a2befa098"
   end
 
   resource "typer" do
@@ -122,51 +122,20 @@ class Codelimit < Formula
   end
 
   resource "yarl" do
-    url "https://files.pythonhosted.org/packages/46/fe/2ca2e5ef45952f3e8adb95659821a4e9169d8bbafab97eb662602ee12834/yarl-1.14.0.tar.gz"
-    sha256 "88c7d9d58aab0724b979ab5617330acb1c7030b79379c8138c1c8c94e121d1b3"
+    url "https://files.pythonhosted.org/packages/4b/d5/0d0481857de42a44ba4911f8010d4b361dc26487f48d5503c66a797cff48/yarl-1.17.2.tar.gz"
+    sha256 "753eaaa0c7195244c84b5cc159dc8204b7fd99f716f11198f999f2332a86b178"
   end
-
-  # patch to support python 3.13, upstream pr ref, https://github.com/getcodelimit/codelimit/pull/40
-  patch :DATA
 
   def install
     virtualenv_install_with_resources
   end
 
   test do
-    (testpath/"test.py").write <<~EOS
+    (testpath/"test.py").write <<~PYTHON
       def foo():
         print('Hello world!')
-    EOS
+    PYTHON
 
     assert_includes shell_output("#{bin}/codelimit check #{testpath}/test.py"), "Refactoring not necessary"
   end
 end
-
-__END__
-diff --git a/PKG-INFO b/PKG-INFO
-index 0886644..76828c6 100644
---- a/PKG-INFO
-+++ b/PKG-INFO
-@@ -5,7 +5,7 @@ Summary:
- License: GPL-3.0-or-later
- Author: Rob van der Leek
- Author-email: robvanderleek@gmail.com
--Requires-Python: >=3.10,<3.13
-+Requires-Python: >=3.10,<3.14
- Classifier: License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)
- Classifier: Programming Language :: Python :: 3
- Classifier: Programming Language :: Python :: 3.10
-diff --git a/pyproject.toml b/pyproject.toml
-index 2aac7b2..a9625db 100644
---- a/pyproject.toml
-+++ b/pyproject.toml
-@@ -10,7 +10,7 @@ readme = "README.md"
- codelimit = "codelimit.__main__:cli"
- 
- [tool.poetry.dependencies]
--python = ">=3.10,<3.13"
-+python = ">=3.10,<3.14"
- pygments = "^2.13.0"
- requests = "^2.28.2"
- typer = "^0.9.0"

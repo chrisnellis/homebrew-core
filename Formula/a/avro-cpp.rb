@@ -22,19 +22,17 @@ class AvroCpp < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "boost"
 
   def install
-    cd "lang/c++" do
-      system "cmake", "-S", ".", "-B", "build", *std_cmake_args
-      system "cmake", "--build", "build"
-      system "cmake", "--install", "build"
-    end
+    system "cmake", "-S", "lang/c++", "-B", "build", *std_cmake_args
+    system "cmake", "--build", "build"
+    system "cmake", "--install", "build"
   end
 
   test do
-    (testpath/"cpx.json").write <<~EOS
+    (testpath/"cpx.json").write <<~JSON
       {
           "type": "record",
           "name": "cpx",
@@ -43,16 +41,16 @@ class AvroCpp < Formula
               {"name": "im", "type" : "double"}
           ]
       }
-    EOS
+    JSON
 
-    (testpath/"test.cpp").write <<~EOS
+    (testpath/"test.cpp").write <<~CPP
       #include "cpx.hh"
 
       int main() {
         cpx::cpx number;
         return 0;
       }
-    EOS
+    CPP
 
     system bin/"avrogencpp", "-i", "cpx.json", "-o", "cpx.hh", "-n", "cpx"
     system ENV.cxx, "test.cpp", "-std=c++11", "-o", "test"

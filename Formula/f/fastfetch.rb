@@ -1,8 +1,8 @@
 class Fastfetch < Formula
   desc "Like neofetch, but much faster because written mostly in C"
   homepage "https://github.com/fastfetch-cli/fastfetch"
-  url "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/2.27.1.tar.gz"
-  sha256 "de12f8cdb52bc1f123aa9b37813f009eeb09f15cbf43b033693c2936716e2626"
+  url "https://github.com/fastfetch-cli/fastfetch/archive/refs/tags/2.30.1.tar.gz"
+  sha256 "5248311a3d8ce65f6f48756dfc0df9f8922d64f5201ee8d980497d52e924906e"
   license "MIT"
   head "https://github.com/fastfetch-cli/fastfetch.git", branch: "dev"
 
@@ -12,20 +12,20 @@ class Fastfetch < Formula
   end
 
   bottle do
-    sha256 arm64_sequoia: "3caa661bcffbd17369a6ed988d223eeb78c2d8e34f2bf2322f150d414bf1d5c0"
-    sha256 arm64_sonoma:  "40a6f78bda8615bc170aeee86127c0cd4206308119327752cc068cb7196e7af4"
-    sha256 arm64_ventura: "71a6896c7000d2000c810bf467a92c927981df498c86b272d7da2fd10c7643ee"
-    sha256 sonoma:        "24e3a6e0c7aefb5ae5ed5a168580a0c8012925087229073388dff4c498fdb5f3"
-    sha256 ventura:       "3558b80f1bfd5fb179ba041d794c522e89a1df81655585492b3ccfe812d765fc"
-    sha256 x86_64_linux:  "740c4a9a4742e0f90c33661dc377df33f651593a4a7302c03ca0472fd5cf202e"
+    sha256 arm64_sequoia: "2ba0aaadc4875972c6dec5490a45a9efc09d1374d3863aaf6ab4c4bf391ce2f3"
+    sha256 arm64_sonoma:  "af31b4bec50b0a0d6f49554c73b72a61ab4b7321dbafe982de46aed989f120c9"
+    sha256 arm64_ventura: "b684e4f4066e0ff71c068c40dad6bac448ce69c481f7e7b97aed356de6baab0e"
+    sha256 sonoma:        "985a991fd1a9d3f5ea8e721e79a150b97d2d132cda598735e71cdc00d963adc6"
+    sha256 ventura:       "7a2b918a20bff83f61d28276ff341dabea84414d7d260ae4390b0e30b3a43e37"
+    sha256 x86_64_linux:  "c9c434f04308a17f5fc6ef1206ad2a5b70e3eb3b3a7a5f8c97a85f29de45ca71"
   end
 
   depends_on "chafa" => :build
   depends_on "cmake" => :build
   depends_on "glib" => :build
   depends_on "imagemagick" => :build
-  depends_on "pkg-config" => :build
-  depends_on "python@3.12" => :build
+  depends_on "pkgconf" => :build
+  depends_on "python@3.13" => :build
   depends_on "vulkan-loader" => :build
 
   uses_from_macos "sqlite" => :build

@@ -2,24 +2,24 @@ class Packetbeat < Formula
   desc "Lightweight Shipper for Network Data"
   homepage "https://www.elastic.co/products/beats/packetbeat"
   url "https://github.com/elastic/beats.git",
-      tag:      "v8.15.2",
-      revision: "26daf71e4ec87172523af7f0e916cba9f79dc0d0"
+      tag:      "v8.16.1",
+      revision: "f17e0828f1de9f1a256d3f520324fa6da53daee5"
   license "Apache-2.0"
   head "https://github.com/elastic/beats.git", branch: "master"
 
   bottle do
-    sha256 cellar: :any_skip_relocation, arm64_sequoia: "ee620b73d24d12b61b5e53679aca4f761854774c0d5d0da9455f5497de1494e4"
-    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "e7cd48f6cc0bce24d1eb2071ff977f036e1f76281f10e78ab05708200b5fe595"
-    sha256 cellar: :any_skip_relocation, arm64_ventura: "9acbf15c914c7744293a86e08389098eec9a1214a17f1a8bdacaffb932767241"
-    sha256 cellar: :any_skip_relocation, sonoma:        "ef0fe4fbcf93ccfc720fbe761d2e2da328fd11c322a1abf2bacc438c8c38cdfc"
-    sha256 cellar: :any_skip_relocation, ventura:       "1c038f6a906cfe79c84352cd0632455133e79847dee9689b0bcacfb5fd5d6065"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:  "5ca2df3077e536108af5bbf788af0b8f04150c0bd472e5636bfe22871e18d7bd"
+    sha256 cellar: :any_skip_relocation, arm64_sequoia: "e878a52e942b9b174db2a4340fb425f017c2f7bfa0cbccc75d9b74a94edfb63a"
+    sha256 cellar: :any_skip_relocation, arm64_sonoma:  "f8f1228bce8639962d014b8db6a27159307cd42f826eabddf10030ed6db3bff5"
+    sha256 cellar: :any_skip_relocation, arm64_ventura: "c196c4b02c7add9ae6e05d025946195412e941d9d60cd7381e252c33e73cca0a"
+    sha256 cellar: :any_skip_relocation, sonoma:        "f585040601d89d3576d0701ff1c63f3279bb446ae974fd155ca7fac73e761bb4"
+    sha256 cellar: :any_skip_relocation, ventura:       "6cb3de68e792b4ef263c981800a6f934c1b974386bffd3717bad605075708e7e"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:  "8e2a84e128d2a7e3f98775ed1a8b5f40b396956a743c039619362c7338fe94b0"
   end
 
   depends_on "go" => :build
   depends_on "mage" => :build
+  depends_on "python@3.12" => :build
 
-  uses_from_macos "python" => :build
   uses_from_macos "libpcap"
 
   def install

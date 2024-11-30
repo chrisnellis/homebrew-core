@@ -20,7 +20,7 @@ class Dnsdist < Formula
   end
 
   depends_on "boost" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "abseil"
   depends_on "fstrm"
   depends_on "libnghttp2"
@@ -31,8 +31,6 @@ class Dnsdist < Formula
   depends_on "tinycdb"
 
   uses_from_macos "libedit"
-
-  fails_with gcc: "5"
 
   def install
     system "./configure", "--disable-silent-rules",

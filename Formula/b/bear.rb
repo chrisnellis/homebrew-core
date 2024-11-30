@@ -4,20 +4,20 @@ class Bear < Formula
   url "https://github.com/rizsotto/Bear/archive/refs/tags/3.1.5.tar.gz"
   sha256 "4ac7b041222dcfc7231c6570d5bd76c39eaeda7a075ee2385b84256e7d659733"
   license "GPL-3.0-or-later"
-  revision 2
+  revision 5
   head "https://github.com/rizsotto/Bear.git", branch: "master"
 
   bottle do
-    sha256 arm64_sequoia: "18dd2ee3f505791a0d468bb55e13a2fdac1ee71049c0d33cbbe408a3046037ed"
-    sha256 arm64_sonoma:  "94d32a9e8af491ee9dc034355ccb32acca92e1221c29439559d61a4e04dea272"
-    sha256 arm64_ventura: "258464f7442c89a6e545fa60202d028f2b6528f29e6f91dc844ca1d73f33f73e"
-    sha256 sonoma:        "e0f5b2b1c208f00b94d372f1a39c28aead64cbb8a267e82537579d867dc7313a"
-    sha256 ventura:       "8fccf1406a155d4e2be7238db702f700dc52a40adc3f69b6f0ab2698cd697242"
-    sha256 x86_64_linux:  "d0ce6f871f82f85bcbcea010af843624865f4e51e0227570a78ec88dd6d55139"
+    sha256 arm64_sequoia: "f648b4c8202aee98d0367a7ce3bb371b4113528ffd626b84753f709099386c3b"
+    sha256 arm64_sonoma:  "a44838f0e8a760b1dc45866dab23d815f5c7b9842abf86cb4f8fe113890662b7"
+    sha256 arm64_ventura: "964dc3f462f62a23ca4209e5e1f09f34dd32ca370d43f2471cd5bcb80c826663"
+    sha256 sonoma:        "fd6b815e468c985f7d356f3657e9904bc8c9528157387ae2bfbc661f290d0213"
+    sha256 ventura:       "e859fa298d384c43f674cde683e573bf6b0fec8df8379f2c18fc2d0c00946db6"
+    sha256 x86_64_linux:  "0414f6eed5fee14d856379af50a65f0b1cbd3de6a36673f38ee46e463a3f646b"
   end
 
   depends_on "cmake" => :build
-  depends_on "pkg-config" => :build
+  depends_on "pkgconf" => :build
   depends_on "abseil"
   depends_on "fmt"
   depends_on "grpc"
@@ -30,8 +30,6 @@ class Bear < Formula
   on_macos do
     depends_on "llvm" if DevelopmentTools.clang_build_version <= 1100
   end
-
-  fails_with gcc: "5" # needs C++17
 
   fails_with :clang do
     build 1100
@@ -55,14 +53,14 @@ class Bear < Formula
   end
 
   test do
-    (testpath/"test.c").write <<~EOS
+    (testpath/"test.c").write <<~C
       #include <stdio.h>
       int main() {
         printf("hello, world!\\n");
         return 0;
       }
-    EOS
+    C
     system bin/"bear", "--", "clang", "test.c"
-    assert_predicate testpath/"compile_commands.json", :exist?
+    assert_path_exists testpath/"compile_commands.json"
   end
 end
